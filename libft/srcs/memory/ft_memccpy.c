@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 17:26:27 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:26:28 by jules            ###   ########.fr       */
+/*   Created: 2020/11/16 16:19:56 by tvachera          #+#    #+#             */
+/*   Updated: 2020/11/16 16:32:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	unsigned char	*d;
-	unsigned char	*s;
-	unsigned char	ch;
+	size_t			i;
+	unsigned char	*d_bis;
+	unsigned char	*s_bis;
 
-	d = (unsigned char *)dest;
-	s = (unsigned char *)src;
-	ch = (unsigned char)c;
-	while (n--)
+	i = 0;
+	d_bis = (unsigned char *)dest;
+	s_bis = (unsigned char *)src;
+	while (i < n)
 	{
-		if ((*d++ = *s++) == ch)
-			return (d);
+		d_bis[i] = s_bis[i];
+		if (s_bis[i] == (unsigned char)c)
+			return (d_bis + i + 1);
+		i++;
 	}
-	return (NULL);
+	return (0);
 }

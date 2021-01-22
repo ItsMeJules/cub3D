@@ -3,61 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 17:27:06 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:34:17 by jules            ###   ########.fr       */
+/*   Created: 2020/09/15 14:52:11 by tvachera          #+#    #+#             */
+/*   Updated: 2021/01/07 19:34:47 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
-static int	is_sep(char c, char sep)
+short	is_charset(char c, char *charset)
 {
-	return (c == 0 || c == sep);
-}
+	unsigned int	i;
 
-static int	count_words(char const *s, char sep)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	if (!is_sep(s[0], sep))
-		count++;
 	i = 0;
-	while (s[++i])
+	while (charset[i])
 	{
-		if (!is_sep(s[i], sep) && is_sep(s[i - 1], sep))
-			count++;
+		if (charset[i] == c)
+			return (true);
+		i++;
 	}
-	return (count + 1);
+	return (false);
 }
 
-char		**ft_split(char const *s, char c)
+int		get_word_size(char *str, char *charset)
 {
-	char	**tab;
-	int		i;
-	int		j;
-	int		k;
+	unsigned int	i;
 
-	if (!(tab = malloc(count_words(s, c) * sizeof(char *))))
-		return (NULL);
 	i = 0;
-	k = 0;
-	while (s[i])
+	while (str[i] && is_charset(str[i], charset) == false)
+		i++;
+	return (i + 1);
+}
+
+void	fill_tab(char **tab, char *str, char *charset, unsigned int count)
+{
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	k;
+
+	i = 0;
+	j = 0;
+	while (i < count)
 	{
-		j = 0;
-		while (!is_sep(s[i + j], c))
+		k = 0;
+		while (str[j] && is_charset(str[j], charset) == true)
 			j++;
-		if (j)
+		if (!(tab[i] = malloc(sizeof(char) * get_word_size(str + j, charset))))
+			return ;
+		while (str[j] && is_charset(str[j], charset) == false)
 		{
-			tab[k++] = ft_strndup(&s[i], j);
-			i += j;
+			tab[i][k] = str[j];
+			k++;
+			j++;
 		}
-		else
+		tab[i][k] = 0;
+		i++;
+	}
+	tab[i] = 0;
+}
+
+char	**ft_split(char *str, char *charset)
+{
+	char			**tab;
+	unsigned int	i;
+	unsigned int	count;
+
+	i = 0;
+	count = 0;
+	if (!str || !charset)
+	{
+		if (!(tab = malloc(sizeof(char *))))
+			return (0);
+		tab[0] = 0;
+		return (tab);
+	}
+	while (str[i])
+	{
+		while ((is_charset(str[i], charset) == true && str[i]))
+			i++;
+		str[i] ? count++ : 0;
+		while (is_charset(str[i], charset) == false && str[i])
 			i++;
 	}
-	tab[k] = 0;
+	if (!(tab = malloc(sizeof(char *) * (count + 1))))
+		return (0);
+	fill_tab(tab, str, charset, count);
 	return (tab);
 }

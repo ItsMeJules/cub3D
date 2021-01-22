@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 17:26:31 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:26:32 by jules            ###   ########.fr       */
+/*   Created: 2020/11/16 16:19:57 by tvachera          #+#    #+#             */
+/*   Updated: 2020/11/16 16:22:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*ps;
-	unsigned char	cp;
 	size_t			i;
+	unsigned char	*s_bis;
+	unsigned char	c_bis;
 
-	ps = (unsigned char *)s;
-	cp = (unsigned char)c;
-	i = -1;
-	while (++i < n)
+	i = 0;
+	s_bis = (unsigned char *)s;
+	c_bis = (unsigned char)c;
+	while (i < n)
 	{
-		if (ps[i] == cp)
-			return (&ps[i]);
+		if (s_bis[i] == c_bis)
+			return (s_bis + i);
+		i++;
 	}
-	return (NULL);
+	return (0);
 }

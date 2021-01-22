@@ -3,21 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 17:27:50 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:27:51 by jules            ###   ########.fr       */
+/*   Created: 2020/11/16 16:20:21 by tvachera          #+#    #+#             */
+/*   Updated: 2020/11/16 16:20:22 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*new;
+	size_t	i;
+	size_t	j;
+	char	*join;
 
-	if (!(new = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
-		return (NULL);
-	new = ft_strcat(ft_strcat(new, s1), s2);
-	return (new);
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (0);
+	if (!(join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+		return (0);
+	while (s1[i])
+	{
+		join[j] = s1[i];
+		j++;
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		join[j] = s2[i];
+		j++;
+		i++;
+	}
+	join[j] = 0;
+	return (join);
 }

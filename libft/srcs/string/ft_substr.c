@@ -3,38 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 17:29:18 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:29:19 by jules            ###   ########.fr       */
+/*   Created: 2020/11/16 16:20:38 by tvachera          #+#    #+#             */
+/*   Updated: 2020/11/16 16:20:40 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*cpy;
 	size_t	i;
+	char	*sub;
 
+	i = 0;
 	if (!s)
-		return (NULL);
+		return (0);
+	if (!(sub = malloc(sizeof(char) * (len + 1))))
+		return (0);
 	if (start >= ft_strlen(s))
 	{
-		if (!(cpy = malloc(sizeof(char))))
-			return (NULL);
-		cpy[0] = 0;
-		return (cpy);
+		sub[0] = 0;
+		return (sub);
 	}
-	i = 0;
-	s += start;
-	while (s[i] && i < len)
+	while (i < len && s[start])
+	{
+		sub[i] = s[start];
 		i++;
-	if (!(cpy = ft_strnew(i)))
-		return (NULL);
-	i = -1;
-	while (++i < len && s[i])
-		cpy[i] = s[i];
-	cpy[i] = 0;
-	return (cpy);
+		start++;
+	}
+	sub[i] = 0;
+	return (sub);
 }

@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 17:26:44 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:37:13 by jules            ###   ########.fr       */
+/*   Created: 2020/11/16 16:20:03 by tvachera          #+#    #+#             */
+/*   Updated: 2020/11/16 16:36:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*cd;
-	unsigned char	*cs;
+	unsigned char	*d_bis;
+	unsigned char	*s_bis;
 
-	if (!src && !dest)
-		return (dest);
-	cd = (unsigned char *)dest;
-	cs = (unsigned char *)src;
-	if (cs < cd)
+	d_bis = (unsigned char *)dst;
+	s_bis = (unsigned char *)src;
+	if (d_bis == s_bis)
+		return (dst);
+	if (d_bis > s_bis)
 	{
-		while (n--)
-			cd[n] = cs[n];
+		s_bis += len - 1;
+		d_bis += len - 1;
+		while (len--)
+			*d_bis-- = *s_bis--;
 	}
 	else
-		ft_memcpy(dest, src, n);
-	return (dest);
+	{
+		while (len--)
+			*d_bis++ = *s_bis++;
+	}
+	return (dst);
 }
