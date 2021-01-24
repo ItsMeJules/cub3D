@@ -1,11 +1,11 @@
 NAME			= cub3D
 CC				= clang
 RM				= rm -rf
+OS				= $(shell uname)
 
 CFLAGS			= -fsanitize=address -Wall -Werror -Wextra
 IFLAGS			= -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes
-LINK_FLAGS		= -L $(MLX_DIR) -lmlx -L $(LIBFT_DIR) -lft
-FFLAGS			= -framework OpenGL -framework Appkit
+LINK_FLAGS		= -L $(MLX_DIR) -lmlx -L $(LIBFT_DIR) -lft -framework OpenGL -framework Appkit
 
 SRC_DIR			= srcs
 INC_DIR			= includes
@@ -18,12 +18,18 @@ SRC				= $(notdir $(shell find $(SRC_DIR) -type f -name "*.c"))
 OBJ				= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 vpath			%.c $(shell find $(SRC_DIR) -type d)
 
-_YELLOW         = \e[38;5;184m
-_GREEN          = \e[38;5;46m
-_RESET          = \e[0m
+_YELLOW         = \033[38;5;184m
+_GREEN          = \033[38;5;46m
+_RESET          = \033[0m
 _INFO           = [$(_YELLOW)INFO$(_RESET)]
 _SUCCESS        = [$(_GREEN)SUCCESS$(_RESET)]
 _CLEAR          = \033[2K\c
+
+ifeq ($(OS), Linux)
+	MLX_DIR = mlx_linux
+	IFLAGS = -I/usr/include -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes -O3
+	LINK_FLAGS = -L $(MLX_DIR) -lmlx_Linux -L /usr/lib -lXext -lX11 -lm -lz -L $(LIBFT_DIR) -lft
+endif
 
 all				: init $(NAME)
 				@ echo "$(_SUCCESS) Compilation done"
@@ -40,10 +46,10 @@ init			:
 
 $(NAME)			: $(OBJ) $(INC)
 				@ echo "$(_INFO) Intializing $(NAME)"
-				$(CC) $(CFLAGS) $(IFLAGS) $(LINK_FLAGS) $(FFLAGS) -o $@ $<
+				@ $(CC) $(CFLAGS) $(IFLAGS) $(LINK_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/%.o	: %.c
-				@ echo "\t$(_YELLOW)Compiling $(_RESET) $*.c\r\"
+				@ echo "\t$(_YELLOW)Compiling $(_RESET) $*.c\r\c"
 				$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@ 
 				@ echo "$(_CLEAR)"
 
