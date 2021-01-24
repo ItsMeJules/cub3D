@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/24 17:36:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:20:55 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 # include <stdlib.h>
 # include <mlx.h>
 
-# define ESC 65307
+# define KEY_PRESS 2
+
+# define KEY_PRESS_MASK 1L<<0
+
+# define ESC_KEY 65307
 # define DESTROY_WIN 33
 
 typedef struct	s_mlx {
@@ -36,7 +40,10 @@ typedef struct	s_img {
 
 t_img	*new_image(t_mlx *vars);
 void	set_pixel(t_img *img, int x, int y, int color);
+void	draw_square(t_img *img, int x, int y, int size, int color);
 
 void	*error(int type);
+
+void	handle_destroy_win(t_mlx *vars);
 
 #endif

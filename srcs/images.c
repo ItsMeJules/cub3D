@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:13:57 by jules             #+#    #+#             */
-/*   Updated: 2021/01/24 17:41:25 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/24 18:01:04 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,26 @@ void	set_pixel(t_img *img, int x, int y, int color)
 
 	dst = img->addr + (y * img->line_l + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+void	draw_square(t_img *img, int x, int y, int size, int color)
+{
+	int	tmp;
+
+	tmp = size;
+	while (tmp)
+	{
+		set_pixel(img, x + tmp, y, color);
+		set_pixel(img, x, y + tmp, color);
+		tmp--;
+	}
+	x += size;
+	y += size;
+	tmp = -size;
+	while (tmp)
+	{
+		set_pixel(img, x + tmp, y, color);
+		set_pixel(img, x, y + tmp, color);
+		tmp++;
+	}
 }
