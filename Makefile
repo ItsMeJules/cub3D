@@ -44,13 +44,13 @@ init			:
 				@ $(MAKE) --silent -C $(MLX_DIR)
 				@ echo "$(_SUCCESS) mlx compiled !"
 
-$(NAME)			: $(OBJ) $(INC)
+$(NAME)			: $(OBJ)
 				@ echo "$(_INFO) Intializing $(NAME)"
-				@ $(CC) $(CFLAGS) $(IFLAGS) $(LINK_FLAGS) -o $@ $<
+				@ $(CC) $(CFLAGS) $(IFLAGS) -o $@ $^ $(LINK_FLAGS) 
 
 $(OBJ_DIR)/%.o	: %.c
 				@ echo "\t$(_YELLOW)Compiling $(_RESET) $*.c\r\c"
-				$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@ 
+				@ $(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 				@ echo "$(_CLEAR)"
 
 clean			:
