@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/26 17:23:28 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/26 22:11:47 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	s_map {
 }				t_map;
 
 typedef struct	s_all {
+	int			all_set;
 	t_win		win;
 	t_map		map;
 	t_texture	so_txtr;
@@ -110,7 +111,6 @@ char	elem_at(int x, int y, t_map map);
 int		check_line(t_all *all, char *line);
 
 /* map_reader.c */
-int		is_dir(char *dir);
 void	set_attributes(t_all *all, int type, char **split);
 void	read_file(t_all *all, char *file);
 
