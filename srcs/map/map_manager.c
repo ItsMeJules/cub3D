@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   map_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/01/24 15:43:29 by jules            ###   ########.fr       */
+/*   Created: 2021/01/25 11:24:07 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/01/26 10:05:48 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
-#include "libft.h"
+#include "cub3d.h"
 
-void	*error(int type)
+char	elem_at(int x, int y, t_map map)
 {
-	if (type == 0)
-		ft_putstr_fd("Malloc failed quitting program...", 2);
-	exit(0);
-	return (NULL);
+	return (map.line[(map.len + 1) * y + x]);
 }

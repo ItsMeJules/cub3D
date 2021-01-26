@@ -1,0 +1,10 @@
+R 800 800
+
+NA ./textures/test
+SQ ./textures/test
+WE ./textures/test
+EA ./textures/test
+
+S ./textures/lol
+F 200,100,50
+C 166,255,10
