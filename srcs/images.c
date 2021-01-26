@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:13:57 by jules             #+#    #+#             */
-/*   Updated: 2021/01/26 10:02:49 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/26 17:22:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_img	*new_image(t_win *win)
 		return (NULL);
 	}
 
-	img->img = mlx_new_image(win->mlx, win->width, win->length);
+	img->img = mlx_new_image(win->mlx, win->wid, win->len);
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_l,
 			&img->endian);
 	return (img);

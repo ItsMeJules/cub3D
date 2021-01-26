@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/26 11:03:47 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/26 17:25:17 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,23 @@ t_map	*new_map()
 	map->len = 0;
 	map->gr = 0;
 	map->ce = 0;
-	map->so_txtr.path = NULL;
-	map->no_txtr.path = NULL;
-	map->we_txtr.path = NULL;
-	map->ea_txtr.path = NULL;
-	map->s_txtr.path = NULL;
 	return (map);
+}
+
+t_all	*new_all()
+{
+	t_all	*all;
+
+	if (!(all = malloc(sizeof(t_all))))
+	{
+		error(MALLOC_FAILED, "t_all in struct_assigner.c", 1);
+		return (NULL);
+	}
+	//all->map = new_map();
+	all->so_txtr.path = NULL;
+	all->no_txtr.path = NULL;
+	all->we_txtr.path = NULL;
+	all->ea_txtr.path = NULL;
+	all->s_txtr.path = NULL;
+	return (all);
 }

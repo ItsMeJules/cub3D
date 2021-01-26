@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 18:06:10 by jules             #+#    #+#             */
-/*   Updated: 2021/01/24 18:24:21 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/26 17:25:01 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int		close_win_key(int keycode, t_win *win)
 
 void	handle_destroy_win(t_win *win)
 {
-	mlx_hook(win->win, DESTROY_WIN, 1L<<2, close_win, win);
-	mlx_hook(win->win, KEY_PRESS, KEY_PRESS_MASK, close_win_key, win);
+	mlx_hook(win->win, DESTROY_WIN_EVENT, 1L<<2, close_win, win);
+	mlx_hook(win->win, KEY_PRESS_EVENT, KEY_PRESS_MASK, close_win_key, win);
 }

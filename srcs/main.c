@@ -3,10 +3,10 @@
 
 int main(int ac, char **av)
 {
-	t_map *map;
+	t_all *all;
 	(void)ac;
 
-	map = new_map();
-	read_map(map, av[1]);
+	all = new_all();
+	read_file(all, av[1]);
 	return (0);
 }
