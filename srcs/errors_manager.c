@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/01/27 16:36:57 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 21:54:53 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	files_error(int type, char *print)
 		ft_printf("The char '%c' is invalid in the map", *print);
 	else if (type == CANT_OPEN_DIR)
 		ft_printf("'%s' is a directory !", print);
+	else if (type == MAP_NOT_CLOSED)
+		ft_printf("The map is not closed !");
 }
 
 int	error(int type, char *print, int ex)

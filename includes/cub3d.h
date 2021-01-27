@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/27 16:35:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 22:00:52 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define PLAYER_POS_ALREADY_SET 7
 # define INVALID_CHAR_IN_MAP 8
 # define CANT_OPEN_DIR 9
+# define MAP_NOT_CLOSED 10
 # define MAX_FILE_ERROR 10
 
 typedef struct	s_win {
@@ -120,7 +121,11 @@ void	read_file(t_all *all, char *file);
 
 /* map_parser.c */
 void	check_map_line(t_map *map, char *line, int *err);
-void	make_map(t_map *map);
+void	make_map(t_all *all);
+
+/* map_checker.c */
+void	free_map(t_all *all);
+void	check_map(t_all *all);
 
 /* utils.c */
 int		create_trgb(int t, int r, int g, int b);

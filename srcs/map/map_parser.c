@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 17:13:02 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 21:56:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,26 +86,27 @@ void	rewrite_line(t_map *map, char *final, int *j, int i)
 		final[(*j)++] = ' ';
 }
 
-void	make_map(t_map *map)
+void	make_map(t_all *all)
 {
 	char	*final;
 	int		i;
 	int		j;
 
-	map->wid += 2;
-	map->len += 2;
-	final = ft_strnew(map->wid * map->len);
+	all->map.wid += 2;
+	all->map.len += 2;
+	final = ft_strnew(all->map.wid * all->map.len);
 	j = -1;
-	while (++j <= map->wid)
+	while (++j <= all->map.wid)
 		final[j] = '#';
 	i = -1;
 	final[j] = '#';
-	rewrite_line(map, final, &j, i);
+	rewrite_line(&all->map, final, &j, i);
 	final[j] = '#';
 	i = -1;
-	while (++i <= map->wid)
+	while (++i <= all->map.wid)
 		final[j + i] = '#';
 	final[j + i] = 0;
-	free(map->line);
-	map->line = final;
+	free(all->map.line);
+	all->map.line = final;
+	check_map(all);
 }

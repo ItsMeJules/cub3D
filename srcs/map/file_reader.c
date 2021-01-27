@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 17:08:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 22:06:54 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		check_line(t_all *all, char *line)
 			split = ft_split(line, " \b\t\v\f\r");
 		verify_nset_ids(all, split, &err, line);
 		if (!err)
-			free(split[0]);
+			free(split[0]); /*au cas ou je reoublie, il faudra free tout ce qui a ete split et assigne aux structures*/
 	}
 	else
 	{
@@ -72,5 +72,5 @@ void	read_file(t_all *all, char *file)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
 	else
-		make_map(&all->map);
+		make_map(all);
 }
