@@ -6,19 +6,21 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/26 22:51:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/27 16:34:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
 #include "cub3d.h"
 #include "libft.h"
 
 int		check_valid(char *str, int type)
 {
 	int	i;
+	int	fd;
 
 	i = -1;
 	if (type == 1)
@@ -29,7 +31,9 @@ int		check_valid(char *str, int type)
 				return (SMTH_INVALID);
 		}
 	}
-	else if (type == 2 && open(str, O_RDONLY) < 0)
+	else if ((fd = open(str, O_RDONLY)) < 0)
+		return (OPEN_FILE_FAILED);
+	else if (fd && read(fd, NULL, 0) == -1)
 		return (OPEN_FILE_FAILED);
 	return (0);
 }
@@ -76,9 +80,40 @@ int		val_verifs(char **split, int *err, char *line, int type)
 	else if (type == 3)
 	{
 		if (check_valid(split[1], 2))
-			return (*err = error(OPEN_FILE_FAILED, split[1], 0));
+			return (*err = error(errno == 21 ? CANT_OPEN_DIR : OPEN_FILE_FAILED
+						, split[1], 0));
 	}
 	return (0);
+}
+
+void	set_attributes(t_all *all, int type, char **split)
+{
+	if (type == 1)
+	{
+		all->win.wid = ft_atoi(split[1]);
+		all->win.len = ft_atoi(split[2]);
+	}
+	else if (type == 2)
+	{
+		if (!ft_strcmp(split[0], "F"))
+			all->map.gr = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
+				ft_atoi(split[3]));
+		else
+			all->map.ce = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
+				ft_atoi(split[3]));
+	}
+	else if (type == 3)
+	{
+		if (!ft_strcmp(split[0], "NO"))
+			all->no_txtr.path = split[1];
+		else if (!ft_strcmp(split[0], "SO"))
+			all->so_txtr.path = split[1];
+		else if (!ft_strcmp(split[0], "WE"))
+			all->we_txtr.path = split[1];
+		else if (!ft_strcmp(split[0], "EA"))
+			all->ea_txtr.path = split[1];
+	}
+	all->all_set++;
 }
 
 void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
@@ -105,33 +140,4 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 	}
 	else if (!*err)
 		*err = error(SMTH_INVALID, line, 0);
-}
-
-int		check_line(t_all *all, char *line)
-{
-	char	**split;
-	int		err;
-
-	err = 0;
-	if (all->all_set != 8)
-	{
-		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
-			split = ft_split(line, " \b\t\v\f\r,");
-		else
-			split = ft_split(line, " \b\t\v\f\r");
-		verify_nset_ids(all, split, &err, line);
-		if (!err)
-			free(split[0]);
-	}
-	else
-	{
-		err = 0;	
-	}
-	if (err)
-	{
-		free(line);
-		ft_free_split(split);
-		exit(0);
-	}
-	return (1);
 }

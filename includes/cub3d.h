@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/27 10:22:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 16:35:15 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define TOO_MANY_ARGS 4
 # define FILE_WRONG_EXTENSION 5
 # define TOO_FEW_ARGS 6
+# define PLAYER_POS_ALREADY_SET 7
+# define INVALID_CHAR_IN_MAP 8
+# define CANT_OPEN_DIR 9
 # define MAX_FILE_ERROR 10
 
 typedef struct	s_win {
@@ -47,8 +50,12 @@ typedef struct	s_win {
 }				t_win;
 
 typedef struct	s_pos {
-	unsigned int	pos_x;
-	unsigned int	pos_y;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }				t_pos;
 
 typedef struct	s_img {
@@ -68,10 +75,11 @@ typedef struct	s_texture {
 
 typedef struct	s_map {
 	char			*line;
-	unsigned int	len;
-	unsigned int	wid;
-	unsigned int	ce;
-	unsigned int	gr;
+	char			start_dir;
+	int				len;
+	int				wid;
+	int				ce;
+	int				gr;
 	t_pos			p_pos;
 }				t_map;
 
@@ -104,12 +112,15 @@ void	handle_destroy_win(t_win *win);
 /* map_manager.c */
 char	elem_at(int x, int y, t_map map);
 
-/* map_attributes_reader.c */
-int		check_line(t_all *all, char *line);
+/* file_attributes_reader.c */
+void	verify_nset_ids(t_all *all, char **split, int *err, char *line);
 
-/* map_reader.c */
-void	set_attributes(t_all *all, int type, char **split);
+/* file_reader.c */
 void	read_file(t_all *all, char *file);
+
+/* map_parser.c */
+void	check_map_line(t_map *map, char *line, int *err);
+void	make_map(t_map *map);
 
 /* utils.c */
 int		create_trgb(int t, int r, int g, int b);

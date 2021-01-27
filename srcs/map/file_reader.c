@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_reader.c                                       :+:      :+:    :+:   */
+/*   file_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/26 22:50:11 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/27 16:36:03 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
 #include "cub3d.h"
 #include "libft.h"
 
-void	set_attributes(t_all *all, int type, char **split)
+int		check_line(t_all *all, char *line)
 {
-	if (type == 1)
+	char	**split;
+	int		err;
+
+	err = 0;
+	if (all->all_set != 8)
 	{
-		all->win.wid = ft_atoi(split[1]);
-		all->win.len = ft_atoi(split[2]);
-	}
-	else if (type == 2)
-	{
-		if (!ft_strcmp(split[0], "F"))
-			all->map.gr = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
-				ft_atoi(split[3]));
+		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
+			split = ft_split(line, " \b\t\v\f\r,");
 		else
-			all->map.ce = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
-				ft_atoi(split[3]));
+			split = ft_split(line, " \b\t\v\f\r");
+		verify_nset_ids(all, split, &err, line);
+		if (!err)
+			free(split[0]);
 	}
-	else if (type == 3)
+	else
 	{
-		if (!ft_strcmp(split[0], "NO"))
-			all->no_txtr.path = split[1];
-		else if (!ft_strcmp(split[0], "SO"))
-			all->so_txtr.path = split[1];
-		else if (!ft_strcmp(split[0], "WE"))
-			all->we_txtr.path = split[1];
-		else if (!ft_strcmp(split[0], "EA"))
-			all->ea_txtr.path = split[1];
+		check_map_line(&all->map, line, &err);
 	}
-	all->all_set++;
+	if (err)
+	{
+		free(line);
+		ft_free_split(split);
+		exit(0);
+	}
+	return (1);
 }
 
 void	read_file(t_all *all, char *file)
@@ -53,7 +53,8 @@ void	read_file(t_all *all, char *file)
 	int		fd;
 	int		err;
 
-	if (ft_strcmp((split = ft_split(file, "."))[1], "cub"))
+	split = ft_split(file, ".");
+	if (split[1] && ft_strcmp(split[1], "cub"))
 	{
 		ft_free_split(split);
 		error(FILE_WRONG_EXTENSION, file, 1);
@@ -68,5 +69,8 @@ void	read_file(t_all *all, char *file)
 		free(line);
 	}
 	if (err == -1)
-		error(GNL_FAILED, line, 1);
+		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
+				line, 1);
+	else
+		make_map(&all->map);
 }

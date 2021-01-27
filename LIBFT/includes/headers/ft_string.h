@@ -6,7 +6,7 @@
 /*   By: tvachera <tvacherat@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 11:46:08 by tvachera          #+#    #+#             */
-/*   Updated: 2021/01/25 14:52:51 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 13:19:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	ft_strclr(char *s);
 char	*ft_strncpy(char *dest, char *src, size_t len);
 char	*ft_strndup(const char *s, size_t n);
 char	*ft_strnew(size_t size);
+char	*ft_strjoin_sep(char const *s1, char *sep, char const *s2);
 
 #endif

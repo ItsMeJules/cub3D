@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/01/26 12:11:46 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 16:36:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	files_error(int type, char *print)
 		ft_printf("The file '%s' does not have the expected extension", print);
 	else if (type == TOO_FEW_ARGS) 
 		ft_printf("Too few arguments in the following string '%s'", print);
+	else if (type == PLAYER_POS_ALREADY_SET)
+		ft_printf("Player starting already set, error at line %s", print);
+	else if (type == INVALID_CHAR_IN_MAP)
+		ft_printf("The char '%c' is invalid in the map", *print);
+	else if (type == CANT_OPEN_DIR)
+		ft_printf("'%s' is a directory !", print);
 }
 
 int	error(int type, char *print, int ex)

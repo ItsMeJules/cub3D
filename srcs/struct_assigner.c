@@ -6,11 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/26 22:12:02 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/27 13:40:49 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 t_map		*new_map()
 {
@@ -21,6 +22,8 @@ t_map		*new_map()
 		error(MALLOC_FAILED, "t_map in struct_assigner.c", 1);
 		return (NULL);
 	}
+	map->line = NULL;
+	map->start_dir = 0;
 	map->wid = 0;
 	map->len = 0;
 	map->gr = 0;
@@ -55,7 +58,7 @@ t_all		*new_all()
 	}
 	all->all_set = 0;
 	all->win.wid = 0;
-	all->win.len = 0;
+	all->win.len = 2; /* car je rajoute des murs de void autour */
 	all->map = *new_map();
 	all->so_txtr = *new_txtr();
 	all->no_txtr = *new_txtr();
