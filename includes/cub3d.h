@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/26 17:23:28 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 10:11:58 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include <stdlib.h>
 # include <mlx.h>
-
-# define CHARS "RSFC"
-# define DOUBLE_CHARS "NOSOWEEA"
 
 /* EVENTS */
 # define KEY_PRESS_EVENT 2
