@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 16:04:49 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 17:13:02 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	concat_line(t_map *map, char *line)
 void	check_map_line(t_map *map, char *line, int *err)
 {
 	int		i;
-	
+
 	i = -1;
 	while (line[++i])
 	{
@@ -106,4 +106,6 @@ void	make_map(t_map *map)
 	while (++i <= map->wid)
 		final[j + i] = '#';
 	final[j + i] = 0;
+	free(map->line);
+	map->line = final;
 }

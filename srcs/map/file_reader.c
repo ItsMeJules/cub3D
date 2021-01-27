@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 16:36:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 17:08:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	read_file(t_all *all, char *file)
 	}
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
-				line, 1);
+			line, 1);
 	else
 		make_map(&all->map);
 }

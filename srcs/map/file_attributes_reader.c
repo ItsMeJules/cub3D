@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 16:34:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/27 17:10:50 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	set_attributes(t_all *all, int type, char **split)
 		else if (!ft_strcmp(split[0], "EA"))
 			all->ea_txtr.path = split[1];
 	}
-	all->all_set++;
 }
 
 void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
@@ -123,12 +122,14 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 		if (arg_len(split, err, line, 1) || val_verifs(split, err, line, 1))
 			return ;
 		set_attributes(all, 1, split);
+		all->all_set++;
 	}
 	else if (!ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
 	{
 		if (arg_len(split, err, line, 2) || val_verifs(split, err, line, 2))
 			return ;
 		set_attributes(all, 2, split);
+		all->all_set++;
 	}
 	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
 			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
@@ -137,6 +138,7 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 		if (arg_len(split, err, line, 3) || val_verifs(split, err, line, 3))
 			return ;
 		set_attributes(all, 3, split);
+		all->all_set++;
 	}
 	else if (!*err)
 		*err = error(SMTH_INVALID, line, 0);
