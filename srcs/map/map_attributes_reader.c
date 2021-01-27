@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/26 17:24:12 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/26 22:51:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int		val_verifs(char **split, int *err, char *line, int type)
 {
 	if (type == 1)
 	{
-		if (check_valid(split[1], 1) && !check_valid(split[2], 1))
+		if (check_valid(split[1], 1) && check_valid(split[2], 1))
 			return (*err = error(SMTH_INVALID, line, 0));
 	}
 	else if (type == 2)
 	{
-		if (check_valid(split[1], 1) || !check_valid(split[2], 1)
+		if (check_valid(split[1], 1) || check_valid(split[2], 1)
 				|| check_valid(split[3], 1))
 			return (*err = error(SMTH_INVALID, line, 0));
 	}
@@ -95,7 +95,9 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 			return ;
 		set_attributes(all, 2, split);
 	}
-	else if (is_dir(split[0]))
+	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
+			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
+			|| !ft_strcmp(split[0], "S"))
 	{
 		if (arg_len(split, err, line, 3) || val_verifs(split, err, line, 3))
 			return ;
@@ -111,15 +113,15 @@ int		check_line(t_all *all, char *line)
 	int		err;
 
 	err = 0;
-	if (!all->win.len && !all->win.wid && !all->map.gr && !all->map.ce
-			&& !all->so_txtr.path && !all->no_txtr.path && !all->we_txtr.path
-			&& !all->ea_txtr.path && !all->s_txtr.path)
+	if (all->all_set != 8)
 	{
 		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
 			split = ft_split(line, " \b\t\v\f\r,");
 		else
 			split = ft_split(line, " \b\t\v\f\r");
 		verify_nset_ids(all, split, &err, line);
+		if (!err)
+			free(split[0]);
 	}
 	else
 	{

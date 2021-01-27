@@ -6,13 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/26 17:25:17 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/26 22:12:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_map	*new_map()
+t_map		*new_map()
 {
 	t_map	*map;
 
@@ -28,7 +28,23 @@ t_map	*new_map()
 	return (map);
 }
 
-t_all	*new_all()
+t_texture	*new_txtr()
+{
+	t_texture	*txtr;
+
+	if (!(txtr = malloc(sizeof(t_texture))))
+	{
+		error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
+		return (NULL);
+	}
+	txtr->path = NULL;
+	txtr->img = NULL;
+	txtr->x = 0;
+	txtr->y = 0;
+	return (txtr);
+}
+
+t_all		*new_all()
 {
 	t_all	*all;
 
@@ -37,11 +53,14 @@ t_all	*new_all()
 		error(MALLOC_FAILED, "t_all in struct_assigner.c", 1);
 		return (NULL);
 	}
-	//all->map = new_map();
-	all->so_txtr.path = NULL;
-	all->no_txtr.path = NULL;
-	all->we_txtr.path = NULL;
-	all->ea_txtr.path = NULL;
-	all->s_txtr.path = NULL;
+	all->all_set = 0;
+	all->win.wid = 0;
+	all->win.len = 0;
+	all->map = *new_map();
+	all->so_txtr = *new_txtr();
+	all->no_txtr = *new_txtr();
+	all->we_txtr = *new_txtr();
+	all->ea_txtr = *new_txtr();
+	all->s_txtr = *new_txtr();
 	return (all);
 }
