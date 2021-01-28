@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 11:10:17 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/28 16:57:44 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ void	check_map(t_all *all)
 {
 	int	x;
 	int	y;
-		
+
+	if (!all->map.start_dir)
+	{
+		free_map(all);
+		error(PLAYER_START_POS_NOT_FOUND, "", 1);
+		return ;
+	}
 	x = 0;
 	while (++x < all->map.wid)
 	{

@@ -6,18 +6,32 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 21:56:15 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/28 17:00:35 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
+int		valid_map_char(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == ' ' || c == '0'
+			|| c == '1' || c == '2' || c == ' ');
+}
+
 void	concat_line(t_map *map, char *line)
 {
 	char	*tmp;
 	int		line_wid;
 
+	if (map->line != NULL)
+	{
+		if (!line[0])
+		{
+			free(map->line);
+			error(LINES_AFTER_MAP, "", 1);
+		}
+	}
 	map->len++;
 	if ((line_wid = ft_strlen(line)) > map->wid)
 		map->wid = line_wid;

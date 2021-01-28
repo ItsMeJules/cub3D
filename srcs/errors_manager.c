@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/01/27 21:54:53 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/28 17:14:51 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ void	files_error(int type, char *print)
 		ft_printf("'%s' is a directory !", print);
 	else if (type == MAP_NOT_CLOSED)
 		ft_printf("The map is not closed !");
+	else if (type == NEGATIVE_RESOLUTION)
+		ft_printf("Why the fuck is the resolution negative ?", print);
+	else if (type == FILE_MISSING_ARGS)
+		ft_printf("The file is incomplete some attributes or map are missing.");
+	else if (type == PLAYER_START_POS_NOT_FOUND)
+		ft_printf("The starting position for the player was not found.");
+	else if (type == LINES_AFTER_MAP)
+		ft_printf("There are extra lines after the map.");
+	else if (type == ATTRIBUTE_ALREADY_SET)
+		ft_printf("The '%s' attribute was already set !", print);
 }
 
 int	error(int type, char *print, int ex)

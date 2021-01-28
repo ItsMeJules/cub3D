@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/28 10:52:15 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/28 17:18:37 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,18 @@
 /* EVENTS */
 # define KEY_PRESS_EVENT 2
 # define DESTROY_WIN_EVENT 33
-
+GGGGG
 /* MASKS */
 # define KEY_PRESS_MASK 1L<<0
 
-/* KEYS */
+/*
+** KEYS
+*/
+
 # define ESC_KEY 65307
 
 /* ERRORS */
 # define MALLOC_FAILED 0
-
-/* FILE ERRORS */
 # define MIN_FILE_ERROR 1
 # define OPEN_FILE_FAILED 1
 # define GNL_FAILED 2
@@ -41,7 +42,12 @@
 # define INVALID_CHAR_IN_MAP 8
 # define CANT_OPEN_DIR 9
 # define MAP_NOT_CLOSED 10
-# define MAX_FILE_ERROR 10
+# define NEGATIVE_RESOLUTION 11
+# define FILE_MISSING_ARGS 12
+# define PLAYER_START_POS_NOT_FOUND 13
+# define LINES_AFTER_MAP 14
+# define ATTRIBUTE_ALREADY_SET 15
+# define MAX_FILE_ERROR 15
 
 typedef struct	s_win {
 	void	*mlx;
@@ -121,6 +127,7 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line);
 void	read_file(t_all *all, char *file);
 
 /* map_parser.c */
+int		valid_map_char(char c);
 void	check_map_line(t_map *map, char *line, int *err);
 void	make_map(t_all *all);
 
