@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 17:00:35 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/28 19:13:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	make_map(t_all *all)
 	all->map.len += 2;
 	final = ft_strnew(all->map.wid * all->map.len);
 	j = -1;
-	while (++j <= all->map.wid)
+	while (++j < all->map.wid)
 		final[j] = '#';
 	i = -1;
 	final[j] = '#';

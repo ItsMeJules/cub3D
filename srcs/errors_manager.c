@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/01/28 17:14:51 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/28 18:42:04 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	files_error(int type, char *print)
 	else if (type == GNL_FAILED)
 		ft_printf("Failed to read the following line : \n\t%s", print);
 	else if (type == SMTH_INVALID)
-		ft_printf("Something is invalid in the following string '%s'", print);
+		ft_printf("Attribut is invalid in the following string '%s'", print);
 	else if (type == TOO_MANY_ARGS)
 		ft_printf("Too many arguments in the following string '%s'", print);
 	else if (type == FILE_WRONG_EXTENSION) 

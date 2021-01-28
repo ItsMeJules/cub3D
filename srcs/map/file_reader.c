@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 17:28:25 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/28 19:15:51 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		is_att_set(t_all *all, char *type)
 		return (1);
 	else if (!ft_strcmp(type, "F") && all->map.gr != 0)
 		return (1);
-	else if (!ft_strcmp(type, "C") && all->map.gr != 0)
+	else if (!ft_strcmp(type, "C") && all->map.ce != 0)
 		return (1);
 	else if (!ft_strcmp(type, "NO") && all->no_txtr.path)
 		return (1);
@@ -41,16 +41,38 @@ int		is_att_set(t_all *all, char *type)
 		return (0);
 }
 
+char	**count_comas(char *line)
+{
+	int	i;
+	int	c;
+
+	i = -1;
+	c = 0;
+	while (line[++i])
+	{
+		if (line[i] == ',')
+		{
+			if (c == 2)
+			{
+				error(SMTH_INVALID, line, 1);
+				return (NULL);
+			}
+			c++;
+		}
+	}
+	return (ft_split(line, " \b\t\v\f\r,"));
+}
+
 int		check_line(t_all *all, char *line)
 {
 	char	**split;
 	int		err;
 
 	err = 0;
-	if (all->all_set != 8 && *line && is_att())
+	if (all->all_set != 8 && *line)
 	{
 		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
-			split = ft_split(line, " \b\t\v\f\r,");
+			split = count_comas(line);
 		else
 			split = ft_split(line, " \b\t\v\f\r");
 		if (is_att_set(all, split[0]))

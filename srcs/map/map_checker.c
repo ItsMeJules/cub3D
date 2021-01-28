@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 16:57:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/28 19:14:19 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		iter_map(int x, int y, t_map map, char axis)
 			d = elem_at(axis == 'x' ? x - i : x, axis == 'y' ? y - i : y, map);
 		if (c == '1' && d == '1')
 			break;
-		else if (c == '#' || d == '#')
+		else if (c == '#' || d == '#' || c == ' ' || d == ' ')
 			return (0);
 	}
 	return (1);

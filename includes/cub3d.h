@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/28 17:18:37 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/28 18:42:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /* EVENTS */
 # define KEY_PRESS_EVENT 2
 # define DESTROY_WIN_EVENT 33
-GGGGG
+
 /* MASKS */
 # define KEY_PRESS_MASK 1L<<0
 
