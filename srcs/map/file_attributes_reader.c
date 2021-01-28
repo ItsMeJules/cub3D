@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 17:11:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/29 00:19:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int		check_valid(char *str, int type)
 		}
 	}
 	else if ((fd = open(str, O_RDONLY)) < 0)
+	{
+		close(fd);
 		return (OPEN_FILE_FAILED);
+	}
 	else if (fd && read(fd, NULL, 0) == -1)
 		return (OPEN_FILE_FAILED);
 	return (0);
@@ -94,6 +97,8 @@ void	set_attributes(t_all *all, int type, char **split) //free les attributs tra
 	{
 		all->win.wid = ft_atoi(split[1]);
 		all->win.len = ft_atoi(split[2]);
+		free(split[1]);
+		free(split[2]);
 	}
 	else if (type == 2)
 	{
@@ -103,6 +108,9 @@ void	set_attributes(t_all *all, int type, char **split) //free les attributs tra
 		else
 			all->map.ce = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
 				ft_atoi(split[3]));
+		free(split[1]);
+		free(split[2]);
+		free(split[3]);
 	}
 	else if (type == 3)
 	{
@@ -114,11 +122,13 @@ void	set_attributes(t_all *all, int type, char **split) //free les attributs tra
 			all->we_txtr.path = split[1];
 		else if (!ft_strcmp(split[0], "EA"))
 			all->ea_txtr.path = split[1];
+		free(split[1]);
 	}
 }
 
 void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 {
+	ft_printf("%p", split);
 	if (!ft_strcmp(split[0], "R"))
 	{
 		if (arg_len(split, err, line, 1) || val_verifs(split, err, line, 1))
@@ -137,6 +147,7 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
 			|| !ft_strcmp(split[0], "S"))
 	{
+		ft_printf("test");
 		if (arg_len(split, err, line, 3) || val_verifs(split, err, line, 3))
 			return ;
 		set_attributes(all, 3, split);

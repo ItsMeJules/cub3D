@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 19:15:51 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:19:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <errno.h>
 #include "cub3d.h"
 #include "libft.h"
-
-/*penser a fix les espaces dans la map | les , en trop dans le rgb*/
 
 int		is_att_set(t_all *all, char *type)
 {
@@ -41,7 +39,7 @@ int		is_att_set(t_all *all, char *type)
 		return (0);
 }
 
-char	**count_comas(char *line)
+char	**count_comas(char *line, int *err)
 {
 	int	i;
 	int	c;
@@ -54,7 +52,7 @@ char	**count_comas(char *line)
 		{
 			if (c == 2)
 			{
-				error(SMTH_INVALID, line, 1);
+				*err = error(SMTH_INVALID, line, 0);
 				return (NULL);
 			}
 			c++;
@@ -71,24 +69,30 @@ int		check_line(t_all *all, char *line)
 	err = 0;
 	if (all->all_set != 8 && *line)
 	{
+		ft_printf("\nline=%s\n", line);
 		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
-			split = count_comas(line);
+			split = count_comas(line, &err);
 		else
 			split = ft_split(line, " \b\t\v\f\r");
-		if (is_att_set(all, split[0]))
+		if (!split && is_att_set(all, split[0]))
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
-		else
+		else if (split)
 			verify_nset_ids(all, split, &err, line);
 		if (!err)
-			free(split[0]); /*au cas ou je reoublie, il faudra free tout ce qui a ete split et assigne aux structures*/
+		{
+			ft_printf("\n%s|\n", line);
+			free(split[0]);
+			free(split);
+		}
 	}
 	else if (all->all_set == 8)
 		check_map_line(&all->map, line, &err);
 	if (err)
 	{
 		free(line);
+		ft_printf("\n%p", split);
 		ft_free_split(split);
-		exit(0);
+		exit(1);
 	}
 	return (1);
 }

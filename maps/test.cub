@@ -1,6 +1,6 @@
 R 1000 800
 
-NO ./textures/test
+NO ./textures/est
 SO ./textures/test
 WE ./textures/test
 EA ./textures/test
