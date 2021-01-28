@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/27 22:00:52 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/28 10:52:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int		error(int type, char *print, int ex);
 void	handle_destroy_win(t_win *win);
 
 /* map_manager.c */
+void	print_map(t_map map);
 char	elem_at(int x, int y, t_map map);
 
 /* file_attributes_reader.c */

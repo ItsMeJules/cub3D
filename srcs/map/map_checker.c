@@ -6,11 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 21:56:06 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/28 11:10:17 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 /*
  * exemple de map
@@ -21,8 +22,12 @@
  * #1111111111111# y 1
  * #1000000000001# y 2
  * #1000000000001# y 3
- * #1111111111111# y 4
- * ############### y 5
+ * #1000000000001# y 4
+ * #1000000000001# y 5
+ * #1000000000001# y 6
+ * #1000000000001# y 7
+ * #1111111111111# y 8
+ * ############### y 9
  * 
  * il faut donc commencer a chercher en (1;1)
  */
@@ -37,11 +42,26 @@ void	free_map(t_all *all)
 	free(all->s_txtr.path);
 }
 
-int		look_for_walls(int x, int y, t_map map)
+int		iter_map(int x, int y, t_map map, char axis)
 {
-	(void)x;
-	(void)y;
-	(void)map;
+	int		i;
+	char	c;
+	char	d;
+
+	i = 0;
+	c = 0;
+	d = 0;
+	while (++i)
+	{
+		if (c != '#' && c != '1')
+			c = elem_at(axis == 'x' ? x + i : x, axis == 'y' ? y + i : y, map);
+		if (d != '#' && d != '1')
+			d = elem_at(axis == 'x' ? x - i : x, axis == 'y' ? y - i : y, map);
+		if (c == '1' && d == '1')
+			break;
+		else if (c == '#' || d == '#')
+			return (0);
+	}
 	return (1);
 }
 
@@ -56,7 +76,9 @@ void	check_map(t_all *all)
 		y = 0;
 		while (++y < all->map.len)
 		{
-			if (elem_at(x, y, all->map) == 0 && !look_for_walls(x, y, all->map))
+			if (elem_at(x, y, all->map) == '0'
+					&& (!iter_map(x, y, all->map, 'x')
+						|| !iter_map(x, y, all->map, 'y')))
 			{
 				free_map(all);
 				error(MAP_NOT_CLOSED, "", 1);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_attributes_reader.c                            :+:      :+:    :+:   */
+/*   file_attributes_reader.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 17:10:50 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/01/28 11:17:16 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		val_verifs(char **split, int *err, char *line, int type)
 	return (0);
 }
 
-void	set_attributes(t_all *all, int type, char **split)
+void	set_attributes(t_all *all, int type, char **split) //free les attributs tramsformees en int
 {
 	if (type == 1)
 	{
