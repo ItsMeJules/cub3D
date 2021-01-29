@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 00:19:05 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 12:27:40 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,13 @@ int		is_att_set(t_all *all, char *type)
 		return (0);
 }
 
-char	**count_comas(char *line, int *err)
+void	free_after_verifs(char **split, int err)
 {
-	int	i;
-	int	c;
-
-	i = -1;
-	c = 0;
-	while (line[++i])
+	if (!err)
 	{
-		if (line[i] == ',')
-		{
-			if (c == 2)
-			{
-				*err = error(SMTH_INVALID, line, 0);
-				return (NULL);
-			}
-			c++;
-		}
+		free(split[0]);
+		free(split);
 	}
-	return (ft_split(line, " \b\t\v\f\r,"));
 }
 
 int		check_line(t_all *all, char *line)
@@ -69,30 +56,23 @@ int		check_line(t_all *all, char *line)
 	err = 0;
 	if (all->all_set != 8 && *line)
 	{
-		ft_printf("\nline=%s\n", line);
 		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
 			split = count_comas(line, &err);
 		else
 			split = ft_split(line, " \b\t\v\f\r");
-		if (!split && is_att_set(all, split[0]))
+		if (split && is_att_set(all, split[0]))
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
 		else if (split)
 			verify_nset_ids(all, split, &err, line);
-		if (!err)
-		{
-			ft_printf("\n%s|\n", line);
-			free(split[0]);
-			free(split);
-		}
+		free_after_verifs(split, err);
 	}
 	else if (all->all_set == 8)
 		check_map_line(&all->map, line, &err);
 	if (err)
 	{
 		free(line);
-		ft_printf("\n%p", split);
 		ft_free_split(split);
-		exit(1);
+		exit(0);
 	}
 	return (1);
 }

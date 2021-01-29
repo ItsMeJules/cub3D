@@ -6,7 +6,7 @@
 /*   By: tvachera <tvacherat@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 19:19:04 by tvachera          #+#    #+#             */
-/*   Updated: 2021/01/29 00:16:32 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 00:20:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_free_split(char **split)
 		return ;
 	while (split[i])
 	{
-		ft_printf("%d | ", i);
 		free(split[i]);
 		i++;
 	}
