@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/29 12:28:04 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 18:03:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define LINES_AFTER_MAP 14
 # define ATTRIBUTE_ALREADY_SET 15
 # define MAX_FILE_ERROR 15
+# define NO_CUB_FILE_SPECIFIED 16
 
 typedef struct	s_win {
 	void	*mlx;
@@ -74,10 +75,10 @@ typedef struct	s_img {
 }				t_img;
 
 typedef struct	s_texture {
-	char			*path;
-	void			*img;
-	unsigned int	x;
-	unsigned int	y;
+	char	*path;
+	void	*img;
+	int		wid;
+	int		hei;
 }				t_texture;
 
 typedef struct	s_map {
@@ -92,13 +93,14 @@ typedef struct	s_map {
 
 typedef struct	s_all {
 	int			all_set;
-	t_win		win;
-	t_map		map;
-	t_texture	so_txtr;
-	t_texture	no_txtr;
-	t_texture	we_txtr;
-	t_texture	ea_txtr;
-	t_texture	s_txtr;
+	t_win		*win;
+	t_map		*map;
+	t_pos		pos;
+	t_texture	*so_txtr;
+	t_texture	*no_txtr;
+	t_texture	*we_txtr;
+	t_texture	*ea_txtr;
+	t_texture	*s_txtr;
 		
 }				t_all;
 
@@ -109,6 +111,7 @@ void	draw_square(t_img *img, int x, int y, int size, int color);
 
 /* struct_assigner.c */
 t_all	*new_all();
+void	free_all(t_all *all);
 
 /* errors_manager.c */
 int		error(int type, char *print, int ex);
@@ -117,7 +120,7 @@ int		error(int type, char *print, int ex);
 void	handle_destroy_win(t_win *win);
 
 /* map_manager.c */
-char	elem_at(int x, int y, t_map map);
+char	elem_at(int x, int y, t_map *map);
 
 /* file_attributes_reader.c */
 void	verify_nset_ids(t_all *all, char **split, int *err, char *line);
@@ -129,7 +132,7 @@ int		val_verifs(char **split, int *err, char *line, int type);
 char	**count_comas(char *line, int *err);
 
 /* file_reader.c */
-void	read_file(t_all *all, char *file);
+int		read_file(t_all *all, char *file);
 
 /* map_parser.c */
 int		valid_map_char(char c);
@@ -137,7 +140,6 @@ void	check_map_line(t_map *map, char *line, int *err);
 void	make_map(t_all *all);
 
 /* map_checker.c */
-void	free_map(t_all *all);
 void	check_map(t_all *all);
 
 /* utils.c */

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/01/29 11:53:55 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/01 16:03:55 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ int		arg_len(char **split, int *err, char *line, int type)
 	return (0);
 }
 
+int		rgb_val_valid(char *val)
+{
+	int	a;
+
+	a = ft_atoi(val);
+	if (a >= 0 && a < 255)
+		return (1);
+	return (0);
+}
+
 int		val_verifs(char **split, int *err, char *line, int type)
 {
 	if (type == 1)
@@ -79,7 +89,8 @@ int		val_verifs(char **split, int *err, char *line, int type)
 	else if (type == 2)
 	{
 		if (check_valid(split[1], 1) || check_valid(split[2], 1)
-				|| check_valid(split[3], 1))
+				|| check_valid(split[3], 1) || !rgb_val_valid(split[1])
+				|| !rgb_val_valid(split[2]) || !rgb_val_valid(split[3]))
 			return (*err = error(SMTH_INVALID, line, 0));
 	}
 	else if (type == 3)

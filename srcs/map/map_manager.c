@@ -6,14 +6,14 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:24:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 12:27:54 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 16:49:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-char	elem_at(int x, int y, t_map map)
+char	elem_at(int x, int y, t_map *map)
 {
-	return (map.line[(map.wid) * y + x]);
+	return (map->line[map->wid * y + x]);
 }

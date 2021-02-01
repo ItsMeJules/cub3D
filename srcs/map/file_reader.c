@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 12:27:40 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/01 16:03:43 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@
 
 int		is_att_set(t_all *all, char *type)
 {
-	if (!ft_strcmp(type, "R") && all->win.wid != 0 && all->win.len)
+	if (!ft_strcmp(type, "R") && all->win->wid != 0 && all->win->len)
 		return (1);
-	else if (!ft_strcmp(type, "F") && all->map.gr != 0)
+	else if (!ft_strcmp(type, "F") && all->map->gr != 0)
 		return (1);
-	else if (!ft_strcmp(type, "C") && all->map.ce != 0)
+	else if (!ft_strcmp(type, "C") && all->map->ce != 0)
 		return (1);
-	else if (!ft_strcmp(type, "NO") && all->no_txtr.path)
+	else if (!ft_strcmp(type, "NO") && all->no_txtr->path)
 		return (1);
-	else if (!ft_strcmp(type, "SO") && all->so_txtr.path)
+	else if (!ft_strcmp(type, "SO") && all->so_txtr->path)
 		return (1);
-	else if (!ft_strcmp(type, "WE") && all->we_txtr.path)
+	else if (!ft_strcmp(type, "WE") && all->we_txtr->path)
 		return (1);
-	else if (!ft_strcmp(type, "EA") && all->ea_txtr.path)
+	else if (!ft_strcmp(type, "EA") && all->ea_txtr->path)
 		return (1);
-	else if (!ft_strcmp(type, "S") && all->s_txtr.path)
+	else if (!ft_strcmp(type, "S") && all->s_txtr->path)
 		return (1);
 	else
 		return (0);
@@ -66,18 +66,18 @@ int		check_line(t_all *all, char *line)
 			verify_nset_ids(all, split, &err, line);
 		free_after_verifs(split, err);
 	}
-	else if (all->all_set == 8)
-		check_map_line(&all->map, line, &err);
+	else if (*line && all->all_set == 8)
+		check_map_line(all->map, line, &err);
 	if (err)
 	{
 		free(line);
 		ft_free_split(split);
-		exit(0);
+		return (0);
 	}
 	return (1);
 }
 
-void	gnl_read(t_all *all, char *file)
+int		gnl_read(t_all *all, char *file)
 {
 	char	*line;
 	int		fd;
@@ -87,19 +87,21 @@ void	gnl_read(t_all *all, char *file)
 		error(OPEN_FILE_FAILED, file, 1);
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
-		check_line(all, line);
+		if (!check_line(all, line))
+			return (0);
 		free(line);
 	}
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
-	else if (all->all_set == 8)
+	else if (all->map->line && all->all_set == 8)
 		make_map(all);
 	else
 		error(FILE_MISSING_ARGS, "", 1);
+	return (1);
 }
 
-void	read_file(t_all *all, char *file)
+int		read_file(t_all *all, char *file)
 {
 	char	**split;
 
@@ -110,5 +112,5 @@ void	read_file(t_all *all, char *file)
 		error(FILE_WRONG_EXTENSION, file, 1);
 	}
 	ft_free_split(split);
-	gnl_read(all, file);
+	return (!gnl_read(all, file));
 }

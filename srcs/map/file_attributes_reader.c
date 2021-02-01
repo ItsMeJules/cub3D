@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 12:28:19 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 16:41:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,33 @@
 void	set_texture_path(t_all *all, char **split)
 {
 	if (!ft_strcmp(split[0], "NO"))
-		all->no_txtr.path = split[1];
+		all->no_txtr->path = split[1];
 	else if (!ft_strcmp(split[0], "SO"))
-		all->so_txtr.path = split[1];
+		all->so_txtr->path = split[1];
 	else if (!ft_strcmp(split[0], "WE"))
-		all->we_txtr.path = split[1];
+		all->we_txtr->path = split[1];
 	else if (!ft_strcmp(split[0], "EA"))
-		all->ea_txtr.path = split[1];
+		all->ea_txtr->path = split[1];
 	else if (!ft_strcmp(split[0], "S"))
-		all->s_txtr.path = split[1];
+		all->s_txtr->path = split[1];
 }
 
 void	set_attributes(t_all *all, int type, char **split)
 {
 	if (type == 1)
 	{
-		all->win.wid = ft_atoi(split[1]);
-		all->win.len = ft_atoi(split[2]);
+		all->win->wid = ft_atoi(split[1]);
+		all->win->len = ft_atoi(split[2]);
 		free(split[1]);
 		free(split[2]);
 	}
 	else if (type == 2)
 	{
 		if (!ft_strcmp(split[0], "F"))
-			all->map.gr = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
+			all->map->gr = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
 				ft_atoi(split[3]));
 		else
-			all->map.ce = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
+			all->map->ce = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
 				ft_atoi(split[3]));
 		free(split[1]);
 		free(split[2]);

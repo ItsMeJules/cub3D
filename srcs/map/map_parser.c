@@ -6,18 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/28 19:13:48 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/01 15:35:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-
-int		valid_map_char(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == ' ' || c == '0'
-			|| c == '1' || c == '2' || c == ' ');
-}
 
 void	concat_line(t_map *map, char *line)
 {
@@ -59,7 +53,6 @@ void	check_map_line(t_map *map, char *line, int *err)
 				return ;
 			}
 			map->start_dir = line[i];
-			line[i] = '0';
 		}
 		else if (ft_isspace(line[i]))
 			line[i] = ' ';
@@ -106,21 +99,23 @@ void	make_map(t_all *all)
 	int		i;
 	int		j;
 
-	all->map.wid += 2;
-	all->map.len += 2;
-	final = ft_strnew(all->map.wid * all->map.len);
+	all->map->wid += 2;
+	all->map->len += 2;
+	final = ft_strnew(all->map->wid * all->map->len);
 	j = -1;
-	while (++j < all->map.wid)
+	while (++j < all->map->wid)
 		final[j] = '#';
 	i = -1;
 	final[j] = '#';
-	rewrite_line(&all->map, final, &j, i);
+	rewrite_line(all->map, final, &j, i);
+	ft_printf("tnst");
 	final[j] = '#';
 	i = -1;
-	while (++i <= all->map.wid)
+	while (++i <= all->map->wid)
 		final[j + i] = '#';
+	ft_printf("tost");
 	final[j + i] = 0;
-	free(all->map.line);
-	all->map.line = final;
+	free(all->map->line);
+	all->map->line = final;
 	check_map(all);
 }

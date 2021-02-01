@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 12:12:54 by jules            ###   ########.fr       */
+/*   Updated: 2021/01/29 18:29:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,7 @@
 ** il faut donc commencer a chercher en (1;1)
 */
 
-void	free_map(t_all *all)
-{
-	free(all->map.line);
-	free(all->so_txtr.path);
-	free(all->no_txtr.path);
-	free(all->we_txtr.path);
-	free(all->ea_txtr.path);
-	free(all->s_txtr.path);
-}
-
-int		iter_map(int x, int y, t_map map, char axis)
+int		iter_map(int x, int y, t_map *map, char axis)
 {
 	int		i;
 	char	c;
@@ -65,30 +55,52 @@ int		iter_map(int x, int y, t_map map, char axis)
 	return (1);
 }
 
+void	set_player_pos(t_all *all, int x, int y)
+{
+	all->pos.pos_x = (double)x;	
+	all->pos.pos_y = (double)y;	
+	all->map->line[all->map->wid * y + x] = '0';
+	if (!iter_map(x, y, all->map, 'x') || !iter_map(x, y, all->map, 'y'))
+	{
+		free_all(all);
+		error(MAP_NOT_CLOSED, "", 1);
+	}
+}
+
+int		check_player_pos(t_all *all)
+{
+	if (!all->map->start_dir)
+	{
+		free_all(all);
+		error(PLAYER_START_POS_NOT_FOUND, "", 1);
+		return (0);
+	}
+	return (1);
+}
+
 void	check_map(t_all *all)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	c;
 
-	if (!all->map.start_dir)
-	{
-		free_map(all);
-		error(PLAYER_START_POS_NOT_FOUND, "", 1);
-		return ;
-	}
 	x = 0;
-	while (++x < all->map.wid)
+	if (!check_player_pos(all))
+		return ;
+	while (++x < all->map->wid)
 	{
 		y = 0;
-		while (++y < all->map.len)
+		while (++y < all->map->len)
 		{
-			if (elem_at(x, y, all->map) == '0'
+			if ((c = elem_at(x, y, all->map)) == '0'
 					&& (!iter_map(x, y, all->map, 'x')
 						|| !iter_map(x, y, all->map, 'y')))
 			{
-				free_map(all);
+				free_all(all);
 				error(MAP_NOT_CLOSED, "", 1);
 			}
+			else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+				set_player_pos(all, x, y);
 		}
 	}
 }

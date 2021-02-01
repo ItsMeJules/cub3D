@@ -7,9 +7,15 @@
 int main(int ac, char **av)
 {
 	t_all *all;
-	(void)ac;
+	
+	if (ac < 2)
+	{
+		error(NO_CUB_FILE_SPECIFIED, "", 1);
+		return (0);
+	}
 
 	all = new_all();
-	read_file(all, av[1]);
+	if (read_file(all, av[1]))
+		free_all(all);
 	return (0);
 }
