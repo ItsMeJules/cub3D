@@ -1,11 +1,11 @@
 R 1000 800
 
-NO ./textures/test
-SO ./textures/test
-WE ./textures/test
-EA ./textures/test
+NO ./textures/mossy.xpm
+SO ./textures/mossy.xpm
+WE ./textures/mossy.xpm
+EA ./textures/mossy.xpm
 
-S ./textures/test
+S ./textures/mossy.xpm
 F 200,100,50
 C 150,111,35
 

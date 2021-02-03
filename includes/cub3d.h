@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/03 14:24:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/03 15:43:56 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,5 +204,14 @@ int		create_trgb(int t, int r, int g, int b);
 
 /* raycasting.c */
 void	raycast(t_all *all);
+
+/* draw.c */
+void	draw_col(t_all *all, int x);
+
+/* dda.c */
+void	dda(t_ray *ray, t_map *map);
+
+/* texture.c */
+void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 
 #endif

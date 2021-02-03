@@ -6,11 +6,12 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/03 14:24:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/03 15:13:24 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 void	get_ddist(t_ray *ray)
 {
@@ -19,13 +20,13 @@ void	get_ddist(t_ray *ray)
 	else if (ray->dir_x == 0)
 		ray->delta_dist_x = 1;
 	else
-		ray->delta_dist_x = ft_abs(1 / ray->dir_x);
+		ray->delta_dist_x = fabs(1 / ray->dir_x);
 	if (ray->dir_x == 0)
 		ray->delta_dist_y = 0;
 	else if (ray->dir_y == 0)
 		ray->delta_dist_y = 1;
 	else
-		ray->delta_dist_y = ft_abs(1 / ray->dir_y);
+		ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
 
 void	get_step_n_side_dist(t_ray *ray, t_pos pos)
@@ -55,10 +56,10 @@ void	get_step_n_side_dist(t_ray *ray, t_pos pos)
 void	get_perp_dist(t_ray *ray, t_pos pos, t_win *win)
 {
 	if (ray->side == 0 || ray->side == 1)
-		ray->perp_wall_dist = (ray->map_x - pos.pos_x + (1 - ray.step_x) / 2)
+		ray->perp_wall_dist = (ray->map_x - pos.pos_x + (1 - ray->step_x) / 2)
 			/ ray->dir_x;
 	else
-		ray->per_wall_dist = (ray->map_y - pos.pos_y + (1 - ray.step_y) / 2)
+		ray->perp_wall_dist = (ray->map_y - pos.pos_y + (1 - ray->step_y) / 2)
 			/ ray->dir_y;
 	ray->line_h = (win->len / ray->perp_wall_dist);
 }
@@ -66,8 +67,8 @@ void	get_perp_dist(t_ray *ray, t_pos pos, t_win *win)
 void	init_ray(t_ray *ray, t_pos pos, int x, int wid)
 {
 	ray->camera_x = 2 * x / (double)wid - 1;
-	ray->dir_x = pos.dir_x + pos.plane_x * camera_x;
-	ray->dir_y = pos.dir_y + pos.plane_y * camera_x;
+	ray->dir_x = pos.dir_x + pos.plane_x * ray->camera_x;
+	ray->dir_y = pos.dir_y + pos.plane_y * ray->camera_x;
 	ray->map_x = (int)pos.pos_x;
 	ray->map_y = (int)pos.pos_y;
 	get_ddist(ray);
@@ -85,6 +86,6 @@ void	raycast(t_all *all)
 		init_ray(all->ray, all->pos, x, all->win->wid);
 		dda(all->ray, all->map);
 		get_perp_dist(all->ray, all->pos, all->win);
-		draw_col();
+		draw_col(all, x);
 	}
-
+}

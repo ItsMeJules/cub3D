@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42->fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/03 09:49:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/03 15:40:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,20 @@ void	free_all(t_all *all)
 	free(all->win);
 	free(all->map->line);
 	free(all->map);
-	free(all->so_txtr->path);
+	if (all->so_txtr->path)
+		free(all->so_txtr->path);
 	free(all->so_txtr);
-	free(all->no_txtr->path);
+	if (all->no_txtr->path)
+		free(all->no_txtr->path);
 	free(all->no_txtr);
-	free(all->we_txtr->path);
+	if (all->we_txtr->path)
+		free(all->we_txtr->path);
 	free(all->we_txtr);
-	free(all->ea_txtr->path);
+	if (all->ea_txtr->path)
+		free(all->ea_txtr->path);
 	free(all->ea_txtr);
-	free(all->s_txtr->path);
+	if (all->s_txtr->path)
+		free(all->s_txtr->path);
 	free(all->s_txtr);
 	free(all);
 }

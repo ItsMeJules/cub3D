@@ -6,11 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 20:22:51 by jules             #+#    #+#             */
-/*   Updated: 2021/02/02 22:03:08 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 15:08:48 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	get_wall_dist(t_ray *ray, t_map *map)
+#include "cub3d.h"
+
+void	get_wall_dist(t_ray *ray)
 {
 	if (ray->side_dist_x < ray->side_dist_y)
 	{
@@ -36,7 +38,7 @@ void	dda(t_ray *ray, t_map *map)
 {
 	while (!ray->hit)
 	{
-		get_wall_dist(ray, map);
+		get_wall_dist(ray);
 		if (elem_at(ray->map_x, ray->map_y, map) > 0)
 			ray->hit = 1;
 	}

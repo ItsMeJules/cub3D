@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 23:13:11 by jules             #+#    #+#             */
-/*   Updated: 2021/02/01 23:15:32 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 16:42:32 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int main(int ac, char **av)
 	}
 	all = new_all();
 	if (read_file(all, av[1]))
+	{
 		free_all(all);
+		return (0);
+	}
 	start_mlx(all);
 	stop_mlx(all);
 	return (0);

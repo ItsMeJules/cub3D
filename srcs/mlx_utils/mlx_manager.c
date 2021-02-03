@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/02 22:05:15 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 16:42:49 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,30 @@ void	new_window(t_win *win, char name[25])
 
 int		close_w(t_all *all)
 {
-	mlx_loop_end(all->win->mlx);
+	(void)all;
+//	mlx_loop_end(all->win->mlx);
+	return (0);
+}
+
+int		load_txtr(t_all *all, t_texture *txtr)
+{
+	if (!(txtr->img->img = mlx_xpm_file_to_image(all->win->mlx, txtr->path,
+					&txtr->wid, &txtr->hei)))
+	{
+		error(FAILED_TO_LOAD_TXTR, txtr->path, 0);
+		free_all(all);
+		return (1);
+	}
+	txtr->img->addr = mlx_get_data_addr(txtr->img->img, &txtr->img->bpp,
+			&txtr->img->line_l, &txtr->img->endian);
 	return (0);
 }
 
 void	start_mlx(t_all *all)
 {
 	new_window(all->win, "Je suis une fenetre");
+	if (load_txtr(all, all->no_txtr) || load_txtr(all, all->so_txtr) || load_txtr(all, all->we_txtr) || load_txtr(all, all->ea_txtr) || load_txtr(all, all->s_txtr))
+		return ;
 	mlx_hook(all->win->win, DESTROY_WIN_EVENT, DESTROY_WIN_MASK, close_w, all);
 	mlx_hook(all->win->win, KEY_PRESS_EVENT, KEY_PRESS_MASK, key_press, all);
 	mlx_hook(all->win->win, KEY_RELEASE_EVENT, KEY_RELEASE_MASK, key_rels, all);
@@ -47,7 +64,7 @@ void	stop_mlx(t_all *all)
 {
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
 	mlx_destroy_window(all->win->mlx, all->win->win);
-	mlx_destroy_display(all->win->mlx);
+	//mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
 	free_all(all);

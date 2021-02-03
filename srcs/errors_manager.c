@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/02/01 16:05:16 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 15:20:21 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int		error(int type, char *print, int ex)
 		files_error(type, print);
 	else if (type == NO_CUB_FILE_SPECIFIED)
 		ft_putstr_fd("No map file was specified. Please specify one.", 1);
+	else if (type == FAILED_TO_LOAD_TXTR)
+		ft_printf("Failed to load the xpm file '%s'", print);
 	ft_printf("\nQuitting program...");
 	if (ex)
 		exit(0);
