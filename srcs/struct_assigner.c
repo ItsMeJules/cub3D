@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42->fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 18:31:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/02 22:14:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_win		*new_win()
 		return (NULL);
 	}
 	win->len = 0;
-	win->wid = 2;
+	win->wid = 0;
 	return (win);
 }
 
@@ -65,9 +65,9 @@ t_all		*new_all()
 {
 	t_all	*all;
 
-	if (!(all = malloc(sizeof(t_all))))
+	if (!(all = malloc(sizeof(t_all))) || !(all->ray = malloc(sizeof(t_ray))))
 	{
-		error(MALLOC_FAILED, "t_all in struct_assigner.c", 1);
+		error(MALLOC_FAILED, "t_all or t_ray in struct_assigner.c", 1);
 		return (NULL);
 	}
 	all->all_set = 0;

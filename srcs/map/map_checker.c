@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/29 18:29:13 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/02 17:39:35 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ int		iter_map(int x, int y, t_map *map, char axis)
 	return (1);
 }
 
-void	set_player_pos(t_all *all, int x, int y)
+void	set_player_pos(t_all *all, int x, int y, char c)
 {
+	(void)c;
 	all->pos.pos_x = (double)x;	
 	all->pos.pos_y = (double)y;	
+	all->pos.dir_x = -1;
+	all->pos.dir_y = 0;
+	all->pos.plane_x = 0;
+	all->pos.plane_y = 0.66;
 	all->map->line[all->map->wid * y + x] = '0';
 	if (!iter_map(x, y, all->map, 'x') || !iter_map(x, y, all->map, 'y'))
 	{
@@ -100,7 +105,7 @@ void	check_map(t_all *all)
 				error(MAP_NOT_CLOSED, "", 1);
 			}
 			else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-				set_player_pos(all, x, y);
+				set_player_pos(all, x, y, c);
 		}
 	}
 }

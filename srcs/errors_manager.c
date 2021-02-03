@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/02/01 15:33:03 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/01 16:05:16 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		error(int type, char *print, int ex)
 	else if (type >= MIN_FILE_ERROR && type <= MAX_FILE_ERROR)
 		files_error(type, print);
 	else if (type == NO_CUB_FILE_SPECIFIED)
-		ft_putstr_fd("No map file was specified. Please specify one.", 2);
+		ft_putstr_fd("No map file was specified. Please specify one.", 1);
 	ft_printf("\nQuitting program...");
 	if (ex)
 		exit(0);

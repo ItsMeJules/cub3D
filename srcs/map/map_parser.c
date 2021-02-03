@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/01 15:35:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/01 16:45:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,15 @@ void	make_map(t_all *all)
 	all->map->len += 2;
 	final = ft_strnew(all->map->wid * all->map->len);
 	j = -1;
-	while (++j < all->map->wid)
+	while (++j <= all->map->wid)
 		final[j] = '#';
 	i = -1;
 	final[j] = '#';
 	rewrite_line(all->map, final, &j, i);
-	ft_printf("tnst");
 	final[j] = '#';
 	i = -1;
 	while (++i <= all->map->wid)
 		final[j + i] = '#';
-	ft_printf("tost");
 	final[j + i] = 0;
 	free(all->map->line);
 	all->map->line = final;

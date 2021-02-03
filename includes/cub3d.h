@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/01/29 18:03:01 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/02 22:11:39 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,24 @@
 
 /* EVENTS */
 # define KEY_PRESS_EVENT 2
+# define KEY_RELEASE_EVENT 3
 # define DESTROY_WIN_EVENT 33
 
 /* MASKS */
-# define KEY_PRESS_MASK 1L<<0
+# define KEY_PRESS_MASK 1L << 0
+# define KEY_RELEASE_MASK 1L << 1
+# define DESTROY_WIN_MASK 1L << 2
 
 /*
 ** KEYS
 */
-
 # define ESC_KEY 65307
+# define W_KEY 119
+# define A_KEY 97 
+# define S_KEY 115
+# define D_KEY 100
+# define ARROW_LEFT_KEY 65351
+# define ARROW_RIGHT_KEY 65353
 
 /* ERRORS */
 # define MALLOC_FAILED 0
@@ -50,9 +58,18 @@
 # define MAX_FILE_ERROR 15
 # define NO_CUB_FILE_SPECIFIED 16
 
+typedef struct	s_img {
+		void	*img;
+		char	*addr;
+		int		bpp;
+		int		line_l;
+		int		endian;
+}				t_img;
+
 typedef struct	s_win {
 	void	*mlx;
 	void	*win;
+	t_img	*img;
 	int		len;
 	int		wid;
 }				t_win;
@@ -66,13 +83,23 @@ typedef struct	s_pos {
 	double	plane_y;
 }				t_pos;
 
-typedef struct	s_img {
-		void	*img;
-		char	*addr;
-		int		bpp;
-		int		line_l;
-		int		endian;
-}				t_img;
+typedef struct	s_ray {
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_h;
+}
 
 typedef struct	s_texture {
 	char	*path;
@@ -91,11 +118,22 @@ typedef struct	s_map {
 	t_pos			p_pos;
 }				t_map;
 
+typedef struct	s_keys {
+	int	fwrd;
+	int	bwrd;
+	int	left;
+	int	right;
+	int	cam_left;
+	int	cam_right;
+}				t_keys;
+
 typedef struct	s_all {
 	int			all_set;
 	t_win		*win;
 	t_map		*map;
 	t_pos		pos;
+	t_ray		*ray;
+	t_keys		keys;
 	t_texture	*so_txtr;
 	t_texture	*no_txtr;
 	t_texture	*we_txtr;
@@ -105,9 +143,8 @@ typedef struct	s_all {
 }				t_all;
 
 /* images.c */
-t_img	*new_image(t_win *win);
-void	set_pixel(t_img *img, int x, int y, int color);
-void	draw_square(t_img *img, int x, int y, int size, int color);
+void	push_image(t_win *win);
+void	set_pixel(t_win *win, int x, int y, int color);
 
 /* struct_assigner.c */
 t_all	*new_all();
@@ -115,6 +152,12 @@ void	free_all(t_all *all);
 
 /* errors_manager.c */
 int		error(int type, char *print, int ex);
+
+/* mlx_manager.c */
+void	new_window(t_win *win, char name[25]);
+int		close_win(t_win *win);
+void	start_mlx(t_all *all);
+void	stop_mlx(t_all *all);
 
 /* window_manager.c */
 void	handle_destroy_win(t_win *win);
@@ -141,6 +184,13 @@ void	make_map(t_all *all);
 
 /* map_checker.c */
 void	check_map(t_all *all);
+
+/* keys_hook.c */
+int		key_press(int keycode, t_all *all);
+int		key_rels(int keycode, t_all *all);
+
+/* game_loop.c */
+int		game_loop(t_all *all);
 
 /* utils.c */
 int		create_trgb(int t, int r, int g, int b);

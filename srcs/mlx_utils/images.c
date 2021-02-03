@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_manager.c                                   :+:      :+:    :+:   */
+/*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/24 18:06:10 by jules             #+#    #+#             */
-/*   Updated: 2021/01/26 17:25:01 by jpeyron          ###   ########.fr       */
+/*   Created: 2021/01/24 15:13:57 by jules             #+#    #+#             */
+/*   Updated: 2021/02/02 13:53:51 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		close_win(t_win *win)
+void	push_image(t_win *win)
 {
-	mlx_destroy_window(win->mlx, win->win);
-	exit(0);
-	return (0);
+	mlx_put_image_to_window(win->mlx, win->win, win->img->img, 0, 0);
 }
 
-int		close_win_key(int keycode, t_win *win)
+void	set_pixel(t_win *win, int x, int y, int color)
 {
-	if (keycode != ESC_KEY)
-		return (1);
-	mlx_destroy_window(win->mlx, win->win);
-	exit(0);
-	return (0);
-}
+	char	*dst;
 
-void	handle_destroy_win(t_win *win)
-{
-	mlx_hook(win->win, DESTROY_WIN_EVENT, 1L<<2, close_win, win);
-	mlx_hook(win->win, KEY_PRESS_EVENT, KEY_PRESS_MASK, close_win_key, win);
+	dst = win->img->addr + (y * win->img->line_l + x * (win->img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
