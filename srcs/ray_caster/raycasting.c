@@ -6,11 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/03 15:13:24 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/03 17:20:45 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
+#include <stdio.h>
 #include <math.h>
 
 void	get_ddist(t_ray *ray)
@@ -61,7 +63,8 @@ void	get_perp_dist(t_ray *ray, t_pos pos, t_win *win)
 	else
 		ray->perp_wall_dist = (ray->map_y - pos.pos_y + (1 - ray->step_y) / 2)
 			/ ray->dir_y;
-	ray->line_h = (win->len / ray->perp_wall_dist);
+	ray->line_h = (int)(win->len / ray->perp_wall_dist);
+	printf("\n%d %f %d\n", win->len, ray->perp_wall_dist, ray->line_h);
 }
 
 void	init_ray(t_ray *ray, t_pos pos, int x, int wid)
@@ -88,4 +91,5 @@ void	raycast(t_all *all)
 		get_perp_dist(all->ray, all->pos, all->win);
 		draw_col(all, x);
 	}
+	push_image(all->win);
 }

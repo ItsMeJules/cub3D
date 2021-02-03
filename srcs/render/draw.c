@@ -6,12 +6,22 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/03 15:14:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/03 17:16:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h> 
 #include "cub3d.h"
+#include "libft.h"
+
+void	draw_line(t_all *all, int x)
+{
+	int y = all->ray->draw_start - 1;
+	int	color = create_trgb(0, 100, 100, 200);
+	//ft_printf("%d %d\n", all->ray->draw_start, all->ray->draw_end);
+	while (++y < all->ray->draw_end)
+		set_pixel(all->win, x, y, color);
+}
 
 void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 {
@@ -30,7 +40,8 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 		ray->text_x = txtr->wid - ray->text_x - 1;
 	if ((ray->side == 2 || ray->side == 3) && ray->dir_y < 0)
 		ray->text_x = txtr->wid - ray->text_x - 1;
-	draw_txtr(all, ray, txtr, x);
+	//draw_txtr(all, ray, txtr, x);
+	draw_line(all, x);
 }
 
 void	calc_hit(t_all *all, t_ray *ray, t_pos pos, int x)
