@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42->fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/02 22:14:32 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 09:49:44 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ t_texture	*new_txtr()
 		return (NULL);
 	}
 	txtr->path = NULL;
-	txtr->img = NULL;
-	txtr->wid = 0;
-	txtr->hei = 0;
+	if (!(txtr->img = malloc(sizeof(t_img))))
+	{
+		free(txtr);
+		error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
+		return (NULL);
+	}
 	return (txtr);
 }
 

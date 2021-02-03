@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/02 22:11:39 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 14:24:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 # define ATTRIBUTE_ALREADY_SET 15
 # define MAX_FILE_ERROR 15
 # define NO_CUB_FILE_SPECIFIED 16
+# define FAILED_TO_LOAD_TXTR 17
 
 typedef struct	s_img {
 		void	*img;
@@ -99,13 +100,18 @@ typedef struct	s_ray {
 	int		hit;
 	int		side;
 	int		line_h;
-}
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	double	text_x;
+	double	text_y;
+}			t_ray;
 
 typedef struct	s_texture {
 	char	*path;
-	void	*img;
 	int		wid;
 	int		hei;
+	t_img	*img;
 }				t_texture;
 
 typedef struct	s_map {
@@ -145,6 +151,7 @@ typedef struct	s_all {
 /* images.c */
 void	push_image(t_win *win);
 void	set_pixel(t_win *win, int x, int y, int color);
+int		*get_pixel(t_img *img, int x, int y);
 
 /* struct_assigner.c */
 t_all	*new_all();
@@ -155,7 +162,7 @@ int		error(int type, char *print, int ex);
 
 /* mlx_manager.c */
 void	new_window(t_win *win, char name[25]);
-int		close_win(t_win *win);
+int		close_w(t_all *all);
 void	start_mlx(t_all *all);
 void	stop_mlx(t_all *all);
 
@@ -194,5 +201,8 @@ int		game_loop(t_all *all);
 
 /* utils.c */
 int		create_trgb(int t, int r, int g, int b);
+
+/* raycasting.c */
+void	raycast(t_all *all);
 
 #endif

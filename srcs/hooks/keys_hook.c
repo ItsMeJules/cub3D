@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/02 17:22:49 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/03 13:10:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@
 int		key_press(int keycode, t_all *all)
 {
 	if (keycode == ESC_KEY)
-	{	
-		mlx_loop_end(all->win->mlx);
-		return (0);
-	}
+		return (close_w(all));
 	else if (keycode == W_KEY)
 		all->keys.fwrd = 1;
 	else if (keycode == A_KEY)
