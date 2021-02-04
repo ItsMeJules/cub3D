@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42->fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/03 15:40:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/04 11:17:45 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_all		*new_all()
 	all->all_set = 0;
 	all->win = new_win();
 	all->map = new_map();
+	set_keys(all);
 	all->so_txtr = new_txtr();
 	all->no_txtr = new_txtr();
 	all->we_txtr = new_txtr();

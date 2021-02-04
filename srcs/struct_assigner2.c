@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_loop.c                                        :+:      :+:    :+:   */
+/*   struct_assigner2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 10:49:46 by jpeyron          ###   ########.fr       */
+/*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/02/04 11:16:50 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
 
-int		game_loop(t_all *all)
+void	set_keys(t_all *all)
 {
-	keys_manager(all);
-	draw_map(all);
-	push_image(all->win);
-	return (1);
+	all->keys.fwrd = 0;
+	all->keys.bwrd = 0;
+	all->keys.left = 0;
+	all->keys.right = 0;
+	all->keys.cam_left = 0;
+	all->keys.cam_right = 0;
 }

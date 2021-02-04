@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/03 15:43:56 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/04 17:17:51 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,23 @@
 /*
 ** KEYS
 */
-# define ESC_KEY 65307
-# define W_KEY 119
-# define A_KEY 97 
-# define S_KEY 115
-# define D_KEY 100
-# define ARROW_LEFT_KEY 65351
-# define ARROW_RIGHT_KEY 65353
+# ifdef LINUX 
+#  define ESC_KEY 65307
+#  define W_KEY 13
+#  define A_KEY 97 
+#  define S_KEY 115
+#  define D_KEY 100
+#  define ARROW_LEFT_KEY 65351
+#  define ARROW_RIGHT_KEY 65353
+# else
+#  define ESC_KEY 65307
+#  define W_KEY 13
+#  define A_KEY 0 
+#  define S_KEY 1
+#  define D_KEY 2
+#  define ARROW_LEFT_KEY 123
+#  define ARROW_RIGHT_KEY 124
+# endif
 
 /* ERRORS */
 # define MALLOC_FAILED 0
@@ -59,6 +69,12 @@
 # define NO_CUB_FILE_SPECIFIED 16
 # define FAILED_TO_LOAD_TXTR 17
 
+# define MAP_ELEM_PX_SIZE 20
+# define MAP_WALL_COLOR 0x0068C8
+# define MAP_WALKABLE_COLOR 0xFFFFFF 
+# define MAP_PLAYER_COLOR 0xFF0000
+# define MAP_PLAYER_PX_SIZE 20
+
 typedef struct	s_img {
 		void	*img;
 		char	*addr;
@@ -75,6 +91,12 @@ typedef struct	s_win {
 	int		wid;
 }				t_win;
 
+typedef struct	s_coord
+{
+	int	x;
+	int y;
+}				t_coord;
+
 typedef struct	s_pos {
 	double	pos_x;
 	double	pos_y;
@@ -82,6 +104,8 @@ typedef struct	s_pos {
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
 }				t_pos;
 
 typedef struct	s_ray {
@@ -151,11 +175,14 @@ typedef struct	s_all {
 /* images.c */
 void	push_image(t_win *win);
 void	set_pixel(t_win *win, int x, int y, int color);
-int		*get_pixel(t_img *img, int x, int y);
+char	*get_pixel(t_img *img, int x, int y);
 
 /* struct_assigner.c */
 t_all	*new_all();
 void	free_all(t_all *all);
+
+/* struct_assignear2.c */
+void	set_keys(t_all *all);
 
 /* errors_manager.c */
 int		error(int type, char *print, int ex);
@@ -193,6 +220,7 @@ void	make_map(t_all *all);
 void	check_map(t_all *all);
 
 /* keys_hook.c */
+void	keys_manager(t_all *all);
 int		key_press(int keycode, t_all *all);
 int		key_rels(int keycode, t_all *all);
 
@@ -213,5 +241,19 @@ void	dda(t_ray *ray, t_map *map);
 
 /* texture.c */
 void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
+
+/* minimap.c */
+void	draw_map(t_all *all);
+
+/* player_minimap.c */
+void	draw_player(t_pos pos, t_win *wi);
+
+/* moving.c */
+void	move_forward(t_all *all);
+void	move_backward(t_all *all);
+void	strafe_left(t_all *all);
+void	strafe_right(t_all *all);
+void	rotate_camera(int right, double old_dir, double old_plane_x,
+		t_all *all);
 
 #endif
