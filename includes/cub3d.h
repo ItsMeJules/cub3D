@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 17:17:51 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/04 23:09:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@
 */
 # ifdef LINUX 
 #  define ESC_KEY 65307
-#  define W_KEY 13
+#  define W_KEY 119 
 #  define A_KEY 97 
 #  define S_KEY 115
 #  define D_KEY 100
-#  define ARROW_LEFT_KEY 65351
-#  define ARROW_RIGHT_KEY 65353
+#  define ARROW_LEFT_KEY 65361
+#  define ARROW_RIGHT_KEY 65363
 # else
 #  define ESC_KEY 65307
 #  define W_KEY 13

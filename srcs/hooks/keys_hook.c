@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 15:47:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/04 23:09:17 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		key_rels(int keycode, t_all *all)
 {
 	if (keycode == W_KEY)
 		all->keys.fwrd = 0;
-	else if (keycode == A_KEY)
-		all->keys.bwrd = 0;
 	else if (keycode == S_KEY)
+		all->keys.bwrd = 0;
+	else if (keycode == A_KEY)
 		all->keys.left = 0;
 	else if (keycode == D_KEY)
 		all->keys.right = 0;
@@ -55,10 +55,10 @@ void	keys_manager(t_all *all)
 		move_forward(all);
 	if (all->keys.bwrd)
 		move_backward(all);
-	if (all->keys.left)
-		strafe_left(all);
-	if (all->keys.right)
+	if (all->keys.left) //wtf mais bon ok
 		strafe_right(all);
+	if (all->keys.right) //wtf mais bon ok aussi je sais pas moi ma foi
+		strafe_left(all);
 	if (all->keys.cam_left || all->keys.cam_right)
 		rotate_camera(all->keys.cam_right, all->pos.dir_x, all->pos.plane_x,
 				all);
