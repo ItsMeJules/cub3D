@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 23:09:56 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/05 17:11:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@
 # define NO_CUB_FILE_SPECIFIED 16
 # define FAILED_TO_LOAD_TXTR 17
 
-# define MAP_ELEM_PX_SIZE 20
+# define MAP_ELEM_PX_SIZE 10 
 # define MAP_WALL_COLOR 0x0068C8
-# define MAP_WALKABLE_COLOR 0xFFFFFF 
+# define MAP_WALKABLE_COLOR 0xFFFFFF
+# define MAP_VOID_COLOR 0xC0C0C0 
 # define MAP_PLAYER_COLOR 0xFF0000
-# define MAP_PLAYER_PX_SIZE 20
+# define MAP_PLAYER_PX_SIZE 5 
 
 typedef struct	s_img {
 		void	*img;
@@ -91,11 +92,15 @@ typedef struct	s_win {
 	int		wid;
 }				t_win;
 
-typedef struct	s_coord
+typedef struct	s_line
 {
-	int	x;
-	int y;
-}				t_coord;
+	int	x0;
+	int y0;
+	int x1;
+	int y1;
+	int dx;
+	int dy;
+}				t_line;
 
 typedef struct	s_pos {
 	double	pos_x;
@@ -245,8 +250,8 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 /* minimap.c */
 void	draw_map(t_all *all);
 
-/* player_minimap.c */
-void	draw_player(t_pos pos, t_win *wi);
+/* shaped_drawing.c */
+void	draw_line(t_line line, t_win *win, int thickness, int color);
 
 /* moving.c */
 void	move_forward(t_all *all);

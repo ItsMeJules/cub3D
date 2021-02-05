@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 21:55:16 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/05 17:21:38 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int		game_loop(t_all *all)
 {
 	keys_manager(all);
+	raycast(all);
 	draw_map(all);
 	push_image(all->win);
 	return (1);

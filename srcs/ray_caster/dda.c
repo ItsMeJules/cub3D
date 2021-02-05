@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 20:22:51 by jules             #+#    #+#             */
-/*   Updated: 2021/02/03 15:08:48 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/05 16:56:21 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	dda(t_ray *ray, t_map *map)
 	while (!ray->hit)
 	{
 		get_wall_dist(ray);
-		if (elem_at(ray->map_x, ray->map_y, map) > 0)
+		if (elem_at(ray->map_x, ray->map_y, map) == '1')
 			ray->hit = 1;
 	}
 }
