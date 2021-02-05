@@ -1,6 +1,6 @@
 NAME		=	libft.a
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -O3 -Ofast
+CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror
 AR 			= 	ar
 ARFLAGS 	=	rcs
 RM			=	rm -rf

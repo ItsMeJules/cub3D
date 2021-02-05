@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/05 17:03:33 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/05 19:12:12 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,13 @@ void	calc_hit(t_all *all, t_ray *ray, t_pos pos, int x)
 	if (ray->draw_end >= all->win->len)
 		ray->draw_end = all->win->len - 1;
 	if (ray->side == 0)
-		color = 0x24FF01;
+		color = 0x540909;
 	else if (ray->side == 1)
-		color = 0xFF0021;
+		color = 0x79C276;
 	else if (ray->side == 2)
-		color = 0x240001;
+		color = 0xD9FF00;
 	else if (ray->side == 3)
 		color = 0x00FFFF;
-	//ft_printf("%d %d\n", ray->draw_start, ray->draw_end);
 	y = 0;
 	//while (ray->draw_start < ray->draw_end)
 	while (y < all->win->len)

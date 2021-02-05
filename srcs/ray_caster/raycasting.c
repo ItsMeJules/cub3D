@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/05 16:56:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/05 21:34:35 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	get_delta_dist(t_ray *ray)
 		ray->delta_dist_y = 1;
 	else
 		ray->delta_dist_y = fabs(1 / ray->dir_y);
-	//printf("%f %f\n", ray->delta_dist_x, ray->delta_dist_y);
 }
 
 void	get_step_n_side_dist(t_ray *ray, t_pos pos)
@@ -65,7 +64,6 @@ void	get_perp_dist(t_ray *ray, t_pos pos, t_win *win)
 		ray->perp_wall_dist = (ray->map_y - pos.pos_y + (1 - ray->step_y) / 2)
 			/ ray->dir_y;
 	ray->line_h = (int)(win->len / ray->perp_wall_dist);
-	//ft_printf("line_h %d perp %d\n", ray->line_h, ray->perp_wall_dist);
 }
 
 void	init_ray(t_ray *ray, t_pos pos, int x, int wid)
@@ -83,9 +81,6 @@ void	init_ray(t_ray *ray, t_pos pos, int x, int wid)
 void	raycast(t_all *all)
 {
 	int	x;
-	for (int i = 0; i < all->win->wid; i++)
-		for (int j = 0; j < all->win->len; j++)
-			set_pixel(all->win, i, j, 0x000000);
 	
 	x = -1;
 	while (++x < all->win->wid)

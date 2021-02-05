@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 11:27:41 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/06 00:05:57 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	new_window(t_win *win, char name[25])
 int		close_w(t_all *all)
 {
 	(void)all;
-//	mlx_loop_end(all->win->mlx);
+	mlx_loop_end(all->win->mlx);
 	return (0);
 }
 
@@ -63,9 +63,19 @@ void	start_mlx(t_all *all)
 void	stop_mlx(t_all *all)
 {
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
+	mlx_destroy_image(all->win->mlx, all->so_txtr->img->img);
+	mlx_destroy_image(all->win->mlx, all->no_txtr->img->img);
+	mlx_destroy_image(all->win->mlx, all->we_txtr->img->img);
+	mlx_destroy_image(all->win->mlx, all->ea_txtr->img->img);
+	mlx_destroy_image(all->win->mlx, all->s_txtr->img->img);
 	mlx_destroy_window(all->win->mlx, all->win->win);
-	//mlx_destroy_display(all->win->mlx);
+	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
+	free(all->so_txtr->img);
+	free(all->no_txtr->img);
+	free(all->we_txtr->img);
+	free(all->ea_txtr->img);
+	free(all->s_txtr->img);
 	free(all->win->mlx);
 	free_all(all);
 }

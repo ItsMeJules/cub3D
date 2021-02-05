@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/05 17:08:39 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/05 20:01:46 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	draw_player(t_pos pos, t_win *win, int dir_len)
 	line.dx = abs(line.x1 - line.x0);
 	line.dy = abs(line.y1 - line.y0);
 
-	draw_line(line, win, 4, 0xFF0000);
+	draw_line(line, win, 2, 0xFF0000);
 }
 
 void	draw_map(t_all *all)
