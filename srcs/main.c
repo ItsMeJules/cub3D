@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 23:13:11 by jules             #+#    #+#             */
-/*   Updated: 2021/02/05 16:58:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/06 22:15:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 
 int main(int ac, char **av)
 {
-	t_all *all;
+	t_all	*all;
+	int		save;
 
+	save = 1;
 	if (ac < 2)
 	{
 		error(NO_CUB_FILE_SPECIFIED, "", 1);
+		return (0);
+	}
+	else if (ac > 2 && (save = ft_strcmp("--save", av[2])) != 0)
+	{
+		error(UNKNOWN_ARGUMENT, av[2], 1);
 		return (0);
 	}
 	all = new_all();
@@ -31,7 +38,7 @@ int main(int ac, char **av)
 		free_all(all);
 		return (0);
 	}
-	start_mlx(all);
+	start_mlx(all, !save);
 	stop_mlx(all);
 	return (0);
 }

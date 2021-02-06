@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/02/03 15:20:21 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/06 22:31:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	files_error2(int type, char *print)
 {
 	if (type == NEGATIVE_RESOLUTION)
-		ft_printf("Why the fuck is the resolution negative ?", print);
+		ft_printf("Why the fuck is the resolution <= 0 ?", print);
 	else if (type == FILE_MISSING_ARGS)
 		ft_printf("The file is incomplete some attributes or map are missing.");
 	else if (type == PLAYER_START_POS_NOT_FOUND)
@@ -64,6 +64,8 @@ int		error(int type, char *print, int ex)
 		ft_putstr_fd("No map file was specified. Please specify one.", 1);
 	else if (type == FAILED_TO_LOAD_TXTR)
 		ft_printf("Failed to load the xpm file '%s'", print);
+	else if (type == UNKNOWN_ARGUMENT)
+		ft_printf("Argument '%s' unknown. To save an image use '--save'");
 	ft_printf("\nQuitting program...");
 	if (ex)
 		exit(0);

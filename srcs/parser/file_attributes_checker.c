@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/05 23:50:38 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/06 22:32:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		val_verifs(char **split, int *err, char *line, int type)
 	{
 		if (check_valid(split[1], 1) || check_valid(split[2], 1))
 			return (*err = error(SMTH_INVALID, line, 0));
-		if (split[1][0] == '-' || split[2][0] == '-')
+		if (ft_atoi(split[1]) <= 0 || ft_atoi(split[2]) <= 0)
 			return (*err = error(NEGATIVE_RESOLUTION, line, 0));
 	}
 	else if (type == 2)

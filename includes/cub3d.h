@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/05 19:53:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/06 22:40:00 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 # define MAX_FILE_ERROR 15
 # define NO_CUB_FILE_SPECIFIED 16
 # define FAILED_TO_LOAD_TXTR 17
+# define UNKNOWN_ARGUMENT 18
 
 # define MAP_ELEM_PX_SIZE 10 
 # define MAP_WALL_COLOR 0x0068C8
@@ -164,6 +165,7 @@ typedef struct	s_keys {
 
 typedef struct	s_all {
 	int			all_set;
+	int			save;
 	t_win		*win;
 	t_map		*map;
 	t_pos		pos;
@@ -193,9 +195,8 @@ void	set_keys(t_all *all);
 int		error(int type, char *print, int ex);
 
 /* mlx_manager.c */
-void	new_window(t_win *win, char name[25]);
 int		close_w(t_all *all);
-void	start_mlx(t_all *all);
+void	start_mlx(t_all *all, int save);
 void	stop_mlx(t_all *all);
 
 /* window_manager.c */
