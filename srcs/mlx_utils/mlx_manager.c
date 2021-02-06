@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/06 00:05:57 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/06 16:09:26 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 
 void	new_window(t_win *win, char name[25])
 {
+	int	resx;
+	int	resy;
+
 	if (!(win->img = malloc(sizeof(t_img))))
 	{
 		error(MALLOC_FAILED, "t_img in images.c", 1);
 		return ;
 	}
 	win->mlx = mlx_init();
+	mlx_get_screen_size(win->mlx, &resx, &resy);
+	if (win->wid > resx)
+		win->wid = resx;
+	if (win->len > resy)
+		win->len = resy;
 	win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	win->img->img = mlx_new_image(win->mlx, win->wid, win->len);
 	win->img->addr = mlx_get_data_addr(win->img->img, &win->img->bpp,
@@ -51,7 +59,9 @@ int		load_txtr(t_all *all, t_texture *txtr)
 void	start_mlx(t_all *all)
 {
 	new_window(all->win, "Je suis une fenetre");
-	if (load_txtr(all, all->no_txtr) || load_txtr(all, all->so_txtr) || load_txtr(all, all->we_txtr) || load_txtr(all, all->ea_txtr) || load_txtr(all, all->s_txtr))
+	if (load_txtr(all, all->no_txtr) || load_txtr(all, all->so_txtr)
+			|| load_txtr(all, all->we_txtr) || load_txtr(all, all->ea_txtr)
+			|| load_txtr(all, all->s_txtr))
 		return ;
 	mlx_hook(all->win->win, DESTROY_WIN_EVENT, DESTROY_WIN_MASK, close_w, all);
 	mlx_hook(all->win->win, KEY_PRESS_EVENT, KEY_PRESS_MASK, key_press, all);
@@ -71,11 +81,6 @@ void	stop_mlx(t_all *all)
 	mlx_destroy_window(all->win->mlx, all->win->win);
 	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
-	free(all->so_txtr->img);
-	free(all->no_txtr->img);
-	free(all->we_txtr->img);
-	free(all->ea_txtr->img);
-	free(all->s_txtr->img);
 	free(all->win->mlx);
 	free_all(all);
 }

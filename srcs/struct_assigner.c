@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42->fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/06 00:05:05 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/06 16:04:41 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	free_all(t_all *all)
 	free(all->map->line);
 	free(all->map);
 	free(all->ray);
+	free(all->so_txtr->img);
+	free(all->no_txtr->img);
+	free(all->we_txtr->img);
+	free(all->ea_txtr->img);
+	free(all->s_txtr->img);
 	if (all->so_txtr->path)
 		free(all->so_txtr->path);
 	free(all->so_txtr);
