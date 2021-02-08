@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/06 22:40:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/08 15:12:41 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 ** KEYS
 */
 # ifdef LINUX 
-#  define ESC_KEY 65307
+#  define ESC_KEY 65307 
 #  define W_KEY 119 
 #  define A_KEY 97 
 #  define S_KEY 115
@@ -38,7 +38,7 @@
 #  define ARROW_LEFT_KEY 65361
 #  define ARROW_RIGHT_KEY 65363
 # else
-#  define ESC_KEY 65307
+#  define ESC_KEY 53 
 #  define W_KEY 13
 #  define A_KEY 0 
 #  define S_KEY 1
@@ -69,6 +69,7 @@
 # define NO_CUB_FILE_SPECIFIED 16
 # define FAILED_TO_LOAD_TXTR 17
 # define UNKNOWN_ARGUMENT 18
+# define BITMAP_OPEN_ERROR 19
 
 # define MAP_ELEM_PX_SIZE 10 
 # define MAP_WALL_COLOR 0x0068C8
@@ -133,8 +134,8 @@ typedef struct	s_ray {
 	int		draw_start;
 	int		draw_end;
 	double	wall_x;
-	double	text_x;
-	double	text_y;
+	int		text_x;
+	int		text_y;
 }			t_ray;
 
 typedef struct	s_texture {
@@ -261,5 +262,8 @@ void	strafe_left(t_all *all);
 void	strafe_right(t_all *all);
 void	rotate_camera(int right, double old_dir, double old_plane_x,
 		t_all *all);
+
+/* bitmap.c */
+int		save_bmp(t_all *all, char *name);
 
 #endif

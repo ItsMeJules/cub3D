@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 23:13:11 by jules             #+#    #+#             */
-/*   Updated: 2021/02/06 22:15:05 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/08 09:47:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+/*void	print_map(t_map *map)
+{
+	int a;
+
+	a = 0;
+	for (int i = 0; map->line[i]; i++)
+	{
+		if (a % map->wid == 0)
+			ft_printf("\n");
+		a++;
+		ft_printf("%c", map->line[i]);
+	}
+}*/
 
 int main(int ac, char **av)
 {
@@ -38,6 +52,7 @@ int main(int ac, char **av)
 		free_all(all);
 		return (0);
 	}
+	//print_map(all->map);
 	start_mlx(all, !save);
 	stop_mlx(all);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/05 19:12:12 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/08 14:02:45 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,23 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 	draw_txtr(all, ray, txtr, x);
 }
 
-void	calc_hit(t_all *all, t_ray *ray, t_pos pos, int x)
+void	draw_col(t_all *all, int x)
 {
-	int color;
-	int y;	
+	t_ray	*ray;
+	t_pos	pos;
+
+	ray = all->ray;
+	pos = all->pos;
 	ray->draw_start = -ray->line_h / 2 + all->win->len / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	ray->draw_end = ray->line_h / 2 + all->win->len / 2;
 	if (ray->draw_end >= all->win->len)
 		ray->draw_end = all->win->len - 1;
-	if (ray->side == 0)
-		color = 0x540909;
-	else if (ray->side == 1)
-		color = 0x79C276;
-	else if (ray->side == 2)
-		color = 0xD9FF00;
-	else if (ray->side == 3)
-		color = 0x00FFFF;
-	y = 0;
-	//while (ray->draw_start < ray->draw_end)
-	while (y < all->win->len)
-	{
-		if (y < ray->draw_start)
-			set_pixel(all->win, x, y, all->map->ce);
-		//set_pixel(all->win, x, ray->draw_start++, color);
-		else if (y >= ray->draw_end)
-			set_pixel(all->win, x, y, all->map->gr);
-		else
-			set_pixel(all->win, x, y, color);
-		y++;
-	}
-	(void)pos;
-	/*if (ray->side == 0 || ray->side == 1)
+	if (ray->side == 0 || ray->side == 1)
 		ray->wall_x = pos.pos_y + ray->perp_wall_dist * ray->dir_y;
 	else
 		ray->wall_x = pos.pos_x + ray->perp_wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
-	init_wall_txtr(all, ray, x);*/
-}
-
-void	draw_col(t_all *all, int x)
-{
-	calc_hit(all, all->ray, all->pos, x);
+	init_wall_txtr(all, ray, x);
 }

@@ -60,8 +60,13 @@ clean			:
 				@ $(MAKE) clean --silent -C $(MLX_DIR)
 				@ echo "$(_SUCCESS) Working directory cleaned"
 
-fclean			: clean
+fclean			:
+				@ echo "$(_INFO) Deleting object files directories and more..."
+				@ $(RM) $(OBJ_DIR)
 				@ $(RM) $(NAME)
+				@ $(MAKE) fclean --silent -C $(LIBFT_DIR)
+				@ $(MAKE) clean --silent -C $(MLX_DIR)
+				@ echo "$(_SUCCESS) Working directory cleaned"
 
 re				: fclean all
 

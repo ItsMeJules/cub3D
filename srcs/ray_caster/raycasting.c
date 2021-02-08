@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/06 22:11:51 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/08 14:02:34 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ void	raycast(t_all *all)
 	}
 	if (all->save)
 	{
-	//	save_bmp(all->);
+		save_bmp(all, "./screenshot.bmp");
 		close_w(all);
+		stop_mlx(all);
+		exit(1);
 	}
 }

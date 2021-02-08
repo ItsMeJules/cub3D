@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/05 20:00:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/08 14:49:49 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	set_player_pos(t_all *all, int x, int y, char c)
 	set_player_dir(all, c);
 	all->pos.pos_x = (double)x + 0.5;
 	all->pos.pos_y = (double)y + 0.5;	
-	all->pos.move_speed = 0.05;
+	all->pos.move_speed = 0.1;
 	all->pos.rot_speed = 0.05;
 	all->map->line[all->map->wid * y + x] = '0';
 	if (!iter_map(x, y, all->map, 'x') || !iter_map(x, y, all->map, 'y'))

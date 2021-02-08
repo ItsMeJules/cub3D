@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/05 16:52:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/08 11:27:11 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	keys_manager(t_all *all)
 		move_forward(all);
 	if (all->keys.bwrd)
 		move_backward(all);
-	if (all->keys.left) //wtf mais bon ok
+	if (all->keys.left)
 		strafe_left(all);
-	if (all->keys.right) //wtf mais bon ok aussi je sais pas moi ma foi
+	if (all->keys.right)
 		strafe_right(all);
 	if (all->keys.cam_left || all->keys.cam_right)
 		rotate_camera(all->keys.cam_right, all->pos.dir_x, all->pos.plane_x,
