@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:43:11 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:50:25 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_ce_gr(t_all *all, t_ray *ray, int x)
 	y = -1;
 	while (++y < ray->draw_start)
 		set_pixel(all->win, x, y, all->map->ce);
-	y = ray->draw_end - 1;
+	y = ray->draw_end;
 	while (++y < all->win->len)
 		set_pixel(all->win, x, y, all->map->gr);
 }
