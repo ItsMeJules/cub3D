@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:34:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 17:07:17 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void		free_all(t_all *all, int txtrs)
 	free(all->win);
 	free(all->map->line);
 	free(all->map);
+	if (all->ray->z_buffer)
+		free(all->ray->z_buffer);
 	free(all->ray);
 	if (txtrs)
 		free_txtrs(all, 0);

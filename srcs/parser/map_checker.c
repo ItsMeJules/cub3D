@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 13:59:51 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:19:56 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ int		iter_map(int x, int y, t_map *map, char axis)
 	return (1);
 }
 
-void	init_sprite(t_all *all)
-{
-	(void)all;	
-}
-
 void	init_map_elem(t_all *all, char c, int x, int y)
 {
 	if (c == '0' &&
@@ -71,7 +66,10 @@ void	init_map_elem(t_all *all, char c, int x, int y)
 	else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 		set_player_pos(all, x, y, c);
 	else if (c == '2')
-		init_sprite(all);
+	{
+		ft_lstadd_back(&all->sprites,
+				ft_lstnew(new_sprite(c, (double)x + 0.5, (double)y + 0.5)));
+	}
 }
 
 void	check_map(t_all *all)

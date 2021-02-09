@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/09 14:44:27 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 17:07:23 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	start_mlx(t_all *all, int save)
 			|| load_txtr(all, &all->txtrs[WE_TXTR])
 			|| load_txtr(all, &all->txtrs[EA_TXTR])
 			|| load_txtr(all, &all->txtrs[S_TXTR]))
+		return ;
+	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
 		return ;
 	if (!save)
 	{

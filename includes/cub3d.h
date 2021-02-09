@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/09 14:13:21 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 17:08:36 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct	s_ray {
 	double	wall_x;
 	int		text_x;
 	int		text_y;
+	double	*z_buffer;
 }			t_ray;
 
 typedef struct	s_sprite {
@@ -201,7 +202,7 @@ void		free_all(t_all *all, int txtrs);
 
 /* struct_assignear2.c */
 void		set_keys(t_all *all);
-t_sprite	*new_sprite(int txtr);
+t_sprite	*new_sprite(int txtr, double x, double y);
 void		free_txtrs(t_all *all, int mlx);
 
 /* errors_manager.c */

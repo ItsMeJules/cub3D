@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:05:47 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:05:42 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_keys(t_all *all)
 	all->keys.cam_right = 0;
 }
 
-t_sprite	*new_sprite(int txtr)
+t_sprite	*new_sprite(int txtr, double x, double y)
 {
 	t_sprite	*sprite;
 
@@ -32,8 +32,8 @@ t_sprite	*new_sprite(int txtr)
 		return (NULL);
 	}
 	sprite->txtr = txtr;
-	sprite->x = 0;
-	sprite->y = 0;
+	sprite->x = x;
+	sprite->y = y;
 	sprite->dist = 0;
 	return (sprite);
 }
