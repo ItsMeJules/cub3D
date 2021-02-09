@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:55:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/05 15:04:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 10:57:36 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	strafe_right(t_all *all)
 void	rotate_camera(int right, double old_dir, double old_plane_x, t_all *all)
 {
 	t_pos	pos;
-	
+
 	pos = all->pos;
 	if (!right)
 	{

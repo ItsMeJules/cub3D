@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   struct_assigner.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpeyron <marvin@42->fr>                     +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/06 16:04:41 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/09 14:34:15 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-t_map		*new_map()
+t_map		*new_map(void)
 {
 	t_map	*map;
 
@@ -31,7 +31,7 @@ t_map		*new_map()
 	return (map);
 }
 
-t_win		*new_win()
+t_win		*new_win(void)
 {
 	t_win	*win;
 
@@ -45,71 +45,63 @@ t_win		*new_win()
 	return (win);
 }
 
-t_texture	*new_txtr()
+t_texture	*new_txtrs(int amount, int i)
 {
 	t_texture	*txtr;
 
-	if (!(txtr = malloc(sizeof(t_texture))))
+	if (!(txtr = malloc(sizeof(t_texture) * (amount + 1))))
 	{
 		error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
 		return (NULL);
 	}
-	txtr->path = NULL;
-	if (!(txtr->img = malloc(sizeof(t_img))))
+	while (++i < amount)
 	{
-		free(txtr);
-		error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
-		return (NULL);
+		txtr[i].path = NULL;
+		if (!(txtr[i].img = malloc(sizeof(t_img))))
+		{
+			free(&txtr[i]);
+			while (i-- >= 0)
+			{
+				free(txtr[i].img);
+				free(&txtr[i]);
+			}
+			error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
+			return (NULL);
+		}
 	}
+	txtr[i].path = NULL;
 	return (txtr);
 }
 
-t_all		*new_all()
+t_all		*new_all(void)
 {
 	t_all	*all;
 
-	if (!(all = malloc(sizeof(t_all))) || !(all->ray = malloc(sizeof(t_ray))))
+	if (!(all = malloc(sizeof(t_all))))
 	{
-		error(MALLOC_FAILED, "t_all or t_ray in struct_assigner.c", 1);
+		error(MALLOC_FAILED, "t_all in struct_assigner.c", 1);
+		return (NULL);
+	}
+	if (!(all->ray = malloc(sizeof(t_ray))))
+	{
+		error(MALLOC_FAILED, "t_ray in struct_assigner.c", 1);
 		return (NULL);
 	}
 	all->all_set = 0;
 	all->win = new_win();
 	all->map = new_map();
+	all->txtrs = new_txtrs(5, -1);
 	set_keys(all);
-	all->so_txtr = new_txtr();
-	all->no_txtr = new_txtr();
-	all->we_txtr = new_txtr();
-	all->ea_txtr = new_txtr();
-	all->s_txtr = new_txtr();
 	return (all);
 }
 
-void	free_all(t_all *all)
+void		free_all(t_all *all, int txtrs)
 {
 	free(all->win);
 	free(all->map->line);
 	free(all->map);
 	free(all->ray);
-	free(all->so_txtr->img);
-	free(all->no_txtr->img);
-	free(all->we_txtr->img);
-	free(all->ea_txtr->img);
-	free(all->s_txtr->img);
-	if (all->so_txtr->path)
-		free(all->so_txtr->path);
-	free(all->so_txtr);
-	if (all->no_txtr->path)
-		free(all->no_txtr->path);
-	free(all->no_txtr);
-	if (all->we_txtr->path)
-		free(all->we_txtr->path);
-	free(all->we_txtr);
-	if (all->ea_txtr->path)
-		free(all->ea_txtr->path);
-	free(all->ea_txtr);
-	if (all->s_txtr->path)
-		free(all->s_txtr->path);
-	free(all->s_txtr);
+	if (txtrs)
+		free_txtrs(all, 0);
 	free(all);
 }

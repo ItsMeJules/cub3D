@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/08 09:19:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:44:27 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		load_txtr(t_all *all, t_texture *txtr)
 					&txtr->wid, &txtr->hei)))
 	{
 		error(FAILED_TO_LOAD_TXTR, txtr->path, 0);
-		free_all(all);
+		free_all(all, 1);
 		return (1);
 	}
 	txtr->img->addr = mlx_get_data_addr(txtr->img->img, &txtr->img->bpp,
@@ -63,9 +63,11 @@ void	start_mlx(t_all *all, int save)
 {
 	all->save = save;
 	new_window(all->win, "Je suis une fenetre", save);
-	if (load_txtr(all, all->no_txtr) || load_txtr(all, all->so_txtr)
-			|| load_txtr(all, all->we_txtr) || load_txtr(all, all->ea_txtr)
-			|| load_txtr(all, all->s_txtr))
+	if (load_txtr(all, &all->txtrs[NO_TXTR])
+			|| load_txtr(all, &all->txtrs[SO_TXTR])
+			|| load_txtr(all, &all->txtrs[WE_TXTR])
+			|| load_txtr(all, &all->txtrs[EA_TXTR])
+			|| load_txtr(all, &all->txtrs[S_TXTR]))
 		return ;
 	if (!save)
 	{
@@ -83,15 +85,11 @@ void	start_mlx(t_all *all, int save)
 void	stop_mlx(t_all *all)
 {
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
-	mlx_destroy_image(all->win->mlx, all->so_txtr->img->img);
-	mlx_destroy_image(all->win->mlx, all->no_txtr->img->img);
-	mlx_destroy_image(all->win->mlx, all->we_txtr->img->img);
-	mlx_destroy_image(all->win->mlx, all->ea_txtr->img->img);
-	mlx_destroy_image(all->win->mlx, all->s_txtr->img->img);
+	free_txtrs(all, 1);
 	if (!all->save)
 		mlx_destroy_window(all->win->mlx, all->win->win);
 	//mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
-	free_all(all);
+	free_all(all, 0);
 }

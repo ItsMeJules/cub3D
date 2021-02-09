@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/08 14:49:49 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 13:59:51 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,65 +55,29 @@ int		iter_map(int x, int y, t_map *map, char axis)
 	return (1);
 }
 
-void	set_player_dir(t_all *all, char c)
+void	init_sprite(t_all *all)
 {
-	all->pos.dir_y = 0;
-	all->pos.dir_x = 0;
-	all->pos.plane_x = 0;
-	all->pos.plane_y = 0;
-	if (c == 'N')	
-	{
-		all->pos.dir_y = -1;
-		all->pos.plane_x = 0.66;
-	}
-	else if (c == 'W')
-	{
-		all->pos.dir_x = -1;
-		all->pos.plane_y = 0.66;
-	}
-	else if (c == 'E')
-	{
-		all->pos.dir_x = 1;
-		all->pos.plane_y = -0.66;
-	}
-	else if (c == 'S')
-	{
-		all->pos.dir_y = 1;
-		all->pos.plane_x = -0.66;
-	}
+	(void)all;	
 }
 
-void	set_player_pos(t_all *all, int x, int y, char c)
+void	init_map_elem(t_all *all, char c, int x, int y)
 {
-	set_player_dir(all, c);
-	all->pos.pos_x = (double)x + 0.5;
-	all->pos.pos_y = (double)y + 0.5;	
-	all->pos.move_speed = 0.1;
-	all->pos.rot_speed = 0.05;
-	all->map->line[all->map->wid * y + x] = '0';
-	if (!iter_map(x, y, all->map, 'x') || !iter_map(x, y, all->map, 'y'))
+	if (c == '0' &&
+			(!iter_map(x, y, all->map, 'x') || !iter_map(x, y, all->map, 'y')))
 	{
-		free_all(all);
+		free_all(all, 1);
 		error(MAP_NOT_CLOSED, "", 1);
 	}
-}
-
-int		check_player_pos(t_all *all)
-{
-	if (!all->map->start_dir)
-	{
-		free_all(all);
-		error(PLAYER_START_POS_NOT_FOUND, "", 1);
-		return (0);
-	}
-	return (1);
+	else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		set_player_pos(all, x, y, c);
+	else if (c == '2')
+		init_sprite(all);
 }
 
 void	check_map(t_all *all)
 {
 	int		x;
 	int		y;
-	char	c;
 
 	x = 0;
 	if (!check_player_pos(all))
@@ -122,16 +86,6 @@ void	check_map(t_all *all)
 	{
 		y = 0;
 		while (++y < all->map->len)
-		{
-			if ((c = elem_at(x, y, all->map)) == '0'
-					&& (!iter_map(x, y, all->map, 'x')
-						|| !iter_map(x, y, all->map, 'y')))
-			{
-				free_all(all);
-				error(MAP_NOT_CLOSED, "", 1);
-			}
-			else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-				set_player_pos(all, x, y, c);
-		}
+			init_map_elem(all, elem_at(x, y, all->map), x , y);
 	}
 }

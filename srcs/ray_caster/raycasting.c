@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/08 14:02:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:38:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	init_ray(t_ray *ray, t_pos pos, int x, int wid)
 void	raycast(t_all *all)
 {
 	int	x;
-	
+
 	x = -1;
 	while (++x < all->win->wid)
 	{

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 09:57:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/08 12:16:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 10:55:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		save_bmp(t_all *all, char *name)
 	int	fd;
 
 	if ((fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU)) < 0)
-		return (!error(BITMAP_OPEN_ERROR, "", 0));	
+		return (!error(BITMAP_OPEN_ERROR, "", 0));
 	bmp_header(all, fd);
 	image_infos(all, fd);
 	write_pixs(all->win, fd);

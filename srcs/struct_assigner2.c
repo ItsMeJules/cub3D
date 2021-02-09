@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/04 11:16:50 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:05:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,36 @@ void	set_keys(t_all *all)
 	all->keys.right = 0;
 	all->keys.cam_left = 0;
 	all->keys.cam_right = 0;
+}
+
+t_sprite	*new_sprite(int txtr)
+{
+	t_sprite	*sprite;
+
+	if (!(sprite = malloc(sizeof(t_sprite))))
+	{
+		error(MALLOC_FAILED, "t_sprite in struct_assigner2.c", 1);
+		return (NULL);
+	}
+	sprite->txtr = txtr;
+	sprite->x = 0;
+	sprite->y = 0;
+	sprite->dist = 0;
+	return (sprite);
+}
+
+void	free_txtrs(t_all *all, int mlx)
+{
+	int	i;
+
+	i = -1;
+	while (all->txtrs[++i].path)
+	{
+		if (mlx)
+			mlx_destroy_image(all->win->mlx, all->txtrs[i].img->img);
+		free(all->txtrs[i].img);	
+		if (all->txtrs[i].path)
+			free(all->txtrs[i].path);
+		free(&all->txtrs[i]);
+	}
 }

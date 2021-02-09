@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/06 16:03:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/09 14:15:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int		is_att_set(t_all *all, char *type)
 		return (1);
 	else if (!ft_strcmp(type, "C") && all->map->ce != 0)
 		return (1);
-	else if (!ft_strcmp(type, "NO") && all->no_txtr->path)
+	else if (!ft_strcmp(type, "NO") && all->txtrs[NO_TXTR].path)
 		return (1);
-	else if (!ft_strcmp(type, "SO") && all->so_txtr->path)
+	else if (!ft_strcmp(type, "SO") && all->txtrs[SO_TXTR].path)
 		return (1);
-	else if (!ft_strcmp(type, "WE") && all->we_txtr->path)
+	else if (!ft_strcmp(type, "WE") && all->txtrs[WE_TXTR].path)
 		return (1);
-	else if (!ft_strcmp(type, "EA") && all->ea_txtr->path)
+	else if (!ft_strcmp(type, "EA") && all->txtrs[EA_TXTR].path)
 		return (1);
-	else if (!ft_strcmp(type, "S") && all->s_txtr->path)
+	else if (!ft_strcmp(type, "S") && all->txtrs[S_TXTR].path)
 		return (1);
 	else
 		return (0);

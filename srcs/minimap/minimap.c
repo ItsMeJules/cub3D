@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/08 12:29:06 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 10:57:09 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 ** celle-ci en mimimap.
 */
 //
+
 void	get_color(int *color, char c)
 {
 	*color = MAP_WALKABLE_COLOR;
@@ -45,7 +46,8 @@ void	draw_wall(int x, int y, t_win *win, char c)
 		j = y_px - 1;
 		while (++j < win->len && j < y_px + MAP_ELEM_PX_SIZE)
 		{
-			if (i == x_px + MAP_ELEM_PX_SIZE - 1 || j == y_px + MAP_ELEM_PX_SIZE - 1)
+			if (i == x_px + MAP_ELEM_PX_SIZE - 1
+					|| j == y_px + MAP_ELEM_PX_SIZE - 1)
 				set_pixel(win, i, j, 0x000000);
 			else
 				set_pixel(win, i, j, color);
@@ -78,7 +80,6 @@ void	draw_player(t_pos pos, t_win *win, int dir_len)
 	line.y1 = y_px + MAP_PLAYER_PX_SIZE / 2;
 	line.dx = abs(line.x1 - line.x0);
 	line.dy = abs(line.y1 - line.y0);
-
 	draw_line(line, win, 2, 0xFF0000);
 }
 

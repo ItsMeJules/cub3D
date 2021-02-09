@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/08 16:28:16 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:14:18 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 void	set_textures(t_all *all, char **split)
 {
 	if (!ft_strcmp(split[0], "NO"))
-		all->no_txtr->path = split[1];
+		all->txtrs[NO_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "SO"))
-		all->so_txtr->path = split[1];
+		all->txtrs[SO_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "WE"))
-		all->we_txtr->path = split[1];
+		all->txtrs[WE_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "EA"))
-		all->ea_txtr->path = split[1];
+		all->txtrs[EA_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "S"))
-		all->s_txtr->path = split[1];
+		all->txtrs[S_TXTR].path = split[1];
 }
 
 void	set_attributes(t_all *all, int type, char **split)
