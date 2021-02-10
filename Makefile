@@ -3,7 +3,7 @@ CC				= clang
 RM				= rm -rf
 OS				= $(shell uname)
 
-CFLAGS			= -fsanitize=address -Wall -Werror -Wextra
+CFLAGS			= -Wall -Werror -Wextra
 IFLAGS			= -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes
 LINK_FLAGS		= -L $(MLX_DIR) -lmlx -L $(LIBFT_DIR) -lft -framework OpenGL -framework Appkit
 
@@ -17,6 +17,11 @@ INC				= $(shell find $(INC_DIR) -type f -name "*.h")
 SRC				= $(notdir $(shell find $(SRC_DIR) -type f -name "*.c"))
 OBJ				= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 vpath			%.c $(shell find $(SRC_DIR) -type d)
+
+BONUS_DIR		= bonus 
+INC_BONUS		= $(shell find $(BONUS_DIR)/$(INC_DIR) -type f -name "*.h")
+SRC_BONUS		= $(notdir $(shell find $(BONUS_DIR) -type f -name "*.c"))
+OBJ_BONUS		= $(addprefix $(OBJ_DIR)/, $(SRC_BONUS:.c=.o))
 
 _YELLOW         = \033[38;5;184m
 _GREEN          = \033[38;5;46m
@@ -34,8 +39,8 @@ endif
 all				: init $(NAME)
 				@ echo "$(_SUCCESS) Compilation done"
 
-
-bonus			: all
+bonus			: init $(NAME)
+				@ echo "$(_SUCCESS) Bonuses compilation done"
 
 init			: 
 				@ $(shell mkdir -p $(OBJ_DIR))
@@ -48,7 +53,7 @@ $(NAME)			: $(OBJ)
 				@ echo "$(_INFO) Intializing $(NAME)"
 				@ $(CC) $(CFLAGS) $(IFLAGS) -o $@ $^ $(LINK_FLAGS) 
 
-$(OBJ_DIR)/%.o	: %.c ./includes/cub3d.h
+$(OBJ_DIR)/%.o	: %.c
 				@ echo "\t$(_YELLOW)Compiling $(_RESET) $*.c\r\c"
 				@ $(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 				@ echo "$(_CLEAR)"

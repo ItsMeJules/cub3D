@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 14:52:13 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/09 14:15:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		check_line(t_all *all, char *line)
 			verify_nset_ids(all, split, &err, line);
 		free_after_verifs(split, err);
 	}
-	else if (all->all_set == 8)
+	else if (*line && all->all_set == 8)
 		check_map_line(all->map, line, &err);
 	if (err)
 	{

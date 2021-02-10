@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 15:01:18 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/01 16:45:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	concat_line(t_map *map, char *line)
 			error(LINES_AFTER_MAP, "", 1);
 		}
 	}
-	else if (!line[0])
-		return ;
 	map->len++;
 	if ((line_wid = ft_strlen(line)) > map->wid)
 		map->wid = line_wid;

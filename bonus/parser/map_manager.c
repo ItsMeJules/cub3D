@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_loop.c                                        :+:      :+:    :+:   */
+/*   map_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/02/10 14:00:53 by jpeyron          ###   ########.fr       */
+/*   Created: 2021/01/25 11:24:07 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/02/05 16:47:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-int		game_loop(t_all *all)
+char	elem_at(int x, int y, t_map *map)
 {
-	keys_manager(all);
-	raycast(all);
-	sprite_cast(all);
-	push_image(all->win);
-	return (1);
+	return (map->line[map->wid * y + x]);
 }

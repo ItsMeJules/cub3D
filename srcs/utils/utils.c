@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_loop.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/02/10 14:00:53 by jpeyron          ###   ########.fr       */
+/*   Created: 2021/01/26 17:09:56 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/01/26 17:11:18 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
-
-int		game_loop(t_all *all)
+int		create_trgb(int t, int r, int g, int b)
 {
-	keys_manager(all);
-	raycast(all);
-	sprite_cast(all);
-	push_image(all->win);
-	return (1);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
