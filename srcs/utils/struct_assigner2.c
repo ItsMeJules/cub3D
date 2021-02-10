@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 14:40:38 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/10 18:07:04 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	free_txtrs(t_all *all, int mlx)
 		free(all->txtrs[i].img);
 		if (all->txtrs[i].path)
 			free(all->txtrs[i].path);
-		free(&all->txtrs[i]);
 	}
+	free(all->txtrs);
 }

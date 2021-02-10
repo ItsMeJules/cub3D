@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 14:34:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/10 18:09:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void		free_all(t_all *all, int txtrs)
 	free(all->ray);
 	if (txtrs)
 		free_txtrs(all, 0);
+	ft_lstclear(&all->sprites, &free);
 	free(all->win);
 	free(all);
 }

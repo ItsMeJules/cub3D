@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/09 17:07:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/10 18:06:21 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	new_window(t_win *win, char name[25], int save)
 int		close_w(t_all *all)
 {
 	(void)all;
-	//mlx_loop_end(all->win->mlx);
+	mlx_loop_end(all->win->mlx);
 	return (0);
 }
 
@@ -86,11 +86,11 @@ void	start_mlx(t_all *all, int save)
 
 void	stop_mlx(t_all *all)
 {
-	mlx_destroy_image(all->win->mlx, all->win->img->img);
 	free_txtrs(all, 1);
+	mlx_destroy_image(all->win->mlx, all->win->img->img);
 	if (!all->save)
 		mlx_destroy_window(all->win->mlx, all->win->win);
-	//mlx_destroy_display(all->win->mlx);
+	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
 	free_all(all, 0);
