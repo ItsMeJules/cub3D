@@ -6,12 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/08 11:27:11 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 22:50:07 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
 
 int		key_press(int keycode, t_all *all)
 {
@@ -29,6 +28,18 @@ int		key_press(int keycode, t_all *all)
 		all->keys.cam_left = 1;
 	else if (keycode == ARROW_RIGHT_KEY)
 		all->keys.cam_right = 1;
+	else if (keycode == SPACE_KEY && !all->pos.in_air)
+		all->pos.in_air = 1;
+	else if (keycode == SHIFT_KEY && !all->pos.in_air && !all->keys.sprint)
+	{
+		all->keys.crouch = 1;
+		all->pos.move_speed *= PLAYER_CROUCH_MULT;
+	}
+	else if (keycode == CTRL_KEY && !all->keys.crouch)
+	{
+		all->keys.sprint = 1;
+		all->pos.move_speed *= PLAYER_SPRINT_MULT;
+	}
 	return (1);
 }
 
@@ -46,6 +57,16 @@ int		key_rels(int keycode, t_all *all)
 		all->keys.cam_left = 0;
 	else if (keycode == ARROW_RIGHT_KEY)
 		all->keys.cam_right = 0;
+	else if (keycode == SHIFT_KEY)
+	{
+		all->keys.crouch = 0;
+		all->pos.move_speed = PLAYER_MOV_SPEED;
+	}
+	else if (keycode == CTRL_KEY)
+	{
+		all->keys.sprint = 0;
+		all->pos.move_speed = PLAYER_MOV_SPEED;
+	}
 	return (1);
 }
 
@@ -62,4 +83,7 @@ void	keys_manager(t_all *all)
 	if (all->keys.cam_left || all->keys.cam_right)
 		rotate_camera(all->keys.cam_right, all->pos.dir_x, all->pos.plane_x,
 				all);
-}
+	do_jump(all, all->pos);
+	if (!all->pos.in_air)
+		do_crouch(all, all->pos);
+}	

@@ -6,12 +6,11 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:17:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 14:47:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 19:30:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 #include <math.h>
 
 int		compare_sprites(t_list *elem, t_list *next)
@@ -53,34 +52,6 @@ void	init_dist(t_list *lst, t_pos pos)
 		s->dist = (pos.pos_x - s->x) * (pos.pos_x - s->x)
 			+ (pos.pos_y - s->y) * (pos.pos_y - s->y);
 		lst = lst->next;
-	}
-}
-
-void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
-{
-	int	stripe;
-	int	text_x;
-	int	y;
-	int	d;
-	int	color;
-
-	stripe = s->draw_startx - 1;
-	while (++stripe < s->draw_endx)
-	{
-		text_x = (int)(256 * (stripe - (-s->wid / 2 + s->screen_x))
-					* txtr.wid / s->wid) / 256;
-		if (s->transform_y > 0 && stripe > 0 && stripe < win->wid
-				&& s->transform_y < r->z_buffer[stripe])
-		{
-			y = s->draw_starty - 1;
-			while (++y < s->draw_endy)
-			{
-				d = y * 256 - win->len * 128 + s->hei * 128;
-				if ((color = *(int *)get_pixel(txtr.img, text_x,
-								((d * txtr.hei) / s->hei) / 256)) != 0)
-					set_pixel(win, stripe, y, color);
-			}
-		}
 	}
 }
 

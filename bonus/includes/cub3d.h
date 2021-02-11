@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/11 17:26:28 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 22:35:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 #  define A_KEY 97
 #  define S_KEY 115
 #  define D_KEY 100
+#  define SPACE_KEY 32
+#  define SHIFT_KEY 65505
+#  define CTRL_KEY 65507
 #  define ARROW_LEFT_KEY 65361
 #  define ARROW_RIGHT_KEY 65363
 # else
@@ -87,9 +90,13 @@
 # define MAP_PLAYER_COLOR 0xFF0000
 # define MAP_PLAYER_PX_SIZE 5
 
-# define PLAYER_VIEW_DIST 20 
+# define PLAYER_VIEW_DIST 10 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_ROT_SPEED 0.1
+# define PLAYER_SPRINT_MULT 2;
+# define PLAYER_CROUCH_MULT 0.6;
+# define JUMP_HEIGHT_PX 100
+# define CROUCH_HEIGHT_PX -50
 
 typedef struct	s_img {
 	void	*img;
@@ -126,6 +133,9 @@ typedef struct	s_pos {
 	double	plane_y;
 	double	move_speed;
 	double	rot_speed;
+	int		falling;
+	int		in_air;
+	int		jump_crouch;
 }				t_pos;
 
 typedef struct	s_ray {
@@ -195,6 +205,8 @@ typedef struct	s_keys {
 	int	right;
 	int	cam_left;
 	int	cam_right;
+	int	crouch;
+	int	sprint;
 }				t_keys;
 
 typedef struct	s_all {
@@ -297,10 +309,19 @@ int				game_loop(t_all *all);
 /*
 ** utils_colors.c
 */
+int				depth_shade(int color, double dist);
 int				create_trgb(int t, int r, int g, int b);
 int				get_r(int trgb);
 int				get_g(int trgb);
 int				get_b(int trgb);
+
+/*
+** utils_colors_42docs.c
+*/
+int				go_lsd_haha(int color, double dist);
+int				get_r_42docs(int trgb);
+int				get_g_42docs(int trgb);
+int				get_b_42docs(int trgb);
 
 /*
 ** raycasting.c
@@ -320,6 +341,7 @@ void			dda(t_ray *ray, t_map *map);
 /*
 ** texture.c
 */
+void			draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr);
 void			draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 
 /*
@@ -341,6 +363,12 @@ void			strafe_left(t_all *all);
 void			strafe_right(t_all *all);
 void			rotate_camera(int right, double old_dir, double old_plane_x,
 				t_all *all);
+
+/*
+** moving_z.c
+*/
+void	do_jump(t_all *all, t_pos pos);
+void	do_crouch(t_all *all, t_pos pos);
 
 /*
 ** bitmap.c

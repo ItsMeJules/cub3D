@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/06 22:32:01 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/11 19:51:24 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int		check_valid(char *str, int type)
 		return (OPEN_FILE_FAILED);
 	}
 	else if (fd && read(fd, NULL, 0) == -1)
+	{
+		close(fd);
 		return (OPEN_FILE_FAILED);
+	}
 	return (0);
 }
 

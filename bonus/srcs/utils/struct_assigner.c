@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 19:53:32 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/11 19:08:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,9 @@ t_texture	*new_txtrs(int amount, int i)
 		txtr[i].path = NULL;
 		if (!(txtr[i].img = malloc(sizeof(t_img))))
 		{
-			free(&txtr[i]);
 			while (i-- >= 0)
-			{
 				free(txtr[i].img);
-				free(&txtr[i]);
-			}
+			free(txtr);
 			error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
 			return (NULL);
 		}
@@ -90,6 +87,7 @@ t_all		*new_all(void)
 	all->all_set = 0;
 	all->win = new_win();
 	all->map = new_map();
+	all->ray->z_buffer = NULL;
 	all->txtrs = new_txtrs(5, -1);
 	all->sprites = NULL;
 	set_keys(all);
@@ -98,7 +96,6 @@ t_all		*new_all(void)
 
 void		free_all(t_all *all, int txtrs)
 {
-	free(all->win);
 	free(all->map->line);
 	free(all->map);
 	if (all->ray->z_buffer)
@@ -106,5 +103,7 @@ void		free_all(t_all *all, int txtrs)
 	free(all->ray);
 	if (txtrs)
 		free_txtrs(all, 0);
+	ft_lstclear(&all->sprites, &free);
+	free(all->win);
 	free(all);
 }

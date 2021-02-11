@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 15:47:51 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 22:38:11 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void		set_keys(t_all *all)
 	all->keys.right = 0;
 	all->keys.cam_left = 0;
 	all->keys.cam_right = 0;
+	all->keys.crouch = 0;
+	all->keys.sprint = 0;
 }
 
 t_sprite	*new_sprite(int txtr, double x, double y)
@@ -50,6 +52,8 @@ void		free_txtrs(t_all *all, int mlx)
 		free(all->txtrs[i].img);
 		if (all->txtrs[i].path)
 			free(all->txtrs[i].path);
-		free(&all->txtrs[i]);
 	}
+	if (!mlx)
+		free(all->txtrs[i].img);
+	free(all->txtrs);
 }
