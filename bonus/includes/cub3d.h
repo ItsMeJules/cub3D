@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/11 15:51:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 17:26:28 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@
 # define MAP_PLAYER_COLOR 0xFF0000
 # define MAP_PLAYER_PX_SIZE 5
 
+# define PLAYER_VIEW_DIST 20 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_ROT_SPEED 0.1
 
@@ -294,9 +295,12 @@ int				key_rels(int keycode, t_all *all);
 int				game_loop(t_all *all);
 
 /*
-** utils.c
+** utils_colors.c
 */
 int				create_trgb(int t, int r, int g, int b);
+int				get_r(int trgb);
+int				get_g(int trgb);
+int				get_b(int trgb);
 
 /*
 ** raycasting.c

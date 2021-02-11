@@ -32,7 +32,6 @@ ifeq ($(OS), Linux)
 endif
 
 all				: init $(NAME)
-				@ echo "$(_SUCCESS) Compilation done"
 
 init			:
 				@ $(shell mkdir -p $(OBJ_DIR))
