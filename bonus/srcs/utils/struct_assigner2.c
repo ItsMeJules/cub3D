@@ -6,13 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 15:05:42 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 15:47:51 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_keys(t_all *all)
+void		set_keys(t_all *all)
 {
 	all->keys.fwrd = 0;
 	all->keys.bwrd = 0;
@@ -38,7 +38,7 @@ t_sprite	*new_sprite(int txtr, double x, double y)
 	return (sprite);
 }
 
-void	free_txtrs(t_all *all, int mlx)
+void		free_txtrs(t_all *all, int mlx)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ void	free_txtrs(t_all *all, int mlx)
 	{
 		if (mlx)
 			mlx_destroy_image(all->win->mlx, all->txtrs[i].img->img);
-		free(all->txtrs[i].img);	
+		free(all->txtrs[i].img);
 		if (all->txtrs[i].path)
 			free(all->txtrs[i].path);
 		free(&all->txtrs[i]);

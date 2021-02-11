@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 12:36:01 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 14:43:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void	check_map(t_all *all)
 	{
 		y = 0;
 		while (++y < all->map->len)
-			init_map_elem(all, elem_at(x, y, all->map), x , y);
+			init_map_elem(all, elem_at(x, y, all->map), x, y);
 	}
 }

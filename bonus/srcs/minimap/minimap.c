@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 10:24:08 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 15:54:12 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** Notes pour plus tard: si la map est trop grande afficher qu'une partie de
 ** celle-ci en mimimap.
 */
-//
 
 void	get_color(int *color, char c)
 {
@@ -46,7 +45,8 @@ void	draw_wall(int x, int y, t_win *win, char c)
 		j = y_px - 1;
 		while (++j < win->len && j < y_px + MAP_ELEM_PX_SIZE)
 		{
-			if (i == x_px + MAP_ELEM_PX_SIZE - 1 || j == y_px + MAP_ELEM_PX_SIZE - 1)
+			if (i == x_px + MAP_ELEM_PX_SIZE - 1
+					|| j == y_px + MAP_ELEM_PX_SIZE - 1)
 				set_pixel(win, i, j, 0x000000);
 			else
 				set_pixel(win, i, j, color);
