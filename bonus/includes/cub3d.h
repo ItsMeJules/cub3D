@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/10 15:05:46 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 17:26:28 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # include "mlx.h"
 # include "libft.h"
 
-/* EVENTS */
+/*
+** EVENTS
+*/
 # define KEY_PRESS_EVENT 2
 # define KEY_RELEASE_EVENT 3
 # define DESTROY_WIN_EVENT 33
 
-/* MASKS */
-# define KEY_PRESS_MASK 1L << 0
-# define KEY_RELEASE_MASK 1L << 1
-# define DESTROY_WIN_MASK 1L << 2
-
+/*
+** TEXTURES INDEX
+*/
 # define NO_TXTR 0
 # define SO_TXTR 1
 # define WE_TXTR 2
@@ -36,25 +36,27 @@
 /*
 ** KEYS
 */
-# ifdef LINUX 
-#  define ESC_KEY 65307 
-#  define W_KEY 119 
-#  define A_KEY 97 
+# ifdef LINUX
+#  define ESC_KEY 65307
+#  define W_KEY 119
+#  define A_KEY 97
 #  define S_KEY 115
 #  define D_KEY 100
 #  define ARROW_LEFT_KEY 65361
 #  define ARROW_RIGHT_KEY 65363
 # else
-#  define ESC_KEY 53 
+#  define ESC_KEY 53
 #  define W_KEY 13
-#  define A_KEY 0 
+#  define A_KEY 0
 #  define S_KEY 1
 #  define D_KEY 2
 #  define ARROW_LEFT_KEY 123
 #  define ARROW_RIGHT_KEY 124
 # endif
 
-/* ERRORS */
+/*
+** ERRORS
+*/
 # define MALLOC_FAILED 0
 # define MIN_FILE_ERROR 1
 # define OPEN_FILE_FAILED 1
@@ -78,15 +80,23 @@
 # define UNKNOWN_ARGUMENT 18
 # define BITMAP_OPEN_ERROR 19
 
+# define MAP_ELEM_PX_SIZE 10
+# define MAP_WALL_COLOR 0x0068C8
+# define MAP_WALKABLE_COLOR 0xFFFFFF
+# define MAP_VOID_COLOR 0xC0C0C0
+# define MAP_PLAYER_COLOR 0xFF0000
+# define MAP_PLAYER_PX_SIZE 5
+
+# define PLAYER_VIEW_DIST 20 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_ROT_SPEED 0.1
 
 typedef struct	s_img {
-		void	*img;
-		char	*addr;
-		int		bpp;
-		int		line_l;
-		int		endian;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_l;
+	int		endian;
 }				t_img;
 
 typedef struct	s_win {
@@ -140,25 +150,25 @@ typedef struct	s_ray {
 	int		text_x;
 	int		text_y;
 	double	*z_buffer;
-}			t_ray;
+}				t_ray;
 
 typedef struct	s_sprite {
-	int			txtr;
-	double		x;
-	double		y;
-	double		sx;
-	double		sy;
-	double		dist;
-	double		invdet;
-	double		transform_x;
-	double		transform_y;
-	int			screen_x;
-	int			hei;
-	int			wid;
-	int			draw_startx;
-	int			draw_endx;
-	int			draw_starty;
-	int			draw_endy;
+	int		txtr;
+	double	x;
+	double	y;
+	double	sx;
+	double	sy;
+	double	dist;
+	double	invdet;
+	double	transform_x;
+	double	transform_y;
+	int		screen_x;
+	int		hei;
+	int		wid;
+	int		draw_startx;
+	int		draw_endx;
+	int		draw_starty;
+	int		draw_endy;
 }				t_sprite;
 
 typedef struct	s_texture {
@@ -169,13 +179,13 @@ typedef struct	s_texture {
 }				t_texture;
 
 typedef struct	s_map {
-	char			*line;
-	char			start_dir;
-	int				len;
-	int				wid;
-	int				ce;
-	int				gr;
-	t_pos			p_pos;
+	char	*line;
+	char	start_dir;
+	int		len;
+	int		wid;
+	int		ce;
+	int		gr;
+	t_pos	p_pos;
 }				t_map;
 
 typedef struct	s_keys {
@@ -199,100 +209,153 @@ typedef struct	s_all {
 	t_list		*sprites;
 }				t_all;
 
-/* images.c */
-void		push_image(t_win *win);
-void		set_pixel(t_win *win, int x, int y, int color);
-char		*get_pixel(t_img *img, int x, int y);
+/*
+** images.c
+*/
+void			push_image(t_win *win);
+void			set_pixel(t_win *win, int x, int y, int color);
+char			*get_pixel(t_img *img, int x, int y);
 
-/* struct_assigner.c */
-t_all		*new_all();
-void		free_all(t_all *all, int txtrs);
+/*
+** struct_assigner.c
+*/
+t_all			*new_all();
+void			free_all(t_all *all, int txtrs);
 
-/* struct_assignear2.c */
-void		set_keys(t_all *all);
-t_sprite	*new_sprite(int txtr, double x, double y);
-void		free_txtrs(t_all *all, int mlx);
+/*
+** struct_assignear2.c
+*/
+void			set_keys(t_all *all);
+t_sprite		*new_sprite(int txtr, double x, double y);
+void			free_txtrs(t_all *all, int mlx);
 
-/* errors_manager.c */
-int			error(int type, char *print, int ex);
+/*
+** errors_manager.c
+*/
+int				error(int type, char *print, int ex);
 
-/* mlx_manager.c */
-int			close_w(t_all *all);
-void		start_mlx(t_all *all, int save);
-void		stop_mlx(t_all *all);
+/*
+** mlx_manager.c
+*/
+int				close_w(t_all *all);
+void			start_mlx(t_all *all, int save);
+void			stop_mlx(t_all *all);
 
-/* window_manager.c */
-void		handle_destroy_win(t_win *win);
+/*
+** window_manager.c
+*/
+void			handle_destroy_win(t_win *win);
 
-/* map_manager.c */
-char		elem_at(int x, int y, t_map *map);
+/*
+** map_manager.c
+*/
+char			elem_at(int x, int y, t_map *map);
 
-/* file_attributes_reader.c */
-void		verify_nset_ids(t_all *all, char **split, int *err, char *line);
+/*
+** file_attributes_reader.c
+*/
+void			verify_nset_ids(t_all *all, char **split, int *err, char *line);
 
-/* file_attributes_reader.c */
-int			check_valid(char *str, int type);
-int			arg_len(char **split, int *err, char *line, int type);
-int			val_verifs(char **split, int *err, char *line, int type);
-char		**count_comas(char *line, int *err);
+/*
+** file_attributes_reader.c
+*/
+int				check_valid(char *str, int type);
+int				arg_len(char **split, int *err, char *line, int type);
+int				val_verifs(char **split, int *err, char *line, int type);
+char			**count_comas(char *line, int *err);
 
-/* file_reader.c */
-int			read_file(t_all *all, char *file);
+/*
+** file_reader.c
+*/
+int				read_file(t_all *all, char *file);
 
-/* map_parser.c */
-int			valid_map_char(char c);
-void		check_map_line(t_map *map, char *line, int *err);
-void		make_map(t_all *all);
+/*
+** map_parser.c
+*/
+int				valid_map_char(char c);
+void			check_map_line(t_map *map, char *line, int *err);
+void			make_map(t_all *all);
 
-/* map_checker.c */
-void		check_map(t_all *all);
-int			iter_map(int x, int y, t_map *map, char axis);
+/*
+** map_checker.c
+*/
+void			check_map(t_all *all);
+int				iter_map(int x, int y, t_map *map, char axis);
 
-/* keys_hook.c */
-void		keys_manager(t_all *all);
-int			key_press(int keycode, t_all *all);
-int			key_rels(int keycode, t_all *all);
+/*
+** keys_hook.c
+*/
+void			keys_manager(t_all *all);
+int				key_press(int keycode, t_all *all);
+int				key_rels(int keycode, t_all *all);
 
-/* game_loop.c */
-int			game_loop(t_all *all);
+/*
+** game_loop.c
+*/
+int				game_loop(t_all *all);
 
-/* utils.c */
-int			create_trgb(int t, int r, int g, int b);
+/*
+** utils_colors.c
+*/
+int				create_trgb(int t, int r, int g, int b);
+int				get_r(int trgb);
+int				get_g(int trgb);
+int				get_b(int trgb);
 
-/* raycasting.c */
-void		raycast(t_all *all);
+/*
+** raycasting.c
+*/
+void			raycast(t_all *all);
 
-/* draw.c */
-void		draw_col(t_all *all, int x);
+/*
+** draw.c
+*/
+void			draw_col(t_all *all, int x);
 
-/* dda.c */
-void		dda(t_ray *ray, t_map *map);
+/*
+** dda.c
+*/
+void			dda(t_ray *ray, t_map *map);
 
-/* texture.c */
-void		draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
+/*
+** texture.c
+*/
+void			draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 
-/* minimap.c */
-void		draw_map(t_all *all);
+/*
+** minimap.c
+*/
+void			draw_map(t_all *all);
 
-/* shaped_drawing.c */
-void		draw_line(t_line line, t_win *win, int thickness, int color);
+/*
+** shaped_drawing.c
+*/
+void			draw_line(t_line line, t_win *win, int thickness, int color);
 
-/* moving.c */
-void		move_forward(t_all *all);
-void		move_backward(t_all *all);
-void		strafe_left(t_all *all);
-void		strafe_right(t_all *all);
-void		rotate_camera(int right, double old_dir, double old_plane_x,
-			t_all *all);
+/*
+** moving.c
+*/
+void			move_forward(t_all *all);
+void			move_backward(t_all *all);
+void			strafe_left(t_all *all);
+void			strafe_right(t_all *all);
+void			rotate_camera(int right, double old_dir, double old_plane_x,
+				t_all *all);
 
-/* bitmap.c */
-int			save_bmp(t_all *all, char *name);
+/*
+** bitmap.c
+*/
+int				save_bmp(t_all *all, char *name);
 
-/* player_parser.c */
-void		set_player_pos(t_all *all, int x, int y, char c);
-int			check_player_pos(t_all *all);
+/*
+** player_parser.c
+*/
+void			set_player_pos(t_all *all, int x, int y, char c);
+int				check_player_pos(t_all *all);
 
-/* sprite_casting.c */
-void		sprite_cast(t_all *all);
+/*
+** sprite_casting.c
+*/
+void			sprite_cast(t_all *all);
 
 #endif

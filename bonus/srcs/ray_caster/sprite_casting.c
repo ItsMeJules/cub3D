@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:17:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 12:35:58 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 14:47:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		compare_sprites(t_list *elem, t_list *next)
 	return (((t_sprite *)next)->dist - ((t_sprite *)elem)->dist);
 }
 
-void	calc_sprite(t_sprite *s, t_pos pos, t_win *win)	
+void	calc_sprite(t_sprite *s, t_pos pos, t_win *win)
 {
 	s->sx = s->x - pos.pos_x;
 	s->sy = s->y - pos.pos_y;
@@ -60,7 +60,6 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 {
 	int	stripe;
 	int	text_x;
-	int	text_y;
 	int	y;
 	int	d;
 	int	color;
@@ -77,11 +76,10 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 			while (++y < s->draw_endy)
 			{
 				d = y * 256 - win->len * 128 + s->hei * 128;
-				text_y = ((d * txtr.hei) / s->hei) / 256;
-				color = *(int *)get_pixel(txtr.img, text_x, text_y);
-				if (color != 0)
+				if ((color = *(int *)get_pixel(txtr.img, text_x,
+								((d * txtr.hei) / s->hei) / 256)) != 0)
 					set_pixel(win, stripe, y, color);
-			}	
+			}
 		}
 	}
 }

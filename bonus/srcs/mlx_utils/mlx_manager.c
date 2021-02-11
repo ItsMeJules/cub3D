@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/09 17:07:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 15:49:29 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,9 @@ void	start_mlx(t_all *all, int save)
 		return ;
 	if (!save)
 	{
-		mlx_hook(all->win->win, DESTROY_WIN_EVENT, DESTROY_WIN_MASK,
-				close_w, all);
-		mlx_hook(all->win->win, KEY_PRESS_EVENT, KEY_PRESS_MASK,
-				key_press, all);
-		mlx_hook(all->win->win, KEY_RELEASE_EVENT, KEY_RELEASE_MASK,
-				key_rels, all);
+		mlx_hook(all->win->win, DESTROY_WIN_EVENT, 1l << 2, close_w, all);
+		mlx_hook(all->win->win, KEY_PRESS_EVENT, 1l << 0, key_press, all);
+		mlx_hook(all->win->win, KEY_RELEASE_EVENT, 1L << 1, key_rels, all);
 	}
 	mlx_loop_hook(all->win->mlx, game_loop, all);
 	mlx_loop(all->win->mlx);

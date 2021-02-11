@@ -6,11 +6,11 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:56:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/11 14:44:08 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h> 
+#include <math.h>
 #include "cub3d.h"
 #include "libft.h"
 
@@ -18,7 +18,7 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 {
 	t_texture	txtr;
 
-	if (ray->side == 0)	
+	if (ray->side == 0)
 		txtr = all->txtrs[EA_TXTR];
 	else if (ray->side == 1)
 		txtr = all->txtrs[WE_TXTR];
