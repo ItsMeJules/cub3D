@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:17:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 19:30:48 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/12 23:46:26 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ int		compare_sprites(t_list *elem, t_list *next)
 	return (((t_sprite *)next)->dist - ((t_sprite *)elem)->dist);
 }
 
+void	get_draw_posy(t_sprite *s, t_win *win, t_pos pos)
+{
+	s->jc_offset = pos.jump_crouch / s->transform_y;
+	s->draw_starty = -s->hei / 2 + win->len / 2 + s->jc_offset;
+	s->draw_endy = s->hei / 2 + win->len / 2 + s->jc_offset;
+	if (s->draw_starty < 0)
+		s->draw_starty = 0;
+	if (s->draw_endy >= win->len)
+		s->draw_endy = win->len - 1;
+}
+
 void	calc_sprite(t_sprite *s, t_pos pos, t_win *win)
 {
 	s->sx = s->x - pos.pos_x;
@@ -27,12 +38,7 @@ void	calc_sprite(t_sprite *s, t_pos pos, t_win *win)
 	s->transform_y = s->invdet * (-pos.plane_y * s->sx + pos.plane_x * s->sy);
 	s->screen_x = (int)(win->wid / 2 * (1 + s->transform_x / s->transform_y));
 	s->hei = abs((int)(win->len / s->transform_y));
-	s->draw_starty = -s->hei / 2 + win->len / 2;
-	if (s->draw_starty < 0)
-		s->draw_starty = 0;
-	s->draw_endy = s->hei / 2 + win->len / 2;
-	if (s->draw_endy >= win->len)
-		s->draw_endy = win->len - 1;
+	get_draw_posy(s, win, pos);
 	s->wid = abs((int)(win->len / s->transform_y));
 	s->draw_startx = -s->wid / 2 + s->screen_x;
 	if (s->draw_startx < 0)

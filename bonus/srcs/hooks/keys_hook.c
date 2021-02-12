@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/12 17:12:08 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/12 20:58:24 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	keys_manager(t_all *all)
 		rotate_camera(all->keys.cam_right, all->pos.dir_x, all->pos.plane_x,
 				all);
 	if (all->pos.in_air)
-		do_jump(all, all->pos);
+		do_jump(all);
 	if (!all->pos.in_air)
 		do_crouch(all, all->pos);
 }	

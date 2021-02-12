@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/12 15:21:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/12 23:48:45 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 			y = s->draw_starty - 1;
 			while (++y < s->draw_endy)
 			{
-				d = y * 256 - win->len * 128 + s->hei * 128;
+				d = (y - s->jc_offset) * 256 - win->len * 128 + s->hei * 128;
 				if ((color = *(int *)get_pixel(txtr.img, text_x,
 								((d * txtr.hei) / s->hei) / 256)) != 0)
 					set_pixel(win, stripe, y, depth_shade(color, s->transform_y));

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/12 15:01:17 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/12 23:44:49 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,9 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 
 void	get_draws_pos(t_all *all, t_ray *ray, t_pos pos)
 {
-	ray->draw_start = -ray->line_h / 2 + all->win->len / 2;
-	ray->draw_end = ray->line_h / 2 + all->win->len / 2;
 	ray->jc_offset = pos.jump_crouch / ray->perp_wall_dist; 
-	if (pos.jump_crouch < 0)
-	{
-		ray->draw_start -= abs(ray->jc_offset);
-		ray->draw_end -= abs(ray->jc_offset);
-	}
-	else if (pos.jump_crouch > 0)
-	{
-		ray->draw_start += ray->jc_offset;
-		ray->draw_end += ray->jc_offset;
-	}
+	ray->draw_start = -ray->line_h / 2 + all->win->len / 2 + ray->jc_offset;
+	ray->draw_end = ray->line_h / 2 + all->win->len / 2 + ray->jc_offset;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	if (ray->draw_end >= all->win->len)
