@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/11 22:35:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/12 16:36:14 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@
 #  define A_KEY 0
 #  define S_KEY 1
 #  define D_KEY 2
+#  define SPACE_KEY 49 
+#  define SHIFT_KEY 257 
+#  define CTRL_KEY 256 
 #  define ARROW_LEFT_KEY 123
 #  define ARROW_RIGHT_KEY 124
 # endif
@@ -133,6 +136,7 @@ typedef struct	s_pos {
 	double	plane_y;
 	double	move_speed;
 	double	rot_speed;
+	double	jump_ratio;
 	int		falling;
 	int		in_air;
 	int		jump_crouch;
@@ -156,6 +160,7 @@ typedef struct	s_ray {
 	int		line_h;
 	int		draw_start;
 	int		draw_end;
+	int		jc_offset;
 	double	wall_x;
 	int		text_x;
 	int		text_y;

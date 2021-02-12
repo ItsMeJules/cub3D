@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 22:49:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/12 15:21:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	draw_ce_gr(t_all *all, t_ray *ray, int x)
 	int y;
 
 	y = -1;
-	ray->draw_start += all->pos.jump_crouch;
 	while (++y < ray->draw_start)
 		set_pixel(all->win, x, y, all->map->ce);
 	y = ray->draw_end;
@@ -60,15 +59,12 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x)
 	double	text_pos;
 	double	step;
 
-	y = ray->draw_start - 1 + all->pos.jump_crouch;
-	if (y < 0) //a voir comment gerer
-		y = 0;
+	y = ray->draw_start - 1;
 	step = 1.0 * txtr->hei / ray->line_h;
-	text_pos = (ray->draw_start - all->win->len / 2 + ray->line_h / 2) * step;
-	ray->draw_end += all->pos.jump_crouch;
+	text_pos = (ray->draw_start - ray->jc_offset - all->win->len / 2 + ray->line_h / 2) * step;
 	while (++y < ray->draw_end)
 	{
-		ray->text_y = (int)text_pos & (txtr->hei - 1);
+		ray->text_y = (int)(text_pos) & (txtr->hei - 1);
 		text_pos += step;
 		set_pixel(all->win, x, y, depth_shade(*(int*)get_pixel(txtr->img,
 					ray->text_x, ray->text_y), ray->perp_wall_dist));
