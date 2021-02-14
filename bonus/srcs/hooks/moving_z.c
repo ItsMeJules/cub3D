@@ -6,12 +6,33 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 21:42:14 by jules             #+#    #+#             */
-/*   Updated: 2021/02/14 15:16:48 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/14 20:58:53 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
+
+int		handle_deceler(int *key, t_all *all)
+{
+	if (*key != -1)
+		return (0);
+	if (all->pos.decelerate == 1 && all->pos.move_speed <= 0.001)
+	{
+		*key = 0;
+		all->pos.move_speed = PLAYER_MOV_SPEED;
+		all->pos.decelerate = 0;
+		return (1);
+	}
+	else if (all->pos.decelerate == 2 && all->pos.rot_speed <= 0.001)
+	{
+		*key = 0;
+		all->pos.rot_speed = PLAYER_ROT_SPEED;
+		all->pos.decelerate = 0;
+		return (1);
+	}
+	return (0);
+}
 
 void	do_jump(t_all *all)
 {

@@ -6,17 +6,15 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/14 18:02:49 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/14 20:50:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
-#include <stdio.h>
 
 int		key_press(int keycode, t_all *all)
 {
-	printf("pressed\n");
 	if (keycode == ESC_KEY)
 		return (close_w(all));
 	else if (keycode == W_KEY)
@@ -46,6 +44,21 @@ int		key_press(int keycode, t_all *all)
 	return (1);
 }
 
+void	init_decelerate(int	keycode, t_all *all)
+{
+	if (all->keys.fwrd <= 0 && all->keys.bwrd <= 0
+			&& all->keys.left <= 0 && all->keys.right <= 0
+			&& (keycode == W_KEY || keycode == S_KEY
+				|| keycode == A_KEY || keycode == D_KEY
+				|| keycode == ARROW_LEFT_KEY || keycode == ARROW_RIGHT_KEY))
+	{
+		if (keycode == ARROW_LEFT_KEY || keycode == ARROW_RIGHT_KEY)
+			all->pos.decelerate = 2;
+		else
+			all->pos.decelerate = 1;
+	}
+}
+
 int		key_rels(int keycode, t_all *all)
 {
 	if (keycode == W_KEY)
@@ -70,22 +83,16 @@ int		key_rels(int keycode, t_all *all)
 		all->keys.sprint = 0;
 		all->pos.move_speed = PLAYER_MOV_SPEED;
 	}
-	if (all->keys.fwrd <= 0 && all->keys.bwrd <= 0
-			&& all->keys.left <= 0 && all->keys.right <= 0
-			&& (keycode == W_KEY || keycode == S_KEY || keycode == A_KEY
-				|| keycode == D_KEY))
-	{
-		printf("in %d\n", all->keys.fwrd);
-		all->pos.decelerate = 1;
-	}
+	init_decelerate(keycode, all);
 	return (1);
 }
 
 void	keys_manager(t_all *all)
 {
-	printf("lol %d\n", all->pos.decelerate);
 	if (all->pos.decelerate == 1)
-		all->pos.move_speed *= 0.78;
+		all->pos.move_speed *= PLAYER_MOV_DECELERATE;
+	else if (all->pos.decelerate == 2)
+		all->pos.rot_speed *= PLAYER_ROT_DECELERATE;
 	if (all->keys.fwrd)
 		move_forward(all);
 	if (all->keys.bwrd)

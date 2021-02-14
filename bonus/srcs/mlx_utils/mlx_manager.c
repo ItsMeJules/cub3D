@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/11 15:49:29 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/14 21:14:37 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	new_window(t_win *win, char name[25], int save)
 {
-	//int	resx;
-	//int	resy;
+	int	resx;
+	int	resy;
 
 	if (!(win->img = malloc(sizeof(t_img))))
 	{
@@ -26,11 +26,11 @@ void	new_window(t_win *win, char name[25], int save)
 	win->mlx = mlx_init();
 	if (!save)
 	{
-		/*mlx_get_screen_size(win->mlx, &resx, &resy);
+		mlx_get_screen_size(win->mlx, &resx, &resy);
 		if (win->wid > resx)
 			win->wid = resx;
 		if (win->len > resy)
-			win->len = resy;*/
+			win->len = resy;
 		win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	}
 	win->img->img = mlx_new_image(win->mlx, win->wid, win->len);
@@ -41,7 +41,7 @@ void	new_window(t_win *win, char name[25], int save)
 int		close_w(t_all *all)
 {
 	(void)all;
-	//mlx_loop_end(all->win->mlx);
+	mlx_loop_end(all->win->mlx);
 	return (0);
 }
 
@@ -73,6 +73,7 @@ void	start_mlx(t_all *all, int save)
 		return ;
 	if (!save)
 	{
+		mlx_do_key_autorepeatoff(all->win->mlx);
 		mlx_hook(all->win->win, DESTROY_WIN_EVENT, 1l << 2, close_w, all);
 		mlx_hook(all->win->win, KEY_PRESS_EVENT, 1l << 0, key_press, all);
 		mlx_hook(all->win->win, KEY_RELEASE_EVENT, 1L << 1, key_rels, all);
@@ -84,10 +85,11 @@ void	start_mlx(t_all *all, int save)
 void	stop_mlx(t_all *all)
 {
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
+	mlx_do_key_autorepeaton(all->win->mlx);
 	free_txtrs(all, 1);
 	if (!all->save)
 		mlx_destroy_window(all->win->mlx, all->win->win);
-	//mlx_destroy_display(all->win->mlx);
+	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
 	free_all(all, 0);

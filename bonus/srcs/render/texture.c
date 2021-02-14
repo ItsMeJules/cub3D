@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/12 23:48:45 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/14 21:18:49 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x)
 	y = ray->draw_start - 1;
 	step = 1.0 * txtr->hei / ray->line_h;
 	text_pos = (ray->draw_start - ray->jc_offset - all->win->len / 2 + ray->line_h / 2) * step;
+	//printf("%d %d, %d %d\n", ray->draw_end, ray->line_h, x, ray->draw_start);
 	while (++y < ray->draw_end)
 	{
 		ray->text_y = (int)(text_pos) & (txtr->hei - 1);

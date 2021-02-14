@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/14 15:05:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/14 20:54:07 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@
 
 # define PLAYER_VIEW_DIST 10 
 # define PLAYER_MOV_SPEED 0.1
+# define PLAYER_MOV_DECELERATE 0.78
+# define PLAYER_ROT_DECELERATE 0.78
 # define PLAYER_ROT_SPEED 0.1
 # define PLAYER_SPRINT_MULT 2;
 # define PLAYER_CROUCH_MULT 0.6;
@@ -374,7 +376,7 @@ void			rotate_camera(int right, double old_dir, double old_plane_x,
 */
 void	do_jump(t_all *all);
 void	do_crouch(t_all *all, t_pos pos);
-void	decelerate(t_all *all);
+int		handle_deceler(int *key, t_all *all);
 
 /*
 ** bitmap.c
