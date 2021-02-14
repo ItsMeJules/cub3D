@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/13 00:17:27 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/14 15:05:36 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct	s_pos {
 	double	rot_speed;
 	int		in_air;
 	int		jump_crouch;
+	int		decelerate;
 }				t_pos;
 
 typedef struct	s_ray {
@@ -373,6 +374,7 @@ void			rotate_camera(int right, double old_dir, double old_plane_x,
 */
 void	do_jump(t_all *all);
 void	do_crouch(t_all *all, t_pos pos);
+void	decelerate(t_all *all);
 
 /*
 ** bitmap.c
