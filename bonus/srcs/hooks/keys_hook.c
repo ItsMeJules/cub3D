@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/14 15:18:28 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/14 18:02:49 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 int		key_press(int keycode, t_all *all)
 {
+	printf("pressed\n");
 	if (keycode == ESC_KEY)
 		return (close_w(all));
 	else if (keycode == W_KEY)
