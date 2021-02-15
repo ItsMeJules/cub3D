@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/14 20:54:07 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/15 17:21:08 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 # define PLAYER_ROT_SPEED 0.1
 # define PLAYER_SPRINT_MULT 2;
 # define PLAYER_CROUCH_MULT 0.6;
-# define JUMP_HEIGHT_PX 100
+# define JUMP_HEIGHT_PX 600
 # define CROUCH_HEIGHT_PX -300
 
 typedef struct	s_img {
@@ -377,6 +377,7 @@ void			rotate_camera(int right, double old_dir, double old_plane_x,
 void	do_jump(t_all *all);
 void	do_crouch(t_all *all, t_pos pos);
 int		handle_deceler(int *key, t_all *all);
+int		camera_deceler(int *key, t_all *all);
 
 /*
 ** bitmap.c

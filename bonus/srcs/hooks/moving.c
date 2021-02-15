@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:55:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/14 20:58:10 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/15 17:20:42 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	rotate_camera(int right, double old_dir, double old_plane_x, t_all *all)
 	pos = all->pos;
 	if (!right)
 	{
-		if (handle_deceler(&all->keys.cam_left, all))
+		if (camera_deceler(&all->keys.cam_left, all))
 			return ;
 		all->pos.dir_x = pos.dir_x * cos(-pos.rot_speed) - pos.dir_y *
 			sin(-pos.rot_speed);
@@ -94,7 +94,7 @@ void	rotate_camera(int right, double old_dir, double old_plane_x, t_all *all)
 	}
 	else
 	{
-		if (handle_deceler(&all->keys.cam_right, all))
+		if (camera_deceler(&all->keys.cam_right, all))
 			return ;
 		all->pos.dir_x = pos.dir_x * cos(pos.rot_speed) - pos.dir_y *
 			sin(pos.rot_speed);
