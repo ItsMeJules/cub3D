@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/11 19:51:24 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:30:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,11 @@ int		arg_len(char **split, int *err, char *line, int type)
 	}
 	else if (type == 2)
 	{
-		if (!split[1] || !split[2] || !split[3])
-			return (*err = error(TOO_FEW_ARGS, line, 0));
-		else if (split[4])
-			return (*err = error(TOO_MANY_ARGS, line, 0));
-	}
-	else if (type == 3)
-	{
 		if (!split[1])
 			return (*err = error(TOO_FEW_ARGS, line, 0));
 		else if (split[2])
 			return (*err = error(TOO_MANY_ARGS, line, 0));
 	}
-	return (0);
-}
-
-int		rgb_val_valid(char *val)
-{
-	int	a;
-
-	a = ft_atoi(val);
-	if (a >= 0 && a < 256)
-		return (1);
 	return (0);
 }
 
@@ -91,38 +74,9 @@ int		val_verifs(char **split, int *err, char *line, int type)
 	}
 	else if (type == 2)
 	{
-		if (check_valid(split[1], 1) || check_valid(split[2], 1)
-				|| check_valid(split[3], 1) || !rgb_val_valid(split[1])
-				|| !rgb_val_valid(split[2]) || !rgb_val_valid(split[3]))
-			return (*err = error(SMTH_INVALID, line, 0));
-	}
-	else if (type == 3)
-	{
 		if (check_valid(split[1], 2))
 			return (*err = error(errno == 21 ? CANT_OPEN_DIR : OPEN_FILE_FAILED
 						, split[1], 0));
 	}
 	return (0);
-}
-
-char	**count_comas(char *line, int *err)
-{
-	int	i;
-	int	c;
-
-	i = -1;
-	c = 0;
-	while (line[++i])
-	{
-		if (line[i] == ',')
-		{
-			if (c == 2)
-			{
-				*err = error(SMTH_INVALID, line, 0);
-				return (NULL);
-			}
-			c++;
-		}
-	}
-	return (ft_split(line, " \b\t\v\f\r,"));
 }

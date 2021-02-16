@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:15:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 12:41:00 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		is_att_set(t_all *all, char *type)
 {
 	if (!ft_strcmp(type, "R") && all->win->wid != 0 && all->win->len)
 		return (1);
-	else if (!ft_strcmp(type, "F") && all->map->gr != 0)
+	else if (!ft_strcmp(type, "F") && all->txtrs[F_TXTR].path)
 		return (1);
-	else if (!ft_strcmp(type, "C") && all->map->ce != 0)
+	else if (!ft_strcmp(type, "C") && all->txtrs[C_TXTR].path)
 		return (1);
 	else if (!ft_strcmp(type, "NO") && all->txtrs[NO_TXTR].path)
 		return (1);
@@ -56,14 +56,10 @@ int		check_line(t_all *all, char *line)
 	err = 0;
 	if (all->all_set != 8 && *line)
 	{
-		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
-			split = count_comas(line, &err);
-		else
-			split = ft_split(line, " \b\t\v\f\r");
-		if (split && is_att_set(all, split[0]))
+		split = ft_split(line, " \b\t\v\f\r");
+		if (is_att_set(all, split[0]))
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
-		else if (split)
-			verify_nset_ids(all, split, &err, line);
+		verify_nset_ids(all, split, &err, line);
 		free_after_verifs(split, err);
 	}
 	else if (*line && all->all_set == 8)

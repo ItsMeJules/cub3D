@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 22:38:11 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/16 17:12:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ t_sprite	*new_sprite(int txtr, double x, double y)
 	return (sprite);
 }
 
+t_floor		*new_floor()
+{
+	t_floor	*floor;
+
+	if (!(floor = malloc(sizeof(t_floor))))
+	{
+		error(MALLOC_FAILED, "t_floor in struct_assigner2.c", 1);
+		return (NULL);
+	}
+	return (floor);
+}
+
 void		free_txtrs(t_all *all, int mlx)
 {
 	int	i;
@@ -53,7 +65,7 @@ void		free_txtrs(t_all *all, int mlx)
 		if (all->txtrs[i].path)
 			free(all->txtrs[i].path);
 	}
-	if (!mlx)
-		free(all->txtrs[i].img);
+	//if (!mlx)
+	//	free(all->txtrs[i].img);
 	free(all->txtrs);
 }

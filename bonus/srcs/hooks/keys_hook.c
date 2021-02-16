@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/16 10:17:50 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 10:32:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,4 @@ void	keys_manager(t_all *all)
 		do_jump(all);
 	if (!all->pos.in_air)
 		do_crouch(all, all->pos);
-}	
+}

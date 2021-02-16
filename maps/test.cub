@@ -1,13 +1,13 @@
 R 1500 1000 
 
-NO ./textures/mossy.xpm
+NO ./textures/stone.xpm
 SO ./textures/diamond.xpm
-WE ./textures/stone.xpm
+WE ./textures/mossy.xpm
 EA ./textures/wood.xpm
 
 S ./textures/barrel1.xpm
-F 100,90,50
-C 100, 15,35
+F ./textures/diamond.xpm 
+C ./textures/sky.xpm
 
 11111111111111111111111111111111111
 10E00000000000000000000000000000001

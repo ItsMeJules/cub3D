@@ -6,23 +6,30 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/14 21:18:49 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/16 16:15:42 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "cub3d.h"
 
-void	draw_ce_gr(t_all *all, t_ray *ray, int x)
+void	draw_floor(t_all *all, t_floor *floor, int x, int y)
 {
-	int y;
+	t_texture	txtr;
+	int			pixel;
 
-	y = -1;
-	while (++y < ray->draw_start)
-		set_pixel(all->win, x, y, all->map->ce);
-	y = ray->draw_end;
-	while (++y < all->win->len)
-		set_pixel(all->win, x, y, all->map->gr);
+	txtr = all->txtrs[F_TXTR];
+	pixel = *(int*)get_pixel(txtr.img, floor->tx, floor->ty);
+	set_pixel(all->win, x, y, depth_shade(pixel, floor->row_dst));
+}
+
+void	draw_ceiling(t_all *all, t_floor *floor, int x, int y)
+{
+	t_texture	txtr;
+	int			pixel;
+
+	txtr = all->txtrs[C_TXTR];
+	pixel = *(int*)get_pixel(txtr.img, floor->tx, floor->ty);
+	set_pixel(all->win, x, y, depth_shade(pixel, floor->row_dst));
 }
 
 void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
@@ -62,7 +69,6 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x)
 	y = ray->draw_start - 1;
 	step = 1.0 * txtr->hei / ray->line_h;
 	text_pos = (ray->draw_start - ray->jc_offset - all->win->len / 2 + ray->line_h / 2) * step;
-	//printf("%d %d, %d %d\n", ray->draw_end, ray->line_h, x, ray->draw_start);
 	while (++y < ray->draw_end)
 	{
 		ray->text_y = (int)(text_pos) & (txtr->hei - 1);
@@ -70,5 +76,4 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x)
 		set_pixel(all->win, x, y, depth_shade(*(int*)get_pixel(txtr->img,
 					ray->text_x, ray->text_y), ray->perp_wall_dist));
 	}
-	draw_ce_gr(all, ray, x);
 }

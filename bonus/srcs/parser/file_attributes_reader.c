@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:14:18 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 12:43:14 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	set_textures(t_all *all, char **split)
 		all->txtrs[EA_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "S"))
 		all->txtrs[S_TXTR].path = split[1];
+	else if (!ft_strcmp(split[0], "F"))
+		all->txtrs[F_TXTR].path = split[1];
+	else if (!ft_strcmp(split[0], "C"))
+		all->txtrs[C_TXTR].path = split[1];
 }
 
 void	set_attributes(t_all *all, int type, char **split)
@@ -41,18 +45,6 @@ void	set_attributes(t_all *all, int type, char **split)
 		free(split[2]);
 	}
 	else if (type == 2)
-	{
-		if (!ft_strcmp(split[0], "F"))
-			all->map->gr = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
-				ft_atoi(split[3]));
-		else
-			all->map->ce = create_trgb(0, ft_atoi(split[1]), ft_atoi(split[2]),
-				ft_atoi(split[3]));
-		free(split[1]);
-		free(split[2]);
-		free(split[3]);
-	}
-	else if (type == 3)
 		set_textures(all, split);
 }
 
@@ -65,20 +57,14 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 		set_attributes(all, 1, split);
 		all->all_set++;
 	}
-	else if (!ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
+	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
+			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
+			|| !ft_strcmp(split[0], "S") || !ft_strcmp(split[0], "F")
+			|| !ft_strcmp(split[0], "C"))
 	{
 		if (arg_len(split, err, line, 2) || val_verifs(split, err, line, 2))
 			return ;
 		set_attributes(all, 2, split);
-		all->all_set++;
-	}
-	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
-			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
-			|| !ft_strcmp(split[0], "S"))
-	{
-		if (arg_len(split, err, line, 3) || val_verifs(split, err, line, 3))
-			return ;
-		set_attributes(all, 3, split);
 		all->all_set++;
 	}
 	else if (!*err)

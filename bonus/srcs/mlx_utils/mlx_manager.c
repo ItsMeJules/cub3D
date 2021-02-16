@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/15 14:50:04 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 16:41:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,25 @@ void	start_mlx(t_all *all, int save)
 			|| load_txtr(all, &all->txtrs[SO_TXTR])
 			|| load_txtr(all, &all->txtrs[WE_TXTR])
 			|| load_txtr(all, &all->txtrs[EA_TXTR])
-			|| load_txtr(all, &all->txtrs[S_TXTR]))
+			|| load_txtr(all, &all->txtrs[S_TXTR])
+			|| load_txtr(all, &all->txtrs[F_TXTR])
+			|| load_txtr(all, &all->txtrs[C_TXTR]))
 		return ;
 	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->z_buffer in mlx_manager.c", 0);
 		return ;
+	}
+	if (!(all->ray->x_drawstart = malloc(sizeof(int) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->x_drawstart in mlx_manager.c", 0);
+		return ;
+	}
+	if (!(all->ray->x_drawend = malloc(sizeof(int) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->x_drawend in mlx_manager.c", 0);
+		return ;
+	}
 	if (!save)
 	{
 		mlx_do_key_autorepeatoff(all->win->mlx);

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/14 21:00:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/16 17:17:53 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 	draw_txtr(all, ray, &txtr, x);
 }
 
-void	get_draws_pos(t_all *all, t_ray *ray, t_pos pos)
+void	get_draws_pos(t_all *all, t_ray *ray, t_pos pos, int x)
 {
-	ray->jc_offset = pos.jump_crouch / ray->perp_wall_dist; 
+	ray->jc_offset = pos.jump_crouch / ray->perp_wall_dist;
 	ray->draw_start = -ray->line_h / 2 + all->win->len / 2 + ray->jc_offset;
 	ray->draw_end = ray->line_h / 2 + all->win->len / 2 + ray->jc_offset;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	if (ray->draw_end >= all->win->len)
 		ray->draw_end = all->win->len - 1;
+	ray->x_drawstart[x] = ray->draw_start;
+	ray->x_drawend[x] = ray->draw_end;
 }
 
 void	draw_col(t_all *all, int x)
@@ -52,7 +54,7 @@ void	draw_col(t_all *all, int x)
 
 	ray = all->ray;
 	pos = all->pos;
-	get_draws_pos(all, ray, pos);
+	get_draws_pos(all, ray, pos, x);
 	if (ray->side == 0 || ray->side == 1)
 		ray->wall_x = pos.pos_y + ray->perp_wall_dist * ray->dir_y;
 	else

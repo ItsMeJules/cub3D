@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/16 10:17:57 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 16:36:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define WE_TXTR 2
 # define EA_TXTR 3
 # define S_TXTR 4
+# define F_TXTR 5
+# define C_TXTR 6
 
 /*
 ** KEYS
@@ -167,7 +169,24 @@ typedef struct	s_ray {
 	int		text_x;
 	int		text_y;
 	double	*z_buffer;
+	int		*x_drawstart;
+	int		*x_drawend;
 }				t_ray;
+
+typedef struct	s_floor {
+	float	row_dst;
+	float	ray_dir_x0;
+	float	ray_dir_y0;
+	float	ray_dir_x1;
+	float	ray_dir_y1;
+	float	row_dist;
+	float	floor_x;
+	float	floor_y;
+	float	f_stepx;	
+	float	f_stepy;
+	int		ty;
+	int		tx;
+}				t_floor;
 
 typedef struct	s_sprite {
 	int		txtr;
@@ -201,8 +220,6 @@ typedef struct	s_map {
 	char	start_dir;
 	int		len;
 	int		wid;
-	int		ce;
-	int		gr;
 	t_pos	p_pos;
 }				t_map;
 
@@ -224,6 +241,7 @@ typedef struct	s_all {
 	t_map		*map;
 	t_pos		pos;
 	t_ray		*ray;
+	t_floor		*floor;
 	t_keys		keys;
 	t_texture	*txtrs;
 	t_list		*sprites;
@@ -247,6 +265,7 @@ void			free_all(t_all *all, int txtrs);
 */
 void			set_keys(t_all *all);
 t_sprite		*new_sprite(int txtr, double x, double y);
+t_floor			*new_floor();
 void			free_txtrs(t_all *all, int mlx);
 
 /*
@@ -349,6 +368,8 @@ void			dda(t_ray *ray, t_map *map);
 /*
 ** texture.c
 */
+void			draw_ceiling(t_all *all, t_floor *floor, int x, int y);
+void			draw_floor(t_all *all, t_floor *floor, int x, int y);
 void			draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr);
 void			draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 
@@ -395,5 +416,10 @@ int				check_player_pos(t_all *all);
 ** sprite_casting.c
 */
 void			sprite_cast(t_all *all);
+
+/*
+** floor_casting.c
+*/
+void			floor_cast(t_all *all);
 
 #endif
