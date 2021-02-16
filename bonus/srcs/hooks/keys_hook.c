@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/15 16:10:28 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 10:17:50 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,13 @@ int		key_press(int keycode, t_all *all)
 
 void	init_decelerate(int	keycode, t_all *all)
 {
-	if (all->keys.fwrd <= 0 && all->keys.bwrd <= 0
-			&& all->keys.left <= 0 && all->keys.right <= 0
-			&& (keycode == W_KEY || keycode == S_KEY
-				|| keycode == A_KEY || keycode == D_KEY
-				|| keycode == ARROW_LEFT_KEY || keycode == ARROW_RIGHT_KEY))
-	{
-		if (keycode == ARROW_LEFT_KEY || keycode == ARROW_RIGHT_KEY)
-			all->pos.decelerate = 2;
-		else
-			all->pos.decelerate = 1;
-	}
+	if (all->keys.fwrd <= 0 && all->keys.bwrd <= 0 && all->keys.left <= 0
+			&& all->keys.right <= 0 && (keycode == W_KEY || keycode == S_KEY
+				|| keycode == A_KEY || keycode == D_KEY))
+		all->pos.decelerate = 1;
+	if (all->keys.cam_left <= 0 && all->keys.cam_right <= 0
+			&& (keycode == ARROW_LEFT_KEY || keycode == ARROW_RIGHT_KEY))
+		all->pos.cam_decelerate = 1;
 }
 
 int		key_rels(int keycode, t_all *all)
@@ -92,7 +88,7 @@ void	keys_manager(t_all *all)
 {
 	if (all->pos.decelerate == 1)
 		all->pos.move_speed *= PLAYER_MOV_DECELERATE;
-	else if (all->pos.decelerate == 2)
+	if (all->pos.cam_decelerate == 1)
 		all->pos.rot_speed *= PLAYER_ROT_DECELERATE;
 	if (all->keys.fwrd)
 		move_forward(all);

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/15 17:21:08 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/16 10:17:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct	s_pos {
 	int		in_air;
 	int		jump_crouch;
 	int		decelerate;
+	int		cam_decelerate;
 }				t_pos;
 
 typedef struct	s_ray {
