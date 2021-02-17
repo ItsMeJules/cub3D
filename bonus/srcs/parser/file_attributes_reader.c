@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/16 12:43:14 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 15:31:24 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include "cub3d.h"
-#include "libft.h"
 
 void	set_textures(t_all *all, char **split)
 {
+	char	**splitted;
+
 	if (!ft_strcmp(split[0], "NO"))
 		all->txtrs[NO_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "SO"))
@@ -32,7 +33,15 @@ void	set_textures(t_all *all, char **split)
 	else if (!ft_strcmp(split[0], "F"))
 		all->txtrs[F_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "C"))
+	{
 		all->txtrs[C_TXTR].path = split[1];
+		splitted = ft_split(split[1], "/");
+		if (!ft_strncmp(splitted[ft_split_size(splitted) - 1], "sky", 3))
+			all->skybox = 1;
+		else
+			all->skybox = 0;
+		ft_free_split(splitted);
+	}
 }
 
 void	set_attributes(t_all *all, int type, char **split)

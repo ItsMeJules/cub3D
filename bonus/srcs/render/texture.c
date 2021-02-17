@@ -6,28 +6,18 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/16 16:15:42 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 16:43:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_floor(t_all *all, t_floor *floor, int x, int y)
+void	draw_vert(t_all *all, t_texture txtr, int x, int y)
 {
-	t_texture	txtr;
 	int			pixel;
+	t_floor		*floor;
 
-	txtr = all->txtrs[F_TXTR];
-	pixel = *(int*)get_pixel(txtr.img, floor->tx, floor->ty);
-	set_pixel(all->win, x, y, depth_shade(pixel, floor->row_dst));
-}
-
-void	draw_ceiling(t_all *all, t_floor *floor, int x, int y)
-{
-	t_texture	txtr;
-	int			pixel;
-
-	txtr = all->txtrs[C_TXTR];
+	floor = all->floor;
 	pixel = *(int*)get_pixel(txtr.img, floor->tx, floor->ty);
 	set_pixel(all->win, x, y, depth_shade(pixel, floor->row_dst));
 }

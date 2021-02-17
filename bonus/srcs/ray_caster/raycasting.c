@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/14 21:14:47 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/17 14:46:09 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	init_ray(t_ray *ray, t_pos pos, int x, int wid)
 	get_step_n_side_dist(ray, pos);
 }
 
-void	raycast(t_all *all)
+void	ray_cast(t_all *all)
 {
 	int	x;
 

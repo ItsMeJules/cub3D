@@ -44,7 +44,7 @@ $(NAME)			: $(OBJ)
 				@ echo "$(_INFO) Intializing $(NAME)"
 				@ $(CC) $(CFLAGS) $(IFLAGS) -o $@ $^ $(LINK_FLAGS)
 
-$(OBJ_DIR)/%.o	: %.c 
+$(OBJ_DIR)/%.o	: %.c ./includes/cub3d.h
 				@ echo "\t$(_YELLOW)Compiling $(_RESET) $*.c\r\c"
 				@ $(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 				@ echo "$(_CLEAR)"

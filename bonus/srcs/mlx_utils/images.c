@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:13:57 by jules             #+#    #+#             */
-/*   Updated: 2021/02/04 10:32:39 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 11:24:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	push_image(t_win *win)
 
 char	*get_pixel(t_img *img, int x, int y)
 {
-	return (img->addr + (y * img->line_l + x * (img->bpp / 8)));
+	return (img->addr + (y * img->line_l + x * 4));
 }
 
 void	set_pixel(t_win *win, int x, int y, int color)

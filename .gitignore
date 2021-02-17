@@ -1,0 +1,8 @@
+mlx*
+cub3D
+objs/*
+textures*
+maps*
+LIBFT*
+.DS_Store
+*.swp

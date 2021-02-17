@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/16 16:36:57 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 15:51:49 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@
 # define MAP_PLAYER_COLOR 0xFF0000
 # define MAP_PLAYER_PX_SIZE 5
 
-# define PLAYER_VIEW_DIST 10 
+# define PLAYER_VIEW_DIST 50 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_MOV_DECELERATE 0.78
-# define PLAYER_ROT_DECELERATE 0.78
+# define PLAYER_ROT_DECELERATE 0.48
 # define PLAYER_ROT_SPEED 0.1
 # define PLAYER_SPRINT_MULT 2;
 # define PLAYER_CROUCH_MULT 0.6;
@@ -179,7 +179,8 @@ typedef struct	s_floor {
 	float	ray_dir_y0;
 	float	ray_dir_x1;
 	float	ray_dir_y1;
-	float	row_dist;
+	float	diff_x;
+	float	diff_y;
 	float	floor_x;
 	float	floor_y;
 	float	f_stepx;	
@@ -237,6 +238,7 @@ typedef struct	s_keys {
 typedef struct	s_all {
 	int			all_set;
 	int			save;
+	int			skybox;
 	t_win		*win;
 	t_map		*map;
 	t_pos		pos;
@@ -353,7 +355,7 @@ int				get_b_42docs(int trgb);
 /*
 ** raycasting.c
 */
-void			raycast(t_all *all);
+void			ray_cast(t_all *all);
 
 /*
 ** draw.c
@@ -368,8 +370,7 @@ void			dda(t_ray *ray, t_map *map);
 /*
 ** texture.c
 */
-void			draw_ceiling(t_all *all, t_floor *floor, int x, int y);
-void			draw_floor(t_all *all, t_floor *floor, int x, int y);
+void			draw_vert(t_all *all, t_texture txtr, int x, int y);
 void			draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr);
 void			draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 
@@ -418,8 +419,9 @@ int				check_player_pos(t_all *all);
 void			sprite_cast(t_all *all);
 
 /*
-** floor_casting.c
+** vert_casting.c
 */
-void			floor_cast(t_all *all);
+void			vert_cast(t_all *all);
+void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
 
 #endif
