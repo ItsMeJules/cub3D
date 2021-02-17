@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/17 17:01:02 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 17:24:11 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	vert_cast(t_all *all)
 		init_txtr(all, y, all->txtrs[F_TXTR]);
 		if (all->skybox)
 		{
-			//draw_skybox(all, y, );
+			draw_skybox(all, all->win->len - y - 1);
 			continue ;
 		}
 		calc_line_ray(all, all->floor, y, pos_z - all->pos.jump_crouch);
