@@ -6,13 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/17 16:43:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 17:01:02 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_txtr(t_all *all, int y, int offset, t_texture txtr)
+void	init_txtr(t_all *all, int y, t_texture txtr)
 {
 	int			x;
 	int			cx;
@@ -25,14 +25,13 @@ void	init_txtr(t_all *all, int y, int offset, t_texture txtr)
 	{
 		floor->floor_x += floor->f_stepx;
 		floor->floor_y += floor->f_stepy;
-		if (all->ray->x_drawstart[x] < offset - y
-				&& all->ray->x_drawend[x] > offset - y)
+		if (all->ray->x_drawstart[x] < y && all->ray->x_drawend[x] > y)
 			continue ;
 		cx = (int)floor->floor_x;
 		cy = (int)floor->floor_y;
 		floor->tx = (int)(txtr.wid * (floor->floor_x - cx)) & (txtr.wid - 1);
 		floor->ty = (int)(txtr.hei * (floor->floor_y - cy)) & (txtr.hei - 1);
-		draw_vert(all, txtr, x, offset - y);
+		draw_vert(all, txtr, x, y);
 	}
 }
 
@@ -64,10 +63,13 @@ void	vert_cast(t_all *all)
 	while (++y < all->win->len)
 	{
 		calc_line_ray(all, all->floor, y, pos_z + all->pos.jump_crouch);
-		init_txtr(all, y, y + y, all->txtrs[F_TXTR]);
+		init_txtr(all, y, all->txtrs[F_TXTR]);
 		if (all->skybox)
+		{
+			//draw_skybox(all, y, );
 			continue ;
+		}
 		calc_line_ray(all, all->floor, y, pos_z - all->pos.jump_crouch);
-		init_txtr(all, y, all->win->len + 1, all->txtrs[C_TXTR]);
+		init_txtr(all, all->win->len - y - 1, all->txtrs[C_TXTR]);
 	}
 }

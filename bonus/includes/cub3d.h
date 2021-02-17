@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/17 15:51:49 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/17 16:55:20 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@
 # define MAP_PLAYER_COLOR 0xFF0000
 # define MAP_PLAYER_PX_SIZE 5
 
+# define PLAYER_FOV 0.66
 # define PLAYER_VIEW_DIST 50 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_MOV_DECELERATE 0.78
