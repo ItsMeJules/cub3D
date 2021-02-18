@@ -1,13 +1,13 @@
 R 1500 1000 
 
 NO ./textures/stone.xpm
-SO ./textures/diamond.xpm
+SO ./textures/geometric.xpm
 WE ./textures/mossy.xpm
 EA ./textures/wood.xpm
 
 S ./textures/barrel1.xpm
 F ./textures/diamond.xpm 
-C ./textures/mossy.xpm
+C ./textures/sky_marseille.xpm
 
 11111111111111111111111111111111111
 10E00000000000000000000000000000001

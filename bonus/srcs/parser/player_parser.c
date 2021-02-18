@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:21:39 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/17 16:54:58 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/18 15:40:27 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_player_dir(t_all *all, char c)
 	else if (c == 'W')
 	{
 		all->pos.dir_x = -1;
-		all->pos.plane_y = PLAYER_FOV;
+		all->pos.plane_y = -PLAYER_FOV;
 	}
 	else if (c == 'E')
 	{
@@ -37,7 +37,7 @@ void	set_player_dir(t_all *all, char c)
 	else if (c == 'S')
 	{
 		all->pos.dir_y = 1;
-		all->pos.plane_x = PLAYER_FOV;
+		all->pos.plane_x = -PLAYER_FOV;
 	}
 }
 

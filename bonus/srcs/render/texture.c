@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/17 16:43:57 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/18 10:07:23 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_vert(t_all *all, t_texture txtr, int x, int y)
 	t_floor		*floor;
 
 	floor = all->floor;
-	pixel = *(int*)get_pixel(txtr.img, floor->tx, floor->ty);
+	pixel = *get_pixel(txtr.img, floor->tx, floor->ty);
 	set_pixel(all->win, x, y, depth_shade(pixel, floor->row_dst));
 }
 
@@ -42,7 +42,7 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 			while (++y < s->draw_endy)
 			{
 				d = (y - s->jc_offset) * 256 - win->len * 128 + s->hei * 128;
-				if ((color = *(int *)get_pixel(txtr.img, text_x,
+				if ((color = *get_pixel(txtr.img, text_x,
 								((d * txtr.hei) / s->hei) / 256)) != 0)
 					set_pixel(win, stripe, y, depth_shade(color, s->transform_y));
 			}
@@ -63,7 +63,7 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x)
 	{
 		ray->text_y = (int)(text_pos) & (txtr->hei - 1);
 		text_pos += step;
-		set_pixel(all->win, x, y, depth_shade(*(int*)get_pixel(txtr->img,
+		set_pixel(all->win, x, y, depth_shade(*get_pixel(txtr->img,
 					ray->text_x, ray->text_y), ray->perp_wall_dist));
 	}
 }

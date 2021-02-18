@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/17 16:55:20 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/18 12:09:29 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ typedef struct	s_all {
 */
 void			push_image(t_win *win);
 void			set_pixel(t_win *win, int x, int y, int color);
-char			*get_pixel(t_img *img, int x, int y);
+int				*get_pixel(t_img *img, int x, int y);
 
 /*
 ** struct_assigner.c
@@ -424,5 +424,10 @@ void			sprite_cast(t_all *all);
 */
 void			vert_cast(t_all *all);
 void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
+
+/*
+ ** skybox.c
+ */
+void			draw_skybox(t_all *all, int y);
 
 #endif
