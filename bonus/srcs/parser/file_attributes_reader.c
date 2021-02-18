@@ -6,15 +6,28 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/17 15:31:24 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/18 17:19:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
-#include "cub3d.h"
+
+int		is_tsprite(char *id)
+{
+	int	i;
+	
+	i = 0;
+	while (id[++i])
+	{
+		if (!ft_isdigit(id[i]))	
+			return (0);
+	}
+	return (1);
+}
 
 void	set_textures(t_all *all, char **split)
 {
@@ -28,7 +41,7 @@ void	set_textures(t_all *all, char **split)
 		all->txtrs[WE_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "EA"))
 		all->txtrs[EA_TXTR].path = split[1];
-	else if (!ft_strcmp(split[0], "S"))
+	else if (!ft_strncmp(split[0], "S", 1) &&)
 		all->txtrs[S_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "F"))
 		all->txtrs[F_TXTR].path = split[1];

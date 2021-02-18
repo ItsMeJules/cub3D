@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/18 12:09:29 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/18 17:24:56 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 /*
 ** TEXTURES INDEX
 */
-# define NO_TXTR 0
+/*# define NO_TXTR 0
 # define SO_TXTR 1
 # define WE_TXTR 2
 # define EA_TXTR 3
 # define S_TXTR 4
 # define F_TXTR 5
-# define C_TXTR 6
+# define C_TXTR 6*/
 
 /*
 ** KEYS
@@ -212,6 +212,7 @@ typedef struct	s_sprite {
 
 typedef struct	s_texture {
 	char	*path;
+	int		is_sprite;
 	int		wid;
 	int		hei;
 	t_img	*img;
@@ -240,13 +241,14 @@ typedef struct	s_all {
 	int			all_set;
 	int			save;
 	int			skybox;
+	int			total_sprites;
 	t_win		*win;
 	t_map		*map;
 	t_pos		pos;
 	t_ray		*ray;
 	t_floor		*floor;
 	t_keys		keys;
-	t_texture	*txtrs;
+	t_list		*txtrs;
 	t_list		*sprites;
 }				t_all;
 
