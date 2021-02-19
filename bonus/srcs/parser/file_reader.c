@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 15:14:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 19:07:54 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int		is_att_set(t_all *all, char *type)
 		return (0);
 }
 
+void	handle_map(t_all *all, char *line, int *err)
+{
+	if (!all->at_map)
+		all->at_map = 1;
+	check_map_line(all->map, all->txtrs, line, err);
+}
+
 int		check_line(t_all *all, char *line)
 {
 	char	**split;
@@ -37,12 +44,13 @@ int		check_line(t_all *all, char *line)
 		split = ft_split(line, " \b\t\v\f\r");
 		if (is_att_set(all, split[0]))
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
-		verify_nset_ids(all, split, &err, line);
+		else
+			verify_nset_ids(all, split, &err, line);
 		if (!err)
 			free(split);
 	}
 	else if (*line && ft_isdigit(line[0]))
-		check_map_line(all->map, line, &err);
+		handle_map(all, line, &err);
 	if (err)
 	{
 		free(line);
@@ -69,7 +77,7 @@ int		gnl_read(t_all *all, char *file)
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
-	else if (all->map->line && ft_isdigit(line[0]))
+	else if (all->map->line && all->at_map)
 		make_map(all);
 	else
 		error(FILE_MISSING_ARGS, "", 1);

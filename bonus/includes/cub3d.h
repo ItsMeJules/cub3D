@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 15:03:14 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 19:09:44 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ typedef struct	s_keys {
 }				t_keys;
 
 typedef struct	s_all {
+	int			at_map;
 	int			save;
 	int			skybox;
 	int			total_sprites;
@@ -317,7 +318,7 @@ int				read_file(t_all *all, char *file);
 ** map_parser.c
 */
 int				valid_map_char(char c);
-void			check_map_line(t_map *map, char *line, int *err);
+void			check_map_line(t_map *map, t_list *txtrs, char *line, int *err);
 void			make_map(t_all *all);
 
 /*
