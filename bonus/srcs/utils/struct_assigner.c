@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/16 16:44:45 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 12:20:00 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,23 @@ t_win		*new_win(void)
 	return (win);
 }
 
-t_texture	*new_txtrs(int amount, int i)
+t_texture	*new_txtr(char *path, int is_sprite)
 {
 	t_texture	*txtr;
 
-	if (!(txtr = malloc(sizeof(t_texture) * (amount + 1))))
+	if (!(txtr = malloc(sizeof(t_texture))))
 	{
 		error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
 		return (NULL);
 	}
-	while (++i < amount)
+	if (!(txtr->img = malloc(sizeof(t_img))))
 	{
-		txtr[i].path = NULL;
-		if (!(txtr[i].img = malloc(sizeof(t_img))))
-		{
-			while (i-- >= 0)
-				free(txtr[i].img);
-			free(txtr);
-			error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
-			return (NULL);
-		}
+		free(txtr);
+		error(MALLOC_FAILED, "t_texture in struct_assigner.c", 1);
+		return (NULL);
 	}
-	txtr[i].path = NULL;
+	txtr->path = path;
+	txtr->is_sprite = is_sprite;
 	return (txtr);
 }
 
@@ -87,13 +82,13 @@ t_all		*new_all(void)
 	all->map = new_map();
 	all->ray->z_buffer = NULL;
 	all->floor = new_floor();
-	all->txtrs = new_txtrs(7, -1);
+	all->txtrs = NULL;
 	all->sprites = NULL;
 	set_keys(all);
 	return (all);
 }
 
-void		free_all(t_all *all, int txtrs)
+void		free_all(t_all *all)
 {
 	free(all->map->line);
 	free(all->map);
@@ -104,8 +99,7 @@ void		free_all(t_all *all, int txtrs)
 	if (all->ray->x_drawend)
 		free(all->ray->x_drawend);
 	free(all->ray);
-	if (txtrs)
-		free_txtrs(all, 0);
+	ft_lstclear(&all->txtrs, &free);
 	ft_lstclear(&all->sprites, &free);
 	free(all->win);
 	free(all);

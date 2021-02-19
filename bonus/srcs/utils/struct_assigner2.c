@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/16 17:12:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 12:18:44 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,4 @@ t_floor		*new_floor()
 		return (NULL);
 	}
 	return (floor);
-}
-
-void		free_txtrs(t_all *all, int mlx)
-{
-	int	i;
-
-	i = -1;
-	while (all->txtrs[++i].path)
-	{
-		if (mlx)
-			mlx_destroy_image(all->win->mlx, all->txtrs[i].img->img);
-		free(all->txtrs[i].img);
-		if (all->txtrs[i].path)
-			free(all->txtrs[i].path);
-	}
-	//if (!mlx)
-	//	free(all->txtrs[i].img);
-	free(all->txtrs);
 }

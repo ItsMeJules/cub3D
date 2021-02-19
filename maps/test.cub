@@ -7,7 +7,7 @@ EA ./textures/wood.xpm
 
 S ./textures/barrel1.xpm
 F ./textures/diamond.xpm 
-C ./textures/sky_marseille.xpm
+C ./textures/skybox_desert_day.xpm
 
 11111111111111111111111111111111111
 10E00000000000000000000000000000001

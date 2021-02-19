@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/18 17:19:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 12:20:26 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ int		is_tsprite(char *id)
 	return (1);
 }
 
+void	init_txtr(t_list **list, char *path, int is_sprite)
+{
+	t_list	*elem;
+
+	elem = ft_lstnew(new_txtr(path, is_sprite));
+}
+
 void	set_textures(t_all *all, char **split)
 {
 	char	**splitted;
@@ -41,7 +48,7 @@ void	set_textures(t_all *all, char **split)
 		all->txtrs[WE_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "EA"))
 		all->txtrs[EA_TXTR].path = split[1];
-	else if (!ft_strncmp(split[0], "S", 1) &&)
+	else if (!ft_strncmp(split[0], "S", 1) && is_tsprite(split[1]))
 		all->txtrs[S_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "F"))
 		all->txtrs[F_TXTR].path = split[1];
