@@ -5,7 +5,7 @@ SO ./textures/geometric.xpm
 WE ./textures/mossy.xpm
 EA ./textures/wood.xpm
 
-S ./textures/barrel1.xpm
+S1 ./textures/barrel1.xpm
 F ./textures/diamond.xpm 
 C ./textures/skybox_desert_day.xpm
 

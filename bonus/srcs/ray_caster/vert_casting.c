@@ -6,12 +6,11 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 14:59:45 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:09:33 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 void	init_txtr(t_all *all, int y, t_texture txtr)
 {

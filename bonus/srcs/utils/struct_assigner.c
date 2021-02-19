@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 15:02:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:21:41 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ t_all		*new_all(void)
 	all->win = new_win();
 	all->map = new_map();
 	all->ray->z_buffer = NULL;
+	all->ray->x_drawstart = NULL;
+	all->ray->x_drawend = NULL;
 	all->floor = new_floor();
 	all->txtrs = NULL;
 	all->sprites = NULL;
@@ -91,6 +93,7 @@ void		free_all(t_all *all, int txtrs)
 {
 	free(all->map->line);
 	free(all->map);
+	(void)txtrs;
 	if (all->ray->z_buffer)
 		free(all->ray->z_buffer);
 	if (all->ray->x_drawstart)

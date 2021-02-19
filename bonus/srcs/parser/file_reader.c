@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 14:45:09 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:14:03 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ int		is_att_set(t_all *all, char *type)
 		return (0);
 }
 
-void	free_after_verifs(char **split, int err)
-{
-	if (!err)
-	{
-		free(split[0]);
-		free(split);
-	}
-}
-
 int		check_line(t_all *all, char *line)
 {
 	char	**split;
@@ -47,7 +38,8 @@ int		check_line(t_all *all, char *line)
 		if (is_att_set(all, split[0]))
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
 		verify_nset_ids(all, split, &err, line);
-		free_after_verifs(split, err);
+		if (!err)
+			free(split);
 	}
 	else if (*line && ft_isdigit(line[0]))
 		check_map_line(all->map, line, &err);
