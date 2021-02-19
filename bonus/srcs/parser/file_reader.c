@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 19:33:40 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 20:03:00 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,19 @@ int		is_att_set(t_all *all, char *type)
 {
 	if (!ft_strcmp(type, "R") && all->win->wid != 0 && all->win->len)
 		return (1);
-	else if (get_texture(all->txtrs, type))
+	else if (!ft_strcmp(type, "F") && all->txtrs[F_TXTR].path)
+		return (1);
+	else if (!ft_strcmp(type, "C") && all->txtrs[C_TXTR].path)
+		return (1);
+	else if (!ft_strcmp(type, "NO") && all->txtrs[NO_TXTR].path)
+		return (1);
+	else if (!ft_strcmp(type, "SO") && all->txtrs[SO_TXTR].path)
+		return (1);
+	else if (!ft_strcmp(type, "WE") && all->txtrs[WE_TXTR].path)
+		return (1);
+	else if (!ft_strcmp(type, "EA") && all->txtrs[EA_TXTR].path)
+		return (1);
+	else if (get_sptexture(all->txtrs, type))
 		return (1);
 	else
 		return (0);
