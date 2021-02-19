@@ -3,7 +3,7 @@ CC				= clang
 RM				= rm -rf
 OS				= $(shell uname)
 
-CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -fsanitzie=address -Wall -Werror -Wextra
 IFLAGS			= -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes
 LINK_FLAGS		= -L $(MLX_DIR) -lmlx -L $(LIBFT_DIR) -lft -framework OpenGL -framework Appkit
 
@@ -28,7 +28,7 @@ _CLEAR          = \033[2K\c
 
 ifeq ($(OS), Linux)
 	MLX_DIR = mlx_linux
-	IFLAGS = -I/usr/include -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes -O3 -D LINUX=1
+	IFLAGS = -I/usr/include -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes -D LINUX=1
 	LINK_FLAGS = -L $(MLX_DIR) -lmlx_Linux -L /usr/lib -lXext -lX11 -lm -lz -L $(LIBFT_DIR) -lft
 endif
 

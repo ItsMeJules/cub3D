@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 14:27:47 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:03:14 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ typedef struct	s_floor {
 }				t_floor;
 
 typedef struct	s_sprite {
-	int		txtr;
+	char	txtr;
 	double	x;
 	double	y;
 	double	sx;
@@ -261,6 +261,7 @@ int				*get_pixel(t_img *img, int x, int y);
 /*
 ** struct_assigner.c
 */
+t_texture		*new_txtr(char *path, char *id);
 t_all			*new_all();
 void			free_all(t_all *all, int txtrs);
 
@@ -268,7 +269,7 @@ void			free_all(t_all *all, int txtrs);
 ** struct_assignear2.c
 */
 void			set_keys(t_all *all);
-t_sprite		*new_sprite(int txtr, double x, double y);
+t_sprite		*new_sprite(char txtr, double x, double y);
 t_floor			*new_floor();
 void			free_txtrs(t_all *all, int mlx);
 
@@ -429,7 +430,7 @@ void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
 /*
  ** skybox.c
  */
-void			draw_skybox(t_all *all, int y);
+void			draw_skybox(t_all *all, int y, t_texture txtr);
 
 /*
  ** texture_utils.c

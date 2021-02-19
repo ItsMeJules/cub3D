@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 14:43:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:48:51 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_map_elem(t_all *all, char c, int x, int y)
 	else if (c == '2')
 	{
 		ft_lstadd_back(&all->sprites, ft_lstnew(
-					new_sprite(WE_TXTR + (c - '0'),
+					new_sprite(c,
 						(double)x + 0.5,
 						(double)y + 0.5)));
 	}

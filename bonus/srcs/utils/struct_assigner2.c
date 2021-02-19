@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 12:18:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:04:17 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		set_keys(t_all *all)
 	all->keys.sprint = 0;
 }
 
-t_sprite	*new_sprite(int txtr, double x, double y)
+t_sprite	*new_sprite(char txtr, double x, double y)
 {
 	t_sprite	*sprite;
 
@@ -50,4 +50,27 @@ t_floor		*new_floor()
 		return (NULL);
 	}
 	return (floor);
+}
+
+void		free_txtrs(t_all *all, int mlx)
+{
+	t_list		*list;
+	t_texture	*txtr;
+	int			i;
+
+	list = all->txtrs;
+	i = -1;
+	while (list)
+	{
+		txtr = (t_texture *)list->content;
+		if (mlx)
+			mlx_destroy_image(all->win->mlx, txtr->img->img);
+		free(txtr->img);
+		if (txtr->path)
+			free(txtr->path);
+		list = list->next;
+	}
+	//if (mlx)
+	//	free(all->txtrs[i].img);
+	ft_lstclear(&all->txtrs, &free);
 }

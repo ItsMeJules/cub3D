@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 14:25:42 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:44:35 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	set_textures(t_all *all, char **spli)
 			|| !ft_strcmp(spli[0], "EA")
 			|| !ft_strncmp(spli[0], "S", 1)
 			|| !ft_strcmp(spli[0], "F"))
-		ft_lstadd_back(&all->txtrs, ft_lstnew(new_sprite(spli[1], spli[0])));
+		ft_lstadd_back(&all->txtrs, ft_lstnew(new_txtr(spli[1], spli[0])));
 	else if (!ft_strcmp(spli[0], "C"))
 	{
-		ft_lstadd_back(&all->txtrs, ft_lstnew(new_sprite(spli[1], spli[0])));
-		splitted = ft_spli(spli[1], "/");
+		ft_lstadd_back(&all->txtrs, ft_lstnew(new_txtr(spli[1], spli[0])));
+		splitted = ft_split(spli[1], "/");
 		if (!ft_strncmp(splitted[ft_split_size(splitted) - 1], "sky", 3))
 			all->skybox = 1;
 		else
@@ -62,13 +62,12 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 	}
 	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
 			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
-			|| (!ft_strncmp(split[0], "S", 1) && ft_isdigit(spli[0][1]))
+			|| (!ft_strncmp(split[0], "S", 1) && ft_isdigit(split[0][1]))
 			|| !ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
 	{
 		if (arg_len(split, err, line, 2) || val_verifs(split, err, line, 2))
 			return ;
 		set_attributes(all, 2, split);
-		all->all_set++;
 	}
 	else if (!*err)
 		*err = error(SMTH_INVALID, line, 0);

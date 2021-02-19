@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 12:30:38 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:02:44 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_all		*new_all(void)
 		error(MALLOC_FAILED, "t_ray in struct_assigner.c", 1);
 		return (NULL);
 	}
-	all->all_set = 0;
 	all->win = new_win();
 	all->map = new_map();
 	all->ray->z_buffer = NULL;
@@ -88,7 +87,7 @@ t_all		*new_all(void)
 	return (all);
 }
 
-void		free_all(t_all *all)
+void		free_all(t_all *all, int txtrs)
 {
 	free(all->map->line);
 	free(all->map);
@@ -99,7 +98,8 @@ void		free_all(t_all *all)
 	if (all->ray->x_drawend)
 		free(all->ray->x_drawend);
 	free(all->ray);
-	ft_lstclear(&all->txtrs, &free);
+	if (txtrs)
+		free_txtrs(all, 0);
 	ft_lstclear(&all->sprites, &free);
 	free(all->win);
 	free(all);

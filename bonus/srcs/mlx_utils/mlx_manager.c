@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 14:30:35 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:46:12 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	start_mlx(t_all *all, int save)
 {
 	all->save = save;
 	new_window(all->win, "Je suis une fenetre", save);
-	if (load_txrs(all))
+	if (load_txtrs(all))
 		return ;
 	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
 	{
