@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 18:48:51 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 19:58:58 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	stop_mlx(t_all *all)
 {
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
 	mlx_do_key_autorepeaton(all->win->mlx);
-	free_txtrs(all, 1);
+	free_txtrs(all, 1, -1);
 	if (!all->save)
 		mlx_destroy_window(all->win->mlx, all->win->win);
 	mlx_destroy_display(all->win->mlx);

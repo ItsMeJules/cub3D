@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 19:20:43 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 19:58:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ t_all		*new_all(void)
 	all->ray->x_drawstart = NULL;
 	all->ray->x_drawend = NULL;
 	all->floor = new_floor();
-	all->txtrs = NULL;
+	all->txtrs = new_othertxtrs(6, -1);
+	all->sp_txtrs = NULL;
 	all->sprites = NULL;
 	set_keys(all);
 	return (all);
@@ -102,7 +103,7 @@ void		free_all(t_all *all, int txtrs)
 	free(all->ray);
 	free(all->floor);
 	if (txtrs)
-		free_txtrs(all, 0);
+		free_txtrs(all, 0, -1);
 	ft_lstclear(&all->sprites, &free);
 	free(all->win);
 	free(all);

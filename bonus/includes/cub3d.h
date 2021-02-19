@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 19:44:41 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 19:58:42 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,8 +271,9 @@ void			free_all(t_all *all, int txtrs);
 */
 void			set_keys(t_all *all);
 t_sprite		*new_sprite(char txtr, double x, double y);
+t_texture		*new_othertxtrs(int amount, int i);
 t_floor			*new_floor();
-void			free_txtrs(t_all *all, int mlx);
+void			free_txtrs(t_all *all, int mlx, int i);
 
 /*
 ** errors_manager.c
