@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 12:20:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 12:30:38 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_win		*new_win(void)
 	return (win);
 }
 
-t_texture	*new_txtr(char *path, int is_sprite)
+t_texture	*new_txtr(char *path, char *id)
 {
 	t_texture	*txtr;
 
@@ -59,7 +59,7 @@ t_texture	*new_txtr(char *path, int is_sprite)
 		return (NULL);
 	}
 	txtr->path = path;
-	txtr->is_sprite = is_sprite;
+	txtr->id = id;
 	return (txtr);
 }
 

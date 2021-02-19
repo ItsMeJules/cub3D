@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/16 12:30:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:26:05 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include "cub3d.h"
-#include "libft.h"
 
 int		check_valid(char *str, int type)
 {

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/16 12:41:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:26:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,12 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include "cub3d.h"
-#include "libft.h"
 
 int		is_att_set(t_all *all, char *type)
 {
 	if (!ft_strcmp(type, "R") && all->win->wid != 0 && all->win->len)
 		return (1);
-	else if (!ft_strcmp(type, "F") && all->txtrs[F_TXTR].path)
-		return (1);
-	else if (!ft_strcmp(type, "C") && all->txtrs[C_TXTR].path)
-		return (1);
-	else if (!ft_strcmp(type, "NO") && all->txtrs[NO_TXTR].path)
-		return (1);
-	else if (!ft_strcmp(type, "SO") && all->txtrs[SO_TXTR].path)
-		return (1);
-	else if (!ft_strcmp(type, "WE") && all->txtrs[WE_TXTR].path)
-		return (1);
-	else if (!ft_strcmp(type, "EA") && all->txtrs[EA_TXTR].path)
-		return (1);
-	else if (!ft_strcmp(type, "S") && all->txtrs[S_TXTR].path)
+	else if (get_texture(&all->txtrs, type))
 		return (1);
 	else
 		return (0);
@@ -54,7 +41,7 @@ int		check_line(t_all *all, char *line)
 	int		err;
 
 	err = 0;
-	if (all->all_set != 8 && *line)
+	if (*line && !ft_isdigit(line[0]))
 	{
 		split = ft_split(line, " \b\t\v\f\r");
 		if (is_att_set(all, split[0]))
@@ -62,7 +49,7 @@ int		check_line(t_all *all, char *line)
 		verify_nset_ids(all, split, &err, line);
 		free_after_verifs(split, err);
 	}
-	else if (*line && all->all_set == 8)
+	else if (*line && ft_isdigit(line[0]))
 		check_map_line(all->map, line, &err);
 	if (err)
 	{
@@ -90,7 +77,7 @@ int		gnl_read(t_all *all, char *file)
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
-	else if (all->map->line && all->all_set == 8)
+	else if (all->map->line && ft_isdigit(line[0]))
 		make_map(all);
 	else
 		error(FILE_MISSING_ARGS, "", 1);

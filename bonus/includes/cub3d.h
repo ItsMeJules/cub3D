@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/18 17:24:56 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:27:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ typedef struct	s_sprite {
 
 typedef struct	s_texture {
 	char	*path;
-	int		is_sprite;
+	char	*id;
 	int		wid;
 	int		hei;
 	t_img	*img;
@@ -238,7 +238,6 @@ typedef struct	s_keys {
 }				t_keys;
 
 typedef struct	s_all {
-	int			all_set;
 	int			save;
 	int			skybox;
 	int			total_sprites;
@@ -431,5 +430,11 @@ void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
  ** skybox.c
  */
 void			draw_skybox(t_all *all, int y);
+
+/*
+ ** texture_utils.c
+ */
+t_texture		*get_texture(t_list *txtrs, char *id);
+t_texture		*get_sptexture(t_list *txtrs, char sprite_num);
 
 #endif

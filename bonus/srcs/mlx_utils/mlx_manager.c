@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/16 16:41:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:30:35 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,26 @@ int		close_w(t_all *all)
 	return (0);
 }
 
-int		load_txtr(t_all *all, t_texture *txtr)
+int		load_txtrs(t_all *all)
 {
-	if (!(txtr->img->img = mlx_xpm_file_to_image(all->win->mlx, txtr->path,
-					&txtr->wid, &txtr->hei)))
+	t_list		*list;
+	t_texture	*txtr;
+
+	list = all->txtrs;
+	while (list)
 	{
-		error(FAILED_TO_LOAD_TXTR, txtr->path, 0);
-		free_all(all, 1);
-		return (1);
+		txtr = (t_texture *)list->content;
+		if (!(txtr->img->img = mlx_xpm_file_to_image(all->win->mlx, txtr->path,
+						&txtr->wid, &txtr->hei)))
+		{
+			error(FAILED_TO_LOAD_TXTR, txtr->path, 0);
+			free_all(all, 1);
+			return (1);
+		}
+		txtr->img->addr = mlx_get_data_addr(txtr->img->img, &txtr->img->bpp,
+				&txtr->img->line_l, &txtr->img->endian);
+		list = list->next;
 	}
-	txtr->img->addr = mlx_get_data_addr(txtr->img->img, &txtr->img->bpp,
-			&txtr->img->line_l, &txtr->img->endian);
 	return (0);
 }
 
@@ -63,13 +72,7 @@ void	start_mlx(t_all *all, int save)
 {
 	all->save = save;
 	new_window(all->win, "Je suis une fenetre", save);
-	if (load_txtr(all, &all->txtrs[NO_TXTR])
-			|| load_txtr(all, &all->txtrs[SO_TXTR])
-			|| load_txtr(all, &all->txtrs[WE_TXTR])
-			|| load_txtr(all, &all->txtrs[EA_TXTR])
-			|| load_txtr(all, &all->txtrs[S_TXTR])
-			|| load_txtr(all, &all->txtrs[F_TXTR])
-			|| load_txtr(all, &all->txtrs[C_TXTR]))
+	if (load_txrs(all))
 		return ;
 	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
 	{
