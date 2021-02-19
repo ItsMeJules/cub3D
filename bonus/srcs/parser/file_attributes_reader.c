@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 15:17:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/19 19:34:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 		if (arg_len(split, err, line, 1) || val_verifs(split, err, line, 1))
 			return ;
 		set_attributes(all, 1, split);
+		free(split[0]);
 	}
 	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
 			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
