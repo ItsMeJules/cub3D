@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 19:09:44 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 19:44:41 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@
 /*
 ** TEXTURES INDEX
 */
-/*# define NO_TXTR 0
+# define NO_TXTR 0
 # define SO_TXTR 1
 # define WE_TXTR 2
 # define EA_TXTR 3
-# define S_TXTR 4
-# define F_TXTR 5
-# define C_TXTR 6*/
+# define F_TXTR 4
+# define C_TXTR 5
 
 /*
 ** KEYS
@@ -248,7 +247,8 @@ typedef struct	s_all {
 	t_ray		*ray;
 	t_floor		*floor;
 	t_keys		keys;
-	t_list		*txtrs;
+	t_texture	*txtrs;
+	t_list		*sp_txtrs;
 	t_list		*sprites;
 }				t_all;
 
