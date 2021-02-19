@@ -6,17 +6,17 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 19:10:03 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 20:38:46 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		is_valid_char(t_list *txtrs, char c)
+int		is_valid_char(t_list *sp_txtrs, char c)
 {
 	int	nb_txtrs;
 
-	nb_txtrs = ft_lstsize(txtrs) - 5;
+	nb_txtrs = ft_lstsize(sp_txtrs) + 1;
 	if (c >= '0' && c <= nb_txtrs + '0')
 		return (1);
 	return (0);
@@ -46,7 +46,7 @@ void	concat_line(t_map *map, char *line)
 	map->line = tmp;
 }
 
-void	check_map_line(t_map *map, t_list *txtrs, char *line, int *err)
+void	check_map_line(t_map *map, t_list *sp_txtrs, char *line, int *err)
 {
 	int		i;
 
@@ -65,7 +65,7 @@ void	check_map_line(t_map *map, t_list *txtrs, char *line, int *err)
 		}
 		else if (ft_isspace(line[i]))
 			line[i] = ' ';
-		else if (!is_valid_char(txtrs, line[i]))
+		else if (!is_valid_char(sp_txtrs, line[i]))
 		{
 			*err = error(INVALID_CHAR_IN_MAP, &line[i], 1);
 			return ;

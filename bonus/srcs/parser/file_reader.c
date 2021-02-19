@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 20:03:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 21:29:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		is_att_set(t_all *all, char *type)
 		return (1);
 	else if (!ft_strcmp(type, "EA") && all->txtrs[EA_TXTR].path)
 		return (1);
-	else if (get_sptexture(all->txtrs, type))
+	else if (type[0] == 'S' && get_sptexture(all->sp_txtrs, type[1] + 1))
 		return (1);
 	else
 		return (0);
@@ -42,7 +42,7 @@ void	handle_map(t_all *all, char *line, int *err)
 {
 	if (!all->at_map)
 		all->at_map = 1;
-	check_map_line(all->map, all->txtrs, line, err);
+	check_map_line(all->map, all->sp_txtrs, line, err);
 }
 
 int		check_line(t_all *all, char *line)

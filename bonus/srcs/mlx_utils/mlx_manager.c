@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 19:58:58 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 21:21:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,6 @@ int		close_w(t_all *all)
 {
 	(void)all;
 	mlx_loop_end(all->win->mlx);
-	return (0);
-}
-
-int		load_txtrs(t_all *all)
-{
-	t_list		*list;
-	t_texture	*txtr;
-
-	list = all->txtrs;
-	while (list)
-	{
-		txtr = (t_texture *)list->content;
-		if (!(txtr->img->img = mlx_xpm_file_to_image(all->win->mlx, txtr->path,
-						&txtr->wid, &txtr->hei)))
-		{
-			error(FAILED_TO_LOAD_TXTR, txtr->path, 0);
-			free_all(all, 1);
-			return (1);
-		}
-		txtr->img->addr = mlx_get_data_addr(txtr->img->img, &txtr->img->bpp,
-				&txtr->img->line_l, &txtr->img->endian);
-		list = list->next;
-	}
 	return (0);
 }
 

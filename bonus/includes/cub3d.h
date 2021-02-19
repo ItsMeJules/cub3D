@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 19:58:42 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/19 20:47:42 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,7 +437,7 @@ void			draw_skybox(t_all *all, int y, t_texture txtr);
 /*
  ** texture_utils.c
  */
-t_texture		*get_texture(t_list *txtrs, char *id);
 t_texture		*get_sptexture(t_list *txtrs, char sprite_num);
+int				load_txtrs(t_all *all);
 
 #endif
