@@ -1,7 +1,7 @@
 R 1500 1000 
 
 NO ./textures/stone.xpm
-SO ./textures/geometric.xpm
+SO ./textures/redbrick.xpm
 WE ./textures/mossy.xpm
 EA ./textures/wood.xpm
 
