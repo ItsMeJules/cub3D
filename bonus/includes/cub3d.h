@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 20:47:42 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/22 03:09:58 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,7 +432,7 @@ void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
 /*
  ** skybox.c
  */
-void			draw_skybox(t_all *all, int y, t_texture txtr);
+void			draw_skybox(t_all *all, int y, t_texture txtr, double facing);
 
 /*
  ** texture_utils.c

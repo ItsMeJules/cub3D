@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 20:33:18 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/20 15:03:58 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 	t_texture	txtr;
 
 	if (ray->side == 0)
-		txtr = all->txtrs[EA_TXTR];
-	else if (ray->side == 1)
 		txtr = all->txtrs[WE_TXTR];
+	else if (ray->side == 1)
+		txtr = all->txtrs[EA_TXTR];
 	else if (ray->side == 2)
-		txtr = all->txtrs[SO_TXTR];
-	else
 		txtr = all->txtrs[NO_TXTR];
+	else
+		txtr = all->txtrs[SO_TXTR];
 	ray->text_x = (int)(ray->wall_x * (double)txtr.wid);
 	if ((ray->side == 0 || ray->side == 1) && ray->dir_x > 0)
 		ray->text_x = txtr.wid - ray->text_x - 1;

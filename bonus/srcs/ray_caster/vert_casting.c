@@ -6,11 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 20:32:09 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/22 03:10:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 void	init_txtr(t_all *all, int y, t_texture txtr)
 {
@@ -51,23 +52,25 @@ void	vert_cast(t_all *all)
 {
 	int		y;
 	float	pos_z;
+	double	facing;
 
-	pos_z = all->win->len * 0.5;
 	y = all->win->len / 2;
+	pos_z = all->win->len * 0.5;
 	all->floor->ray_dir_x0 = all->pos.dir_x - all->pos.plane_x;
 	all->floor->ray_dir_y0 = all->pos.dir_y - all->pos.plane_y;
 	all->floor->ray_dir_x1 = all->pos.dir_x + all->pos.plane_x;
 	all->floor->ray_dir_y1 = all->pos.dir_y + all->pos.plane_y;
 	all->floor->diff_x = all->floor->ray_dir_x1 - all->floor->ray_dir_x0;
 	all->floor->diff_y = all->floor->ray_dir_y1 - all->floor->ray_dir_y0;
+	facing = fabs(atan2(all->floor->ray_dir_x0, all->floor->ray_dir_y0)
+				* 180 / M_PI - 180) / 360;
 	while (++y < all->win->len)
 	{
 		calc_line_ray(all, all->floor, y, pos_z + all->pos.jump_crouch);
 		init_txtr(all, y, all->txtrs[F_TXTR]);
 		if (all->skybox)
 		{
-			draw_skybox(all, all->win->len - y - 1,
-					all->txtrs[C_TXTR]);
+			draw_skybox(all, all->win->len - y - 1, all->txtrs[C_TXTR], facing);
 			continue ;
 		}
 		calc_line_ray(all, all->floor, y, pos_z - all->pos.jump_crouch);

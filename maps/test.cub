@@ -1,6 +1,6 @@
 R 1500 1000 
 
-NO ./textures/stone.xpm
+NO ./textures/bluegreyl.xpm
 SO ./textures/geometric.xpm
 WE ./textures/mossy.xpm
 EA ./textures/wood.xpm
@@ -8,7 +8,7 @@ EA ./textures/wood.xpm
 S1 ./textures/barrel1.xpm
 S2 ./textures/barrel2.xpm
 S3 ./textures/dog.xpm
-S4 ./textures/flowers.xpm
+S4 ./textures/vase2.xpm
 
 F ./textures/diamond.xpm 
 C ./textures/skybox_desert_day.xpm
@@ -18,7 +18,7 @@ C ./textures/skybox_desert_day.xpm
 10101111111111110100000000003000001
 10101010000000010111111000040000001
 10101000111111010100000000002000001
-10001010000000000101111100000010001
+10001010000000000101111100000000001
 11111010000000010101000000000000001
 10100011111111110111005500030000001
 10001000000000000000005500000000001
