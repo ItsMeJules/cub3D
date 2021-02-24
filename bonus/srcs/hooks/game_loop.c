@@ -6,12 +6,12 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/02/22 13:27:43 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/23 18:01:45 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
+#include <stdio.h>
 
 int		game_loop(t_all *all)
 {

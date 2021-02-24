@@ -6,12 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/22 03:10:38 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/24 09:55:55 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
+#include <stdio.h>
 
 void	init_txtr(t_all *all, int y, t_texture txtr)
 {
@@ -48,29 +49,43 @@ void	calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z)
 	floor->floor_y = all->pos.pos_y + floor->row_dst * floor->ray_dir_y0;
 }
 
-void	vert_cast(t_all *all)
+double	get_face(double dirx, double diry)
 {
-	int		y;
-	float	pos_z;
-	double	facing;
+	return (fabs(atan2(dirx, diry) * 180 / M_PI - 180) / 360);
+}
 
-	y = all->win->len / 2;
-	pos_z = all->win->len * 0.5;
+void	init_floorcei(t_all *all)
+{
+	double	facing2;
+
 	all->floor->ray_dir_x0 = all->pos.dir_x - all->pos.plane_x;
 	all->floor->ray_dir_y0 = all->pos.dir_y - all->pos.plane_y;
 	all->floor->ray_dir_x1 = all->pos.dir_x + all->pos.plane_x;
 	all->floor->ray_dir_y1 = all->pos.dir_y + all->pos.plane_y;
 	all->floor->diff_x = all->floor->ray_dir_x1 - all->floor->ray_dir_x0;
 	all->floor->diff_y = all->floor->ray_dir_y1 - all->floor->ray_dir_y0;
-	facing = fabs(atan2(all->floor->ray_dir_x0, all->floor->ray_dir_y0)
-				* 180 / M_PI - 180) / 360;
+	all->pos.face_left = get_face(all->floor->ray_dir_x0, all->floor->ray_dir_y0);
+	if (all->skybox && all->pos.fdiff)
+		return ;
+	facing2 = get_face(all->floor->ray_dir_x1, all->floor->ray_dir_y1);
+	all->pos.fdiff = fabs((facing2 - all->pos.face_left)) / all->win->wid;
+}
+
+void	vert_cast(t_all *all)
+{
+	int		y;
+	float	pos_z;
+
+	y = all->win->len / 2;
+	pos_z = all->win->len * 0.5;
+	init_floorcei(all);
 	while (++y < all->win->len)
 	{
 		calc_line_ray(all, all->floor, y, pos_z + all->pos.jump_crouch);
 		init_txtr(all, y, all->txtrs[F_TXTR]);
 		if (all->skybox)
 		{
-			draw_skybox(all, all->win->len - y - 1, all->txtrs[C_TXTR], facing);
+			draw_skybox(all, all->win->len - y - 1, all->txtrs[C_TXTR]);
 			continue ;
 		}
 		calc_line_ray(all, all->floor, y, pos_z - all->pos.jump_crouch);

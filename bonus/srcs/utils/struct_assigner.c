@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 20:30:12 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/24 08:28:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_all		*new_all(void)
 	all->txtrs = new_othertxtrs(6, -1);
 	all->sp_txtrs = NULL;
 	all->sprites = NULL;
+	all->pos.fdiff = 0;
 	set_keys(all);
 	return (all);
 }

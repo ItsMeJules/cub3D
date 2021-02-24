@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 15:54:12 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/02/23 18:11:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,14 @@ void	draw_map(t_all *all)
 	int		y;
 	char	c;
 
-	x = 0;
-	while (++x < all->map->wid - 1)
+	x = (int)all->pos.pos_x - 1;
+	while (++x < (int)all->pos.pos_x + MAP_VIEW_DIST/2 - 1)
 	{
-		y = 0;
-		while (++y < all->map->len - 1)
+		y = (int)all->pos.pos_y - 1;
+		while (++y < (int)all->pos.pos_y + MAP_VIEW_DIST/2 - 1)
 		{
 			c = elem_at(x, y, all->map);
+			c = elem_at(x - MAP_VIEW_DIST / 2, y - MAP_VIEW_DIST / 2, all->map);
 			draw_wall(x, y, all->win, c);
 		}
 	}

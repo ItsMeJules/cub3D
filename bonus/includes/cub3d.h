@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/22 03:09:58 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/23 20:04:46 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@
 # define BITMAP_OPEN_ERROR 19
 
 # define MAP_ELEM_PX_SIZE 10
+# define MAP_VIEW_DIST 10
 # define MAP_WALL_COLOR 0x0068C8
 # define MAP_WALKABLE_COLOR 0xFFFFFF
 # define MAP_VOID_COLOR 0xC0C0C0
@@ -140,6 +141,8 @@ typedef struct	s_pos {
 	double	plane_y;
 	double	move_speed;
 	double	rot_speed;
+	double	face_left;
+	double	fdiff;
 	int		in_air;
 	int		jump_crouch;
 	int		decelerate;
@@ -432,7 +435,7 @@ void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
 /*
  ** skybox.c
  */
-void			draw_skybox(t_all *all, int y, t_texture txtr, double facing);
+void			draw_skybox(t_all *all, int y, t_texture txtr);
 
 /*
  ** texture_utils.c
