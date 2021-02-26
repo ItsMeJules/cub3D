@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 20:38:46 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/26 12:04:12 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	rewrite_line(t_map *map, char *final, int *j, int i)
 			if (map->line[i + 1] && map->line[i + 1] == ';')
 			{
 				while (++k < map->wid - 1)
-					final[(*j)++] = ' ';
+					final[(*j)++] = '#';
 				final[(*j)++] = '#';
 			}
 		}
@@ -99,7 +99,7 @@ void	rewrite_line(t_map *map, char *final, int *j, int i)
 		}
 	}
 	while (++k < map->wid - 1)
-		final[(*j)++] = ' ';
+		final[(*j)++] = '#';
 }
 
 void	make_map(t_all *all)

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/23 20:04:46 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/26 19:20:08 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@
 # define BITMAP_OPEN_ERROR 19
 
 # define MAP_ELEM_PX_SIZE 10
-# define MAP_VIEW_DIST 10
+# define MAP_X_PX_OFFSET 20
+# define MAP_Y_PX_OFFSET 20
+# define MAP_VIEW_DIST 8
 # define MAP_WALL_COLOR 0x0068C8
 # define MAP_WALKABLE_COLOR 0xFFFFFF
 # define MAP_VOID_COLOR 0xC0C0C0
@@ -239,6 +241,15 @@ typedef struct	s_keys {
 	int	sprint;
 }				t_keys;
 
+typedef struct	s_minimap {
+	int	y_drawstart;
+	int	x_drawstart;
+	int	minx_draw;
+	int	maxx_draw;
+	int	miny_draw;
+	int	maxy_draw;
+}				t_minimap;
+
 typedef struct	s_all {
 	int			at_map;
 	int			save;
@@ -253,6 +264,7 @@ typedef struct	s_all {
 	t_texture	*txtrs;
 	t_list		*sp_txtrs;
 	t_list		*sprites;
+	t_minimap	minimap;
 }				t_all;
 
 /*
@@ -386,6 +398,7 @@ void			draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
 ** minimap.c
 */
 void			draw_map(t_all *all);
+void			init_minimap(t_all *all);
 
 /*
 ** shaped_drawing.c
@@ -442,5 +455,10 @@ void			draw_skybox(t_all *all, int y, t_texture txtr);
  */
 t_texture		*get_sptexture(t_list *txtrs, char sprite_num);
 int				load_txtrs(t_all *all);
+
+/*
+ ** utils.c
+ */
+double			get_decimals(double nb);
 
 #endif

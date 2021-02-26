@@ -6,53 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/23 18:11:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/26 19:21:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
 #include <stdio.h>
-
-/*
-** Notes pour plus tard: si la map est trop grande afficher qu'une partie de
-** celle-ci en mimimap.
-*/
-
-void	get_color(int *color, char c)
-{
-	*color = MAP_WALKABLE_COLOR;
-	if (c == '1')
-		*color = MAP_WALL_COLOR;
-	else if (c == ' ')
-		*color = MAP_VOID_COLOR;
-}
-
-void	draw_wall(int x, int y, t_win *win, char c)
-{
-	int	i;
-	int j;
-	int	x_px;
-	int	y_px;
-	int	color;
-
-	x_px = x * MAP_ELEM_PX_SIZE;
-	y_px = y * MAP_ELEM_PX_SIZE;
-	i = x_px - 1;
-	get_color(&color, c);
-	while (++i < win->wid && i < x_px + MAP_ELEM_PX_SIZE)
-	{
-		j = y_px - 1;
-		while (++j < win->len && j < y_px + MAP_ELEM_PX_SIZE)
-		{
-			if (i == x_px + MAP_ELEM_PX_SIZE - 1
-					|| j == y_px + MAP_ELEM_PX_SIZE - 1)
-				set_pixel(win, i, j, 0x000000);
-			else
-				set_pixel(win, i, j, color);
-		}
-	}
-}
 
 void	draw_player(t_pos pos, t_win *win, int dir_len)
 {
@@ -62,8 +21,8 @@ void	draw_player(t_pos pos, t_win *win, int dir_len)
 	int		y_px;
 	t_line	line;
 
-	x_px = pos.pos_x * MAP_ELEM_PX_SIZE;
-	y_px = pos.pos_y * MAP_ELEM_PX_SIZE;
+	x_px = MAP_X_PX_OFFSET + MAP_ELEM_PX_SIZE * MAP_VIEW_DIST;
+	y_px = win->len - MAP_Y_PX_OFFSET - MAP_ELEM_PX_SIZE * MAP_VIEW_DIST;
 	i = x_px - 1;
 	while (++i < win->wid && i < x_px + MAP_PLAYER_PX_SIZE - 1)
 	{
@@ -82,21 +41,73 @@ void	draw_player(t_pos pos, t_win *win, int dir_len)
 	draw_line(line, win, 2, 0xFF0000);
 }
 
+void	draw_piece(t_all *all, int xiter, int yiter, char c)
+{
+	int	i;
+	int	j;
+	int	x_px;
+	int	y_px;
+	int	color;
+
+	x_px = all->minimap.x_drawstart + (xiter - get_decimals(all->pos.pos_x))
+		* MAP_ELEM_PX_SIZE;
+	y_px = all->minimap.y_drawstart + ((yiter - get_decimals(all->pos.pos_y))
+			* MAP_ELEM_PX_SIZE);
+	i = x_px + 1;
+	get_color(&color, c);
+	while (--i > x_px - MAP_ELEM_PX_SIZE)
+	{
+		if (i < all->minimap.minx_draw || i > all->minimap.maxx_draw)
+			continue ;
+		j = y_px + 1;
+		while (--j > y_px - MAP_ELEM_PX_SIZE)
+		{
+			if (j > all->minimap.miny_draw || j < all->minimap.maxy_draw)
+				continue ;
+			set_pixel(all->win, i, j, color);
+		}
+	}
+}
+
+void	init_minimap(t_all *all)
+{
+	all->minimap.y_drawstart = all->win->len - MAP_Y_PX_OFFSET -
+		MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2 + MAP_ELEM_PX_SIZE;
+	all->minimap.x_drawstart = MAP_X_PX_OFFSET + MAP_ELEM_PX_SIZE;
+	all->minimap.minx_draw = MAP_X_PX_OFFSET + MAP_ELEM_PX_SIZE;
+	all->minimap.miny_draw = all->win->len - MAP_X_PX_OFFSET - MAP_ELEM_PX_SIZE;
+	all->minimap.maxx_draw = MAP_X_PX_OFFSET
+		+ (MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2) - MAP_ELEM_PX_SIZE;
+	all->minimap.maxy_draw = all->win->len - MAP_X_PX_OFFSET
+		- (MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2) + MAP_ELEM_PX_SIZE;
+}
+
 void	draw_map(t_all *all)
 {
 	int		x;
 	int		y;
+	int		xiter;
+	int		yiter;
 	char	c;
 
-	x = (int)all->pos.pos_x - 1;
-	while (++x < (int)all->pos.pos_x + MAP_VIEW_DIST/2 - 1)
+	if (all->win->wid < MAP_X_PX_OFFSET + MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2
+		|| all->win->len < MAP_Y_PX_OFFSET +
+			MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2)
+		return ;
+	x = (int)all->pos.pos_x - MAP_VIEW_DIST - 1;
+	while (++x < (int)all->pos.pos_x + MAP_VIEW_DIST)
 	{
-		y = (int)all->pos.pos_y - 1;
-		while (++y < (int)all->pos.pos_y + MAP_VIEW_DIST/2 - 1)
+		if (x < 0 || x > all->map->wid)
+			continue ;
+		y = (int)all->pos.pos_y - MAP_VIEW_DIST - 1;
+		while (++y < (int)all->pos.pos_y + MAP_VIEW_DIST)
 		{
-			c = elem_at(x, y, all->map);
-			c = elem_at(x - MAP_VIEW_DIST / 2, y - MAP_VIEW_DIST / 2, all->map);
-			draw_wall(x, y, all->win, c);
+			if (y < 0 || y > all->map->len)
+				continue ;
+			xiter = x - (int)all->pos.pos_x + MAP_VIEW_DIST;
+			yiter = y - (int)all->pos.pos_y + MAP_VIEW_DIST;
+			 if ((c = elem_at(x, y, all->map)) == '1')
+				draw_piece(all, xiter, yiter, c);
 		}
 	}
 	draw_player(all->pos, all->win, 5);
