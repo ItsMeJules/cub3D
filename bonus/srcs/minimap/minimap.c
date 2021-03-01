@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/26 19:21:05 by jules            ###   ########.fr       */
+/*   Updated: 2021/02/27 14:44:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,18 @@ void	draw_player(t_pos pos, t_win *win, int dir_len)
 	draw_line(line, win, 2, 0xFF0000);
 }
 
-void	draw_piece(t_all *all, int xiter, int yiter, char c)
+void	draw_piece(t_all *all, int xiter, int yiter)
 {
 	int	i;
 	int	j;
 	int	x_px;
 	int	y_px;
-	int	color;
 
 	x_px = all->minimap.x_drawstart + (xiter - get_decimals(all->pos.pos_x))
 		* MAP_ELEM_PX_SIZE;
 	y_px = all->minimap.y_drawstart + ((yiter - get_decimals(all->pos.pos_y))
 			* MAP_ELEM_PX_SIZE);
 	i = x_px + 1;
-	get_color(&color, c);
 	while (--i > x_px - MAP_ELEM_PX_SIZE)
 	{
 		if (i < all->minimap.minx_draw || i > all->minimap.maxx_draw)
@@ -64,7 +62,7 @@ void	draw_piece(t_all *all, int xiter, int yiter, char c)
 		{
 			if (j > all->minimap.miny_draw || j < all->minimap.maxy_draw)
 				continue ;
-			set_pixel(all->win, i, j, color);
+			set_pixel(all->win, i, j, MAP_WALL_COLOR);
 		}
 	}
 }
@@ -107,7 +105,7 @@ void	draw_map(t_all *all)
 			xiter = x - (int)all->pos.pos_x + MAP_VIEW_DIST;
 			yiter = y - (int)all->pos.pos_y + MAP_VIEW_DIST;
 			 if ((c = elem_at(x, y, all->map)) == '1')
-				draw_piece(all, xiter, yiter, c);
+				draw_piece(all, xiter, yiter);
 		}
 	}
 	draw_player(all->pos, all->win, 5);
