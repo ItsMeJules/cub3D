@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/22 13:25:06 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/02 11:15:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	new_window(t_win *win, char name[25], int save)
 {
-	int	resx;
-	int	resy;
+	/*int	resx;
+	int	resy;*/
 
 	if (!(win->img = malloc(sizeof(t_img))))
 	{
@@ -25,11 +25,11 @@ void	new_window(t_win *win, char name[25], int save)
 	win->mlx = mlx_init();
 	if (!save)
 	{
-		mlx_get_screen_size(win->mlx, &resx, &resy);
+	/*	mlx_get_screen_size(win->mlx, &resx, &resy);
 		if (win->wid > resx)
 			win->wid = resx;
 		if (win->len > resy)
-			win->len = resy;
+			win->len = resy;*/
 		win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	}
 	win->img->img = mlx_new_image(win->mlx, win->wid, win->len);
@@ -40,7 +40,7 @@ void	new_window(t_win *win, char name[25], int save)
 int		close_w(t_all *all)
 {
 	(void)all;
-	mlx_loop_end(all->win->mlx);
+//	mlx_loop_end(all->win->mlx);
 	return (0);
 }
 
@@ -83,7 +83,7 @@ void	stop_mlx(t_all *all)
 	free_txtrs(all, 1, -1);
 	if (!all->save)
 		mlx_destroy_window(all->win->mlx, all->win->win);
-	mlx_destroy_display(all->win->mlx);
+//	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
 	free_all(all, 0);

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/27 18:44:39 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/02 17:30:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@
 # define UNKNOWN_ARGUMENT 18
 # define BITMAP_OPEN_ERROR 19
 
-# define MAP_ELEM_PX_SIZE 10
+# define MAP_ELEM_PX_SIZE 12 
 # define MAP_X_PX_OFFSET 20
 # define MAP_Y_PX_OFFSET 20
 # define MAP_VIEW_DIST 8
@@ -95,10 +95,13 @@
 # define MAP_WALKABLE_COLOR 0xFFFFFF
 # define MAP_VOID_COLOR 0xC0C0C0
 # define MAP_PLAYER_COLOR 0xFF0000
-# define MAP_PLAYER_PX_SIZE 5
+# define MAP_PLAYER_PX_SIZE 4
+
+# define HBAR_X_OFFSET 50
+# define HBAR_WID 20
 
 # define PLAYER_FOV 0.66
-# define PLAYER_VIEW_DIST 50 
+# define PLAYER_VIEW_DIST 20 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_MOV_DECELERATE 0.78
 # define PLAYER_ROT_DECELERATE 0.48
@@ -106,7 +109,7 @@
 # define PLAYER_SPRINT_MULT 2;
 # define PLAYER_CROUCH_MULT 0.6;
 # define JUMP_HEIGHT_PX 200
-# define CROUCH_HEIGHT_PX -300
+# define CROUCH_HEIGHT_PX -100
 
 typedef struct	s_img {
 	void	*img;
@@ -250,6 +253,31 @@ typedef struct	s_minimap {
 	int	maxy_draw;
 }				t_minimap;
 
+typedef struct	s_blur {
+	int		*gauss_box;
+	int		*changed_pxs;
+	int		radius;
+	int		img_wid;
+	int		img_hei;
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+	double	sigma;
+}				t_blur;
+
+typedef struct	s_hud {
+	int		hbar_startx;
+	int		hbar_starty;
+	int		hbar_endx;
+	int		hbar_endy;
+	double	hstep;
+}				t_hud;
+
+typedef struct	s_player {
+	int	health;
+}				t_player;
+
 typedef struct	s_all {
 	int			at_map;
 	int			save;
@@ -265,6 +293,8 @@ typedef struct	s_all {
 	t_list		*sp_txtrs;
 	t_list		*sprites;
 	t_minimap	minimap;
+	t_hud		hud;
+	t_player	player;
 }				t_all;
 
 /*
@@ -365,6 +395,11 @@ int				get_g(int trgb);
 int				get_b(int trgb);
 
 /*
+** utils_colors2.c
+*/
+int				transparency_px(int px, int px2, double t);
+
+/*
 ** utils_colors_42docs.c
 */
 int				go_lsd_haha(int color, double dist);
@@ -401,9 +436,11 @@ void			draw_map(t_all *all);
 void			init_minimap(t_all *all);
 
 /*
-** shaped_drawing.c
+** shapes_drawing.c
 */
 void			draw_line(t_line line, t_win *win, int thickness, int color);
+void			draw_rect(t_line line, t_win *win, int color);
+void			fill_px(t_line line, t_win *win, int color);
 
 /*
 ** moving.c
@@ -446,19 +483,24 @@ void			vert_cast(t_all *all);
 void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
 
 /*
- ** skybox.c
- */
+** skybox.c
+*/
 void			draw_skybox(t_all *all, int y, t_texture txtr);
 
 /*
- ** texture_utils.c
- */
+** texture_utils.c
+*/
 t_texture		*get_sptexture(t_list *txtrs, char sprite_num);
 int				load_txtrs(t_all *all);
 
 /*
- ** utils.c
- */
+** utils.c
+*/
 double			get_decimals(double nb);
+
+/*
+** hud.c
+*/
+void			draw_hud(t_all *all);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/27 14:44:56 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/02 15:33:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,24 @@ void	init_minimap(t_all *all)
 		- (MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2) + MAP_ELEM_PX_SIZE;
 }
 
+void	draw_background(t_all *all)
+{
+	int	x;
+	int y;
+	int	bcolor;
+	
+	x = all->minimap.minx_draw - 1;
+	while (++x <= all->minimap.maxx_draw)
+	{
+		y = all->minimap.maxy_draw - 1;
+		while (++y <= all->minimap.miny_draw)
+		{
+			bcolor = *get_pixel(all->win->img, x, y);
+			set_pixel(all->win, x, y, transparency_px(bcolor, 0xC0C0C0, 4));
+		}
+	}
+}
+
 void	draw_map(t_all *all)
 {
 	int		x;
@@ -93,6 +111,7 @@ void	draw_map(t_all *all)
 			MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2)
 		return ;
 	x = (int)all->pos.pos_x - MAP_VIEW_DIST - 1;
+	draw_background(all);
 	while (++x < (int)all->pos.pos_x + MAP_VIEW_DIST)
 	{
 		if (x < 0 || x > all->map->wid)

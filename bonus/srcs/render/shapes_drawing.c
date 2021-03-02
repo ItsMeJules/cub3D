@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:35:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 14:58:29 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/02 17:25:14 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,38 @@ void	draw_line(t_line line, t_win *win, int thickness, int color)
 		if (line.y0 == line.y1 && line.x0 == line.x1)
 			break ;
 		incr_line(&line, &err, sx, sy);
+	}
+}
+
+void	draw_rect(t_line line, t_win *win, int color)
+{
+	int	x;
+	int	y;
+
+	x = line.x0 - 1;
+	while (++x <= line.x1)
+	{
+		set_pixel(win, x, line.y0, color);
+		set_pixel(win, x, line.y1, color);
+	}
+	y = line.y0 - 1;
+	while (++y < line.y1)
+	{
+		set_pixel(win, line.x0, y, color);
+		set_pixel(win, line.x1, y, color);
+	}
+}
+
+void	fill_px(t_line line, t_win *win, int color)
+{
+	int	x;
+	int	y;
+
+	x = line.x0 - 1;
+	while (++x < line.x1)
+	{
+		y = line.y0 - 1;
+		while (++y < line.y1)
+			set_pixel(win, x, y, color);
 	}
 }
