@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/03/02 15:42:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 01:09:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 int		game_loop(t_all *all)
 {
-	char	buffer[80];
-
 	keys_manager(all);
 	ray_cast(all);
 	vert_cast(all);
@@ -24,7 +22,8 @@ int		game_loop(t_all *all)
 	draw_map(all);
 	draw_hud(all);
 	push_image(all->win);
-	sprintf(buffer, "Position : %.2f %.2f", all->pos.pos_x, all->pos.pos_y);
-	mlx_string_put(all->win->mlx, all->win->win, 100, 500, 0xFFFFFF, buffer);
+	all->player.health--;
+	if (all->player.health <= 0)
+		all->player.health = PLAYER_MAX_HEALTH;
 	return (1);
 }

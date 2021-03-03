@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/02 15:47:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 00:46:36 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_all		*new_all(void)
 	all->sp_txtrs = NULL;
 	all->sprites = NULL;
 	all->pos.fdiff = 0;
-	all->player.health = 100;
+	all->player.health = PLAYER_MAX_HEALTH;
 	set_keys(all);
 	return (all);
 }

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/02 17:30:39 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 01:07:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@
 # define HBAR_X_OFFSET 50
 # define HBAR_WID 20
 
+# define PLAYER_MAX_HEALTH 100
 # define PLAYER_FOV 0.66
 # define PLAYER_VIEW_DIST 20 
 # define PLAYER_MOV_SPEED 0.1
@@ -497,6 +498,7 @@ int				load_txtrs(t_all *all);
 ** utils.c
 */
 double			get_decimals(double nb);
+double			ft_min(double n1, double n2);
 
 /*
 ** hud.c
