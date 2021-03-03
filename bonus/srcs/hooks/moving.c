@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:55:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/16 10:18:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:46:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@
 void	move_forward(t_all *all)
 {
 	t_pos	pos;
+	double	nextx;
+	double	nexty;
 
 	if (handle_deceler(&all->keys.fwrd, all))
 		return ;
 	pos = all->pos;
-	if (elem_at((int)(pos.pos_x + pos.dir_x * pos.move_speed), (int)pos.pos_y,
-				all->map) == '0')
-		all->pos.pos_x += pos.dir_x * pos.move_speed;
-	if (elem_at((int)pos.pos_x, (int)(pos.pos_y + pos.dir_y * pos.move_speed),
-				all->map) == '0')
-		all->pos.pos_y += pos.dir_y * pos.move_speed;
+	nextx = pos.pos_x + pos.dir_x * pos.move_speed;
+	nexty = pos.pos_y + pos.dir_y * pos.move_speed;
+	if (elem_at((int)(nextx), (int)pos.pos_y, all->map) == '0')
+		all->pos.pos_x = nextx; 
+	if (elem_at((int)pos.pos_x, (int)(nexty), all->map) == '0')
+		all->pos.pos_y = nexty; 
 }
 
 void	move_backward(t_all *all)

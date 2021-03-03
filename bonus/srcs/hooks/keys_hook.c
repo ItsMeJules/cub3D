@@ -6,12 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/02/16 10:32:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:56:26 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
 #include <stdio.h>
 
 int		key_press(int keycode, t_all *all)
@@ -35,13 +34,17 @@ int		key_press(int keycode, t_all *all)
 	else if (keycode == SHIFT_KEY && !all->pos.in_air && !all->keys.sprint)
 	{
 		all->keys.crouch = 1;
-		all->pos.move_speed *= PLAYER_CROUCH_MULT;
+		if (!all->pos.decelerate)
+			all->pos.move_speed *= PLAYER_CROUCH_MULT;
 	}
-	else if (keycode == CTRL_KEY && !all->keys.crouch)
+	else if (keycode == CTRL_KEY && !all->keys.crouch && !all->pos.decelerate)
 	{
 		all->keys.sprint = 1;
-		all->pos.move_speed *= PLAYER_SPRINT_MULT;
+		if (!all->pos.decelerate)
+			all->pos.move_speed *= PLAYER_SPRINT_MULT;
 	}
+	else if (keycode == C_KEY)
+		all->keys.crosshair = !all->keys.crosshair;
 	return (1);
 }
 
@@ -73,9 +76,10 @@ int		key_rels(int keycode, t_all *all)
 	else if (keycode == SHIFT_KEY)
 	{
 		all->keys.crouch = 0;
-		all->pos.move_speed = PLAYER_MOV_SPEED;
+		if (!all->pos.decelerate)
+			all->pos.move_speed = PLAYER_MOV_SPEED;
 	}
-	else if (keycode == CTRL_KEY)
+	else if (keycode == CTRL_KEY && !all->pos.decelerate)
 	{
 		all->keys.sprint = 0;
 		all->pos.move_speed = PLAYER_MOV_SPEED;

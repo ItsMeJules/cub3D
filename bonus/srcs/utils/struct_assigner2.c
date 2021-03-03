@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 19:58:11 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/03 12:39:21 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		set_keys(t_all *all)
 	all->keys.cam_right = 0;
 	all->keys.crouch = 0;
 	all->keys.sprint = 0;
+	all->keys.crosshair = 0;
 }
 
 t_sprite	*new_sprite(char txtr, double x, double y)

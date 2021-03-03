@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/03 01:07:50 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/03 14:58:49 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 #  define A_KEY 97
 #  define S_KEY 115
 #  define D_KEY 100
+#  define C_KEY 90 
 #  define SPACE_KEY 32
 #  define SHIFT_KEY 65505
 #  define CTRL_KEY 65507
@@ -54,6 +55,7 @@
 #  define A_KEY 0
 #  define S_KEY 1
 #  define D_KEY 2
+#  define C_KEY 8 
 #  define SPACE_KEY 49 
 #  define SHIFT_KEY 257 
 #  define CTRL_KEY 256 
@@ -95,7 +97,7 @@
 # define MAP_WALKABLE_COLOR 0xFFFFFF
 # define MAP_VOID_COLOR 0xC0C0C0
 # define MAP_PLAYER_COLOR 0xFF0000
-# define MAP_PLAYER_PX_SIZE 4
+# define MAP_PLAYER_PX_SIZE 5
 
 # define HBAR_X_OFFSET 50
 # define HBAR_WID 20
@@ -111,6 +113,7 @@
 # define PLAYER_CROUCH_MULT 0.6;
 # define JUMP_HEIGHT_PX 200
 # define CROUCH_HEIGHT_PX -100
+# define CROSSHAIR_COLOR 0xC0C0C0
 
 typedef struct	s_img {
 	void	*img;
@@ -243,6 +246,7 @@ typedef struct	s_keys {
 	int	cam_right;
 	int	crouch;
 	int	sprint;
+	int	crosshair;
 }				t_keys;
 
 typedef struct	s_minimap {
@@ -268,11 +272,16 @@ typedef struct	s_blur {
 }				t_blur;
 
 typedef struct	s_hud {
+	int		init;
 	int		hbar_startx;
 	int		hbar_starty;
 	int		hbar_endx;
 	int		hbar_endy;
 	double	hstep;
+	t_line	tl_line;
+	t_line	tr_line;
+	t_line	bl_line;
+	t_line	br_line;
 }				t_hud;
 
 typedef struct	s_player {
@@ -504,5 +513,10 @@ double			ft_min(double n1, double n2);
 ** hud.c
 */
 void			draw_hud(t_all *all);
+
+/*
+** health.c
+*/
+void	draw_health_bar(t_all *all);
 
 #endif

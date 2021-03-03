@@ -6,13 +6,12 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 21:42:14 by jules             #+#    #+#             */
-/*   Updated: 2021/03/02 15:18:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 14:59:36 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
-#include <stdio.h>
 
 int		camera_deceler(int *key, t_all *all)
 {
@@ -70,7 +69,7 @@ void	do_jump(t_all *all)
 	static double	jratio = -M_PI_2;
 	int				ratio;
 
-	ratio = cos(jratio) * 200;
+	ratio = cos(jratio) * JUMP_HEIGHT_PX;
 	if (jratio <= M_PI_2)
 		jratio += 0.1;
 	else

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:35:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/02 17:25:14 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/03 12:57:46 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_line(t_line line, t_win *win, int thickness, int color)
 	tmp = thickness;
 	while (1)
 	{
-		while (--thickness)
+		while (thickness--)
 		{
 			set_pixel(win, line.x0, line.y0, color);
 			set_pixel(win, line.x0, line.y0 - thickness, color);
