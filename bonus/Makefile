@@ -5,7 +5,7 @@ OS				= $(shell uname)
 
 CFLAGS			= -Wall -Werror -Wextra
 IFLAGS			= -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_DIR)/includes
-LINK_FLAGS		= -L $(MLX_DIR) -lmlx -L $(LIBFT_DIR) -lft -framework OpenGL -framework Appkit
+LINK_FLAGS		= -L $(MLX_DIR) -lmlx -L $(LIBFT_DIR) -L /usr/local/lib -lportaudio -lft -framework OpenGL -framework Appkit
 
 SRC_DIR			= srcs
 INC_DIR			= includes
