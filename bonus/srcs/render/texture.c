@@ -6,11 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/03 16:29:08 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:08:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 void	draw_vert(t_all *all, t_texture txtr, int x, int y)
 {
@@ -42,8 +43,8 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 			while (++y < s->draw_endy)
 			{
 				d = (y - s->jc_offset) * 256 - win->len * 128 + s->hei * 128;
-				if ((color = *get_pixel(txtr.img, text_x,
-								((d * txtr.hei) / s->hei) / 256)) != 0)
+				if ((color = *get_pixel(txtr.img, abs(text_x),
+								abs(((d * txtr.hei) / s->hei) / 256))) != 0)
 					set_pixel(win, stripe, y, depth_shade(color, s->transform_y));
 			}
 		}
