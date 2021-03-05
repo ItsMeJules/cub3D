@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 12:21:39 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/18 15:40:27 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/05 13:05:43 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void	set_player_pos(t_all *all, int x, int y, char c)
 	set_player_dir(all, c);
 	all->pos.pos_x = (double)x + 0.5;
 	all->pos.pos_y = (double)y + 0.5;
+	all->pos.pos_z = 0;
+	all->pos.pitch = 0;
 	all->pos.move_speed = PLAYER_MOV_SPEED;
 	all->pos.rot_speed = PLAYER_ROT_SPEED;
 	all->pos.decelerate = 0;
-	all->pos.jump_crouch = 0;
 	all->pos.in_air = 0;
 	all->map->line[all->map->wid * y + x] = '0';
 	if (!iter_map(x, y, all->map, 'x') || !iter_map(x, y, all->map, 'y'))

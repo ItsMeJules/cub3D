@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/03 12:39:21 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/05 13:03:05 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_sprite	*new_sprite(char txtr, double x, double y)
 	sprite->txtr = txtr;
 	sprite->x = x;
 	sprite->y = y;
+	sprite->vmove = 0;
 	sprite->dist = 0;
 	return (sprite);
 }

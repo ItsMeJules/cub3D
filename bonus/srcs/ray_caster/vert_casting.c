@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/24 09:55:55 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/05 15:46:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ void	init_txtr(t_all *all, int y, t_texture txtr)
 	}
 }
 
-void	calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z)
+void	calc_line_ray(t_all *all, t_floor *floor, int pos)
 {
-	int		pos;
+	float	cam_z;
 
-	pos = y - all->win->len / 2;
-	floor->row_dst = pos_z / pos;
+	cam_z = floor->is_floor ? (0.5 * all->win->len + all->pos.pos_z)
+				: (0.5 * all->win->len - all->pos.pos_z);
+	floor->row_dst = cam_z / pos;
 	floor->f_stepx = floor->row_dst * floor->diff_x / all->win->wid;
 	floor->f_stepy = floor->row_dst * floor->diff_y / all->win->wid;
 	floor->floor_x = all->pos.pos_x + floor->row_dst * floor->ray_dir_x0;
@@ -74,21 +75,26 @@ void	init_floorcei(t_all *all)
 void	vert_cast(t_all *all)
 {
 	int		y;
-	float	pos_z;
+	int		pos;
 
-	y = all->win->len / 2;
-	pos_z = all->win->len * 0.5;
+	y = -1;
 	init_floorcei(all);
 	while (++y < all->win->len)
 	{
-		calc_line_ray(all, all->floor, y, pos_z + all->pos.jump_crouch);
-		init_txtr(all, y, all->txtrs[F_TXTR]);
-		if (all->skybox)
+		all->floor->is_floor = y > all->win->len / 2 + all->pos.pitch;
+		pos = all->floor->is_floor ? (y - all->win->len / 2 - all->pos.pitch)
+					: (all->win->len / 2 - y + all->pos.pitch);
+		calc_line_ray(all, all->floor, pos); 
+		if (all->floor->is_floor)
+			init_txtr(all, y, all->txtrs[F_TXTR]);
+		else
 		{
-			draw_skybox(all, all->win->len - y - 1, all->txtrs[C_TXTR]);
-			continue ;
+			if (all->skybox)
+			{
+				draw_skybox(all, y, all->txtrs[C_TXTR]);
+				continue ;
+			}
+			init_txtr(all, y, all->txtrs[C_TXTR]);
 		}
-		calc_line_ray(all, all->floor, y, pos_z - all->pos.jump_crouch);
-		init_txtr(all, all->win->len - y - 1, all->txtrs[C_TXTR]);
 	}
 }

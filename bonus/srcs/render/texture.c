@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/04 16:08:31 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/05 14:57:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 			y = s->draw_starty - 1;
 			while (++y < s->draw_endy)
 			{
-				d = (y - s->jc_offset) * 256 - win->len * 128 + s->hei * 128;
+				d = (y - s->vmove_screen) * 256 - win->len * 128 + s->hei * 128;
 				if ((color = *get_pixel(txtr.img, abs(text_x),
 								abs(((d * txtr.hei) / s->hei) / 256))) != 0)
 					set_pixel(win, stripe, y, depth_shade(color, s->transform_y));
@@ -59,7 +59,7 @@ void	draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x)
 
 	y = ray->draw_start - 1;
 	step = 1.0 * txtr->hei / ray->line_h;
-	text_pos = (ray->draw_start - ray->jc_offset - all->win->len / 2 + ray->line_h / 2) * step;
+	text_pos = (ray->draw_start - all->pos.pitch - ray->z_offset - all->win->len / 2 + ray->line_h / 2) * step;
 	while (++y < ray->draw_end)
 	{
 		ray->text_y = (int)(text_pos) & (txtr->hei - 1);

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/03 16:29:25 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:41:42 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@
 #  define CTRL_KEY 256 
 #  define ARROW_LEFT_KEY 123
 #  define ARROW_RIGHT_KEY 124
+#  define ARROW_UP_KEY 126
+#  define ARROW_DOWN_KEY 125
 # endif
 
 /*
@@ -144,16 +146,17 @@ typedef struct	s_line
 typedef struct	s_pos {
 	double	pos_x;
 	double	pos_y;
+	double	pos_z;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
+	double	pitch;
 	double	move_speed;
 	double	rot_speed;
 	double	face_left;
 	double	fdiff;
 	int		in_air;
-	int		jump_crouch;
 	int		decelerate;
 	int		cam_decelerate;
 }				t_pos;
@@ -176,10 +179,10 @@ typedef struct	s_ray {
 	int		line_h;
 	int		draw_start;
 	int		draw_end;
-	int		jc_offset;
 	double	wall_x;
 	int		text_x;
 	int		text_y;
+	double	z_offset;
 	double	*z_buffer;
 	int		*x_drawstart;
 	int		*x_drawend;
@@ -199,6 +202,7 @@ typedef struct	s_floor {
 	float	f_stepy;
 	int		ty;
 	int		tx;
+	int		is_floor;
 }				t_floor;
 
 typedef struct	s_sprite {
@@ -211,14 +215,16 @@ typedef struct	s_sprite {
 	double	invdet;
 	double	transform_x;
 	double	transform_y;
+	double	z_offset;
+	double	vmove;
 	int		screen_x;
 	int		hei;
 	int		wid;
+	int		vmove_screen;
 	int		draw_startx;
 	int		draw_endx;
 	int		draw_starty;
 	int		draw_endy;
-	int		jc_offset;
 }				t_sprite;
 
 typedef struct	s_texture {
@@ -244,6 +250,8 @@ typedef struct	s_keys {
 	int	right;
 	int	cam_left;
 	int	cam_right;
+	int	cam_up;
+	int	cam_down;
 	int	crouch;
 	int	sprint;
 	int	crosshair;
@@ -467,6 +475,11 @@ void			rotate_camera(int right, double old_dir, double old_plane_x,
 */
 void	do_jump(t_all *all);
 void	do_crouch(t_all *all, t_pos pos);
+void	handle_pitch(t_all *all, int up);
+
+/*
+** deceleration.c
+*/
 int		handle_deceler(int *key, t_all *all);
 int		camera_deceler(int *key, t_all *all);
 
@@ -490,7 +503,6 @@ void			sprite_cast(t_all *all);
 ** vert_casting.c
 */
 void			vert_cast(t_all *all);
-void			calc_line_ray(t_all *all, t_floor *floor, int y, float pos_z);
 
 /*
 ** skybox.c
@@ -508,6 +520,7 @@ int				load_txtrs(t_all *all);
 */
 double			get_decimals(double nb);
 double			ft_min(double n1, double n2);
+double			ft_max(double n1, double n2);
 
 /*
 ** hud.c
