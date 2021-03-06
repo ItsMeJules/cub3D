@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/06 13:21:08 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/06 14:39:40 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 #  define S_KEY 115
 #  define D_KEY 100
 #  define C_KEY 90 
+#  define E_KEY 101 
 #  define SPACE_KEY 32
 #  define SHIFT_KEY 65505
 #  define CTRL_KEY 65507
@@ -525,6 +526,11 @@ void			draw_hud(t_all *all);
 /*
 ** health.c
 */
-void	draw_health_bar(t_all *all);
+void			draw_health_bar(t_all *all);
+
+/*
+** interact.c
+*/
+void			player_interact(t_all *all);
 
 #endif

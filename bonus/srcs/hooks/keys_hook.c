@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/03/06 00:25:38 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/06 14:38:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int		key_press(int keycode, t_all *all)
 	}
 	else if (keycode == C_KEY)
 		all->keys.crosshair = !all->keys.crosshair;
+	else if (keycode == E_KEY)
+		player_interact(all);
 	return (1);
 }
 
