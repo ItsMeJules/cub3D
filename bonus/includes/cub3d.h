@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/05 14:41:42 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/06 00:42:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 #  define CTRL_KEY 65507
 #  define ARROW_LEFT_KEY 65361
 #  define ARROW_RIGHT_KEY 65363
+#  define ARROW_UP_KEY 65362 
+#  define ARROW_DOWN_KEY 65364
 # else
 #  define ESC_KEY 53
 #  define W_KEY 13
@@ -154,8 +156,6 @@ typedef struct	s_pos {
 	double	pitch;
 	double	move_speed;
 	double	rot_speed;
-	double	face_left;
-	double	fdiff;
 	int		in_air;
 	int		decelerate;
 	int		cam_decelerate;
@@ -204,6 +204,13 @@ typedef struct	s_floor {
 	int		tx;
 	int		is_floor;
 }				t_floor;
+
+typedef struct	s_skybox {
+	int		on;
+	float	face_left;
+	float	xdiff;
+	float	ydiff;
+}				t_skybox;
 
 typedef struct	s_sprite {
 	char	txtr;
@@ -266,19 +273,6 @@ typedef struct	s_minimap {
 	int	maxy_draw;
 }				t_minimap;
 
-typedef struct	s_blur {
-	int		*gauss_box;
-	int		*changed_pxs;
-	int		radius;
-	int		img_wid;
-	int		img_hei;
-	int		x0;
-	int		y0;
-	int		x1;
-	int		y1;
-	double	sigma;
-}				t_blur;
-
 typedef struct	s_hud {
 	int		init;
 	int		hbar_startx;
@@ -299,13 +293,13 @@ typedef struct	s_player {
 typedef struct	s_all {
 	int			at_map;
 	int			save;
-	int			skybox;
 	int			total_sprites;
 	t_win		*win;
 	t_map		*map;
 	t_pos		pos;
 	t_ray		*ray;
 	t_floor		*floor;
+	t_skybox	skybox;
 	t_keys		keys;
 	t_texture	*txtrs;
 	t_list		*sp_txtrs;

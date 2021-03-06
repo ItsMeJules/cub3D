@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/05 15:46:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/06 01:09:25 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ void	init_floorcei(t_all *all)
 	all->floor->ray_dir_y1 = all->pos.dir_y + all->pos.plane_y;
 	all->floor->diff_x = all->floor->ray_dir_x1 - all->floor->ray_dir_x0;
 	all->floor->diff_y = all->floor->ray_dir_y1 - all->floor->ray_dir_y0;
-	all->pos.face_left = get_face(all->floor->ray_dir_x0, all->floor->ray_dir_y0);
-	if (all->skybox && all->pos.fdiff)
+	all->skybox.face_left = get_face(all->floor->ray_dir_x0, all->floor->ray_dir_y0);
+	if (all->skybox.on && all->skybox.xdiff)
 		return ;
 	facing2 = get_face(all->floor->ray_dir_x1, all->floor->ray_dir_y1);
-	all->pos.fdiff = fabs((facing2 - all->pos.face_left)) / all->win->wid;
+	all->skybox.xdiff = fabs((facing2 - all->skybox.face_left)) / all->win->wid;
+	all->skybox.ydiff = (float)1 / all->win->len;
 }
 
 void	vert_cast(t_all *all)
@@ -89,7 +90,7 @@ void	vert_cast(t_all *all)
 			init_txtr(all, y, all->txtrs[F_TXTR]);
 		else
 		{
-			if (all->skybox)
+			if (all->skybox.on)
 			{
 				draw_skybox(all, y, all->txtrs[C_TXTR]);
 				continue ;

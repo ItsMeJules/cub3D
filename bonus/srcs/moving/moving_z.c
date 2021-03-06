@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 21:42:14 by jules             #+#    #+#             */
-/*   Updated: 2021/03/05 17:25:25 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/06 01:15:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	handle_pitch(t_all *all, int up)
 	{
 		if (camera_deceler(&all->keys.cam_up, all) || all->pos.pitch >= 1000)
 			return ;
-		all->pos.pitch += 100 * PLAYER_ROT_SPEED;
+		all->pos.pitch += (all->pos.cam_decelerate ? 50 : 300) * PLAYER_ROT_SPEED;
 		if (all->pos.pitch > all->win->len)
 			all->pos.pitch = all->win->len;
 	}
@@ -63,8 +63,9 @@ void	handle_pitch(t_all *all, int up)
 	{
 		if (camera_deceler(&all->keys.cam_down, all) || all->pos.pitch <= -1000)
 			return ;
-		all->pos.pitch -= 100 * PLAYER_ROT_SPEED;
+		all->pos.pitch -= (all->pos.cam_decelerate ? 50 : 300) * PLAYER_ROT_SPEED;
 		if (all->pos.pitch < -all->win->len)
 			all->pos.pitch = -all->win->len;
 	}
+	all->skybox.ldiff = all->win->len - all->pos.pitch * all->skybox.ydiff;
 }

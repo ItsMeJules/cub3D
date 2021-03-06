@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/03 14:16:35 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/06 00:44:57 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ t_all		*new_all(void)
 	all->txtrs = new_othertxtrs(6, -1);
 	all->sp_txtrs = NULL;
 	all->sprites = NULL;
-	all->pos.fdiff = 0;
+	all->skybox.xdiff = 0;
+	all->skybox.ydiff = 0;
 	all->player.health = PLAYER_MAX_HEALTH;
 	all->hud.init = 0;
 	set_keys(all);

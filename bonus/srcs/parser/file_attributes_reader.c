@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 21:23:44 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/06 00:45:47 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	set_textures(t_all *all, char **split)
 		all->txtrs[C_TXTR].path = split[1];
 		splitted = ft_split(split[1], "/");
 		if (!ft_strncmp(splitted[ft_split_size(splitted) - 1], "sky", 3))
-			all->skybox = 1;
+			all->skybox.on = 1;
 		else
-			all->skybox = 0;
+			all->skybox.on = 0;
 		ft_free_split(splitted);
 	}
 	free(split[0]);
