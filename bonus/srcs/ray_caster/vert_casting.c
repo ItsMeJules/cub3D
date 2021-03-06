@@ -6,13 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/06 01:09:25 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/06 13:37:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
-#include <stdio.h>
 
 void	init_txtr(t_all *all, int y, t_texture txtr)
 {
@@ -70,7 +69,8 @@ void	init_floorcei(t_all *all)
 		return ;
 	facing2 = get_face(all->floor->ray_dir_x1, all->floor->ray_dir_y1);
 	all->skybox.xdiff = fabs((facing2 - all->skybox.face_left)) / all->win->wid;
-	all->skybox.ydiff = (float)1 / all->win->len;
+	all->skybox.ydiff = (float)1 / (all->win->len * 1.5);
+	all->skybox.ldiff = (all->win->len - all->pos.pitch) * all->skybox.ydiff;
 }
 
 void	vert_cast(t_all *all)

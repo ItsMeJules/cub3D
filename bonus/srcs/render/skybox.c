@@ -6,12 +6,11 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 16:31:17 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/06 01:15:54 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/06 13:37:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 void	draw_skybox(t_all *all, int y, t_texture txtr)
 {
@@ -22,8 +21,7 @@ void	draw_skybox(t_all *all, int y, t_texture txtr)
 	t_skybox	skybox;
 
 	skybox = all->skybox;
-	tex_y = all->skybox.ldiff * skybox.ydiff + y * skybox.ydiff * (txtr.hei - 1);
-	printf("%f\n", ((float)all->win->len - all->pos.pitch) * skybox.ydiff + y * skybox.ydiff);
+	tex_y = (skybox.ldiff + y * skybox.ydiff) * (txtr.hei - 1);
 	x = -1;
 	while (++x < all->win->wid)
 	{

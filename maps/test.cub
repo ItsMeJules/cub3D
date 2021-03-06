@@ -12,7 +12,7 @@ S4 ./textures/vase2.xpm
 S5 ./textures/vase.xpm
 
 F ./textures/diamond.xpm 
-C ./textures/sky2.xpm
+C ./textures/skybox_desert_day.xpm
 
 11111111111111111111111111111111111111111
 10E00000000000000000000000000400000000061

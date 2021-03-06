@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/06 00:42:48 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/06 13:21:08 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ typedef struct	s_skybox {
 	float	face_left;
 	float	xdiff;
 	float	ydiff;
+	float	ldiff;
 }				t_skybox;
 
 typedef struct	s_sprite {
