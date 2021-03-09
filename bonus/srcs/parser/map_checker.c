@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 17:13:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 21:32:02 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 10:27:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	init_map_elem(t_all *all, char c, int x, int y)
 	}
 	else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 		set_player_pos(all, x, y, c);
-	else if (c != '1' && c != '0' && c != '#')
+	else if (c != '1' && c != '0' && c != '#' && c != 'D' && c != 'd' &&
+			c != 'H')
 	{
 		ft_lstadd_back(&all->sprites, ft_lstnew(
 					new_sprite(c,

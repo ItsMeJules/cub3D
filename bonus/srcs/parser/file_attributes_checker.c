@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/02/19 14:26:05 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:49:04 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		check_valid(char *str, int type)
 
 int		arg_len(char **split, int *err, char *line, int type)
 {
-	if (type == 1)
+	if (type == 1 || type == 3)
 	{
 		if (!split[1] || !split[2])
 			return (*err = error(TOO_FEW_ARGS, line, 0));
@@ -71,7 +71,7 @@ int		val_verifs(char **split, int *err, char *line, int type)
 		if (ft_atoi(split[1]) <= 0 || ft_atoi(split[2]) <= 0)
 			return (*err = error(NEGATIVE_RESOLUTION, line, 0));
 	}
-	else if (type == 2)
+	else if (type == 2 || type == 3)
 	{
 		if (check_valid(split[1], 2))
 			return (*err = error(errno == 21 ? CANT_OPEN_DIR : OPEN_FILE_FAILED

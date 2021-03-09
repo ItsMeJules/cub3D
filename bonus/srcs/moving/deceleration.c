@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:13:20 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/05 14:59:13 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 17:02:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		camera_deceler(int *key, t_all *all)
 		}
 		return (0);
 	}
-	if (all->keys.cam_left == 1 || all->keys.cam_right == 1 || all->keys.cam_up == 1 || all->keys.cam_down == 1)
+	if (all->keys.cam_left == 1 || all->keys.cam_right == 1
+			|| all->keys.cam_up == 1 || all->keys.cam_down == 1)
 		*key = 0;
 	if (all->pos.cam_decelerate == 1 && all->pos.rot_speed <= 0.001)
 	{

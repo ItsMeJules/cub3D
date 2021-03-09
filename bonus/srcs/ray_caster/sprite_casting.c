@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:17:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/05 13:04:41 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:16:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,13 @@ void	sprite_cast(t_all *all)
 	lst = all->sprites;
 	while (lst)
 	{
-		calc_sprite((t_sprite *)lst->content, all->pos, all->win);
-		draw_sprite((t_sprite *)lst->content, all->ray, all->win,
-				*get_sptexture(all->sp_txtrs,
-				((t_sprite *)lst->content)->txtr));
+		if (((t_sprite *)lst->content)->show == 1)
+		{
+			calc_sprite((t_sprite *)lst->content, all->pos, all->win);
+			draw_sprite((t_sprite *)lst->content, all->ray, all->win,
+					*get_sptexture(all->sp_txtrs,
+					((t_sprite *)lst->content)->txtr));
+		}
 		lst = lst->next;
 	}
 }

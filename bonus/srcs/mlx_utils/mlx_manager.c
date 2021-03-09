@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/02 11:15:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:59:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,28 @@ void	new_window(t_win *win, char name[25], int save)
 int		close_w(t_all *all)
 {
 	(void)all;
-//	mlx_loop_end(all->win->mlx);
+	//mlx_loop_end(all->win->mlx);
 	return (0);
+}
+
+int		alloc_buffers(t_all *all)
+{
+	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->z_buffer in mlx_manager.c", 0);
+		return (0);
+	}
+	if (!(all->ray->x_drawstart = malloc(sizeof(int) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->x_drawstart in mlx_manager.c", 0);
+		return (0);
+	}
+	if (!(all->ray->x_drawend = malloc(sizeof(int) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->x_drawend in mlx_manager.c", 0);
+		return (0);
+	}
+	return (1);
 }
 
 void	start_mlx(t_all *all, int save)
@@ -50,19 +70,9 @@ void	start_mlx(t_all *all, int save)
 	new_window(all->win, "Je suis une fenetre", save);
 	if (load_txtrs(all))
 		return ;
-	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
+	if (!alloc_buffers(all))
 	{
-		error(MALLOC_FAILED, "ray->z_buffer in mlx_manager.c", 0);
-		return ;
-	}
-	if (!(all->ray->x_drawstart = malloc(sizeof(int) * all->win->wid)))
-	{
-		error(MALLOC_FAILED, "ray->x_drawstart in mlx_manager.c", 0);
-		return ;
-	}
-	if (!(all->ray->x_drawend = malloc(sizeof(int) * all->win->wid)))
-	{
-		error(MALLOC_FAILED, "ray->x_drawend in mlx_manager.c", 0);
+		stop_mlx(all);
 		return ;
 	}
 	if (!save)

@@ -6,12 +6,11 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/02 15:33:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 17:13:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 void	draw_player(t_pos pos, t_win *win, int dir_len)
 {
@@ -41,13 +40,16 @@ void	draw_player(t_pos pos, t_win *win, int dir_len)
 	draw_line(line, win, 2, 0xFF0000);
 }
 
-void	draw_piece(t_all *all, int xiter, int yiter)
+void	draw_piece(t_all *all, int xiter, int yiter, char c)
 {
 	int	i;
 	int	j;
 	int	x_px;
 	int	y_px;
+	int	color;
 
+	if (!(color = map_color(c)) && c != '1' && c != 'D' && c != 'd' && c != 'H')
+		return ;
 	x_px = all->minimap.x_drawstart + (xiter - get_decimals(all->pos.pos_x))
 		* MAP_ELEM_PX_SIZE;
 	y_px = all->minimap.y_drawstart + ((yiter - get_decimals(all->pos.pos_y))
@@ -62,7 +64,7 @@ void	draw_piece(t_all *all, int xiter, int yiter)
 		{
 			if (j > all->minimap.miny_draw || j < all->minimap.maxy_draw)
 				continue ;
-			set_pixel(all->win, i, j, MAP_WALL_COLOR);
+			set_pixel(all->win, i, j, color);
 		}
 	}
 }
@@ -85,7 +87,7 @@ void	draw_background(t_all *all)
 	int	x;
 	int y;
 	int	bcolor;
-	
+
 	x = all->minimap.minx_draw - 1;
 	while (++x <= all->minimap.maxx_draw)
 	{
@@ -104,11 +106,9 @@ void	draw_map(t_all *all)
 	int		y;
 	int		xiter;
 	int		yiter;
-	char	c;
 
 	if (all->win->wid < MAP_X_PX_OFFSET + MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2
-		|| all->win->len < MAP_Y_PX_OFFSET +
-			MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2)
+	|| all->win->len < MAP_Y_PX_OFFSET + MAP_ELEM_PX_SIZE * MAP_VIEW_DIST * 2)
 		return ;
 	x = (int)all->pos.pos_x - MAP_VIEW_DIST - 1;
 	draw_background(all);
@@ -123,8 +123,7 @@ void	draw_map(t_all *all)
 				continue ;
 			xiter = x - (int)all->pos.pos_x + MAP_VIEW_DIST;
 			yiter = y - (int)all->pos.pos_y + MAP_VIEW_DIST;
-			 if ((c = elem_at(x, y, all->map)) == '1')
-				draw_piece(all, xiter, yiter);
+			draw_piece(all, xiter, yiter, elem_at(x, y, all->map));
 		}
 	}
 	draw_player(all->pos, all->win, 5);
