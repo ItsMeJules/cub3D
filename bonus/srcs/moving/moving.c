@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:55:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/06 14:32:19 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 23:00:36 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	move_forward(t_all *all)
 	nextx = pos.pos_x + pos.dir_x * pos.move_speed;
 	nexty = pos.pos_y + pos.dir_y * pos.move_speed;
 	c = elem_at((int)(nextx), (int)pos.pos_y, all->map);
-	if (c == '0' || c == 'H' || c == 'd')
-		all->pos.pos_x = nextx; 
+	if (c == '0' || c == 'd' || c == 'H')
+		all->pos.pos_x = nextx;
 	c = elem_at((int)pos.pos_x, (int)(nexty), all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_y = nexty; 
 }
 
@@ -47,10 +47,10 @@ void	move_backward(t_all *all)
 	nextx = pos.pos_x - pos.dir_x * pos.move_speed;
 	nexty = pos.pos_y - pos.dir_y * pos.move_speed;
 	c = elem_at((int)(nextx), (int)pos.pos_y, all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_x = nextx;
 	c = elem_at((int)pos.pos_x, (int)(nexty), all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_y = nexty;
 }
 
@@ -67,10 +67,10 @@ void	strafe_left(t_all *all)
 	nextx = pos.pos_x - pos.plane_x * pos.move_speed;
 	nexty = pos.pos_y - pos.plane_y * pos.move_speed;
 	c = elem_at((int)(nextx), (int)pos.pos_y, all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_x = nextx;
 	c = elem_at((int)pos.pos_x, (int)(nexty), all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_y = nexty;
 }
 
@@ -87,10 +87,10 @@ void	strafe_right(t_all *all)
 	nextx = pos.pos_x + pos.plane_x * pos.move_speed;
 	nexty = pos.pos_y + pos.plane_y * pos.move_speed;
 	c = elem_at((int)(nextx), (int)pos.pos_y, all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_x = nextx; 
 	c = elem_at((int)pos.pos_x, (int)(nexty), all->map);
-	if (c == '0' || c == 'H' || c == 'd')
+	if (c == '0' || c == 'd' || c == 'H')
 		all->pos.pos_y = nexty;
 }
 

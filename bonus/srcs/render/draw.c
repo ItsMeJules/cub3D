@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/05 13:10:37 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:29:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 		txtr = all->txtrs[NO_TXTR];
 	else
 		txtr = all->txtrs[SO_TXTR];
+	if (elem_at(ray->map_x, ray->map_y, all->map) == 'D')
+		txtr = all->txtrs[DO_TXTR];
 	ray->text_x = (int)(ray->wall_x * (double)txtr.wid);
 	if ((ray->side == 0 || ray->side == 1) && ray->dir_x > 0)
 		ray->text_x = txtr.wid - ray->text_x - 1;
@@ -37,7 +39,6 @@ void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 void	get_draws_pos(t_all *all, t_ray *ray, t_pos pos, int x)
 {
 	ray->z_offset = pos.pos_z / ray->perp_wall_dist;
-
 	ray->draw_start = -ray->line_h / 2 + all->win->len / 2
 		+ pos.pitch + ray->z_offset;
 	ray->draw_end = ray->line_h / 2 + all->win->len / 2

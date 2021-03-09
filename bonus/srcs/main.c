@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 23:13:11 by jules             #+#    #+#             */
-/*   Updated: 2021/02/26 19:19:49 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:47:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+/*
+** BONUS:
+** 1: Collisions
+** 2: Skybox
+** 3: Text sol & plafond
+** 4: HUD
+** 5: Vue haut bas
+** 6: Ombre distance
+** 8: Vie
+** 9: Sprites modulable
+** 10: Collision sprites murs
+** 11: Portes ouvertes fermees
+** 12: Portes secretes
+** 13: Decelration du joueur
+** 14: Perte de vie
+** 15: Weapon & Kill
+** 16: Minimap
+*/
 
 int	main(int ac, char **av)
 {

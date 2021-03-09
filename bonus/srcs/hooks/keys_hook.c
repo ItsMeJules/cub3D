@@ -6,14 +6,14 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/03/06 14:38:33 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 23:06:07 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-int		key_press(int keycode, t_all *all)
+int		key_press_simple(int keycode, t_all *all)
 {
 	if (keycode == ESC_KEY)
 		return (close_w(all));
@@ -35,7 +35,14 @@ int		key_press(int keycode, t_all *all)
 		all->keys.cam_down = 1;
 	else if (keycode == SPACE_KEY && !all->pos.in_air)
 		all->pos.in_air = 1;
-	else if (keycode == SHIFT_KEY && !all->pos.in_air && !all->keys.sprint)
+	return (1);
+}
+
+int		key_press(int keycode, t_all *all)
+{
+	if (!key_press_simple(keycode, all))
+		return (0);
+	if (keycode == SHIFT_KEY && !all->pos.in_air && !all->keys.sprint)
 	{
 		all->keys.crouch = 1;
 		if (!all->pos.decelerate)
@@ -50,24 +57,16 @@ int		key_press(int keycode, t_all *all)
 	else if (keycode == C_KEY)
 		all->keys.crosshair = !all->keys.crosshair;
 	else if (keycode == E_KEY)
-		player_interact(all);
+		interact(all);
+	else if (keycode == R_KEY && all->keys.attack != 1)
+	{
+		all->keys.attack = 1;
+		attack_sprite(all);
+	}
 	return (1);
 }
 
-void	init_decelerate(int	keycode, t_all *all)
-{
-	if (all->keys.fwrd <= 0 && all->keys.bwrd <= 0 && all->keys.left <= 0
-			&& all->keys.right <= 0 && (keycode == W_KEY || keycode == S_KEY
-				|| keycode == A_KEY || keycode == D_KEY))
-		all->pos.decelerate = 1;
-	if (all->keys.cam_left <= 0 && all->keys.cam_right <= 0
-			&& all->keys.cam_up <= 0 && all->keys.cam_down <= 0
-			&& (keycode == ARROW_LEFT_KEY || keycode == ARROW_RIGHT_KEY
-				|| keycode == ARROW_UP_KEY || keycode == ARROW_DOWN_KEY))
-		all->pos.cam_decelerate = 1;
-}
-
-int		key_rels(int keycode, t_all *all)
+void	key_rels_simple(int keycode, t_all *all)
 {
 	if (keycode == W_KEY)
 		all->keys.fwrd = -1;
@@ -85,7 +84,12 @@ int		key_rels(int keycode, t_all *all)
 		all->keys.cam_up = -1;
 	else if (keycode == ARROW_DOWN_KEY)
 		all->keys.cam_down = -1;
-	else if (keycode == SHIFT_KEY)
+}
+
+int		key_rels(int keycode, t_all *all)
+{
+	key_rels_simple(keycode, all);
+	if (keycode == SHIFT_KEY)
 	{
 		all->keys.crouch = 0;
 		if (!all->pos.decelerate)

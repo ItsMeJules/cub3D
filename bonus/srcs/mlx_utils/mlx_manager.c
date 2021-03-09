@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/02 11:15:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 23:07:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	new_window(t_win *win, char name[25], int save)
 {
-	/*int	resx;
-	int	resy;*/
+	int	resx;
+	int	resy;
 
 	if (!(win->img = malloc(sizeof(t_img))))
 	{
@@ -25,11 +25,11 @@ void	new_window(t_win *win, char name[25], int save)
 	win->mlx = mlx_init();
 	if (!save)
 	{
-	/*	mlx_get_screen_size(win->mlx, &resx, &resy);
+		mlx_get_screen_size(win->mlx, &resx, &resy);
 		if (win->wid > resx)
 			win->wid = resx;
 		if (win->len > resy)
-			win->len = resy;*/
+			win->len = resy;
 		win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	}
 	win->img->img = mlx_new_image(win->mlx, win->wid, win->len);
@@ -40,8 +40,28 @@ void	new_window(t_win *win, char name[25], int save)
 int		close_w(t_all *all)
 {
 	(void)all;
-//	mlx_loop_end(all->win->mlx);
+	mlx_loop_end(all->win->mlx);
 	return (0);
+}
+
+int		alloc_buffers(t_all *all)
+{
+	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->z_buffer in mlx_manager.c", 0);
+		return (0);
+	}
+	if (!(all->ray->x_drawstart = malloc(sizeof(int) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->x_drawstart in mlx_manager.c", 0);
+		return (0);
+	}
+	if (!(all->ray->x_drawend = malloc(sizeof(int) * all->win->wid)))
+	{
+		error(MALLOC_FAILED, "ray->x_drawend in mlx_manager.c", 0);
+		return (0);
+	}
+	return (1);
 }
 
 void	start_mlx(t_all *all, int save)
@@ -50,19 +70,9 @@ void	start_mlx(t_all *all, int save)
 	new_window(all->win, "Je suis une fenetre", save);
 	if (load_txtrs(all))
 		return ;
-	if (!(all->ray->z_buffer = malloc(sizeof(double) * all->win->wid)))
+	if (!alloc_buffers(all))
 	{
-		error(MALLOC_FAILED, "ray->z_buffer in mlx_manager.c", 0);
-		return ;
-	}
-	if (!(all->ray->x_drawstart = malloc(sizeof(int) * all->win->wid)))
-	{
-		error(MALLOC_FAILED, "ray->x_drawstart in mlx_manager.c", 0);
-		return ;
-	}
-	if (!(all->ray->x_drawend = malloc(sizeof(int) * all->win->wid)))
-	{
-		error(MALLOC_FAILED, "ray->x_drawend in mlx_manager.c", 0);
+		stop_mlx(all);
 		return ;
 	}
 	if (!save)
@@ -83,7 +93,7 @@ void	stop_mlx(t_all *all)
 	free_txtrs(all, 1, -1);
 	if (!all->save)
 		mlx_destroy_window(all->win->mlx, all->win->win);
-//	mlx_destroy_display(all->win->mlx);
+	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
 	free_all(all, 0);

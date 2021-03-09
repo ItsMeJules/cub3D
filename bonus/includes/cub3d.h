@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/06 14:39:40 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 23:06:40 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define EA_TXTR 3
 # define F_TXTR 4
 # define C_TXTR 5
+# define DO_TXTR 6
 
 /*
 ** KEYS
@@ -43,8 +44,9 @@
 #  define A_KEY 97
 #  define S_KEY 115
 #  define D_KEY 100
-#  define C_KEY 90 
-#  define E_KEY 101 
+#  define C_KEY 99
+#  define E_KEY 101
+#  define R_KEY 114 
 #  define SPACE_KEY 32
 #  define SHIFT_KEY 65505
 #  define CTRL_KEY 65507
@@ -59,6 +61,8 @@
 #  define S_KEY 1
 #  define D_KEY 2
 #  define C_KEY 8 
+#  define E_KEY 14 
+#  define R_KEY 15 
 #  define SPACE_KEY 49 
 #  define SHIFT_KEY 257 
 #  define CTRL_KEY 256 
@@ -99,6 +103,7 @@
 # define MAP_Y_PX_OFFSET 20
 # define MAP_VIEW_DIST 8
 # define MAP_WALL_COLOR 0x0068C8
+# define MAP_DOOR_COLOR 0x50C878
 # define MAP_WALKABLE_COLOR 0xFFFFFF
 # define MAP_VOID_COLOR 0xC0C0C0
 # define MAP_PLAYER_COLOR 0xFF0000
@@ -119,6 +124,8 @@
 # define JUMP_HEIGHT_PX 200
 # define CROUCH_HEIGHT_PX -100
 # define CROSSHAIR_COLOR 0xC0C0C0
+# define PLAYER_DAMAGE_DEAL_DIST 0.5
+# define PLAYER_DAMAGE_TAKE_DIST 0.3
 
 typedef struct	s_img {
 	void	*img;
@@ -234,6 +241,7 @@ typedef struct	s_sprite {
 	int		draw_endx;
 	int		draw_starty;
 	int		draw_endy;
+	int		show;
 }				t_sprite;
 
 typedef struct	s_texture {
@@ -264,6 +272,7 @@ typedef struct	s_keys {
 	int	crouch;
 	int	sprint;
 	int	crosshair;
+	int	attack;
 }				t_keys;
 
 typedef struct	s_minimap {
@@ -289,13 +298,17 @@ typedef struct	s_hud {
 }				t_hud;
 
 typedef struct	s_player {
-	int	health;
+	int			health;
+	t_texture	knife;
+	t_texture	knife1;
 }				t_player;
 
 typedef struct	s_all {
 	int			at_map;
 	int			save;
 	int			total_sprites;
+	int			frames;
+	int			over;
 	t_win		*win;
 	t_map		*map;
 	t_pos		pos;
@@ -355,6 +368,7 @@ void			handle_destroy_win(t_win *win);
 ** map_manager.c
 */
 char			elem_at(int x, int y, t_map *map);
+t_sprite		*get_sprite(int x, int y, t_list *lst);
 
 /*
 ** file_attributes_reader.c
@@ -412,14 +426,7 @@ int				get_b(int trgb);
 ** utils_colors2.c
 */
 int				transparency_px(int px, int px2, double t);
-
-/*
-** utils_colors_42docs.c
-*/
-int				go_lsd_haha(int color, double dist);
-int				get_r_42docs(int trgb);
-int				get_g_42docs(int trgb);
-int				get_b_42docs(int trgb);
+int				map_color(char c);
 
 /*
 ** raycasting.c
@@ -442,6 +449,7 @@ void			dda(t_ray *ray, t_map *map);
 void			draw_vert(t_all *all, t_texture txtr, int x, int y);
 void			draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr);
 void			draw_txtr(t_all *all, t_ray *ray, t_texture *txtr, int x);
+void			draw_knife(t_all *all, t_texture txtr);
 
 /*
 ** minimap.c
@@ -469,6 +477,7 @@ void			rotate_camera(int right, double old_dir, double old_plane_x,
 /*
 ** moving_z.c
 */
+void	init_decelerate(int keycode, t_all *all);
 void	do_jump(t_all *all);
 void	do_crouch(t_all *all, t_pos pos);
 void	handle_pitch(t_all *all, int up);
@@ -529,8 +538,15 @@ void			draw_hud(t_all *all);
 void			draw_health_bar(t_all *all);
 
 /*
-** interact.c
+** interacting.c
 */
-void			player_interact(t_all *all);
+void			interact(t_all *all);
+int				handle_life_lose(t_all *all);
+void			attack_sprite(t_all *all);
+
+/*
+** string_screen.c
+*/
+void			display_infos(t_all *all);
 
 #endif

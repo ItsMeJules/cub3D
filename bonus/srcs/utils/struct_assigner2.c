@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/05 13:03:05 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:09:38 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void		set_keys(t_all *all)
 	all->keys.right = 0;
 	all->keys.cam_left = 0;
 	all->keys.cam_right = 0;
+	all->keys.cam_up = 0;
+	all->keys.cam_down = 0;
 	all->keys.crouch = 0;
 	all->keys.sprint = 0;
-	all->keys.crosshair = 0;
+	all->keys.crosshair = 1;
+	all->keys.attack = 0;
 }
 
 t_sprite	*new_sprite(char txtr, double x, double y)
@@ -39,6 +42,7 @@ t_sprite	*new_sprite(char txtr, double x, double y)
 	sprite->y = y;
 	sprite->vmove = 0;
 	sprite->dist = 0;
+	sprite->show = 1;
 	return (sprite);
 }
 

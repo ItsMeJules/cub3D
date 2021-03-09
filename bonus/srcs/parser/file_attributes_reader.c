@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/06 00:45:47 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:59:50 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,21 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-void	set_textures(t_all *all, char **split)
+void	set_ceiling(t_all *all, char **split)
 {
 	char	**splitted;
 
+	all->txtrs[C_TXTR].path = split[1];
+	splitted = ft_split(split[1], "/");
+	if (!ft_strncmp(splitted[ft_split_size(splitted) - 1], "sky", 3))
+		all->skybox.on = 1;
+	else
+		all->skybox.on = 0;
+	ft_free_split(splitted);
+}
+
+void	set_textures(t_all *all, char **split)
+{
 	if (!ft_strcmp(split[0], "NO"))
 		all->txtrs[NO_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "SO"))
@@ -28,18 +39,17 @@ void	set_textures(t_all *all, char **split)
 		all->txtrs[WE_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "EA"))
 		all->txtrs[EA_TXTR].path = split[1];
+	else if (!ft_strcmp(split[0], "DO"))
+		all->txtrs[DO_TXTR].path = split[1];
+	else if (!ft_strcmp(split[0], "WEA"))
+	{
+		all->player.knife.path = split[1];
+		all->player.knife1.path = split[2];
+	}
 	else if (split[0][0] == 'F')
 		all->txtrs[F_TXTR].path = split[1];
 	else if (split[0][0] == 'C')
-	{
-		all->txtrs[C_TXTR].path = split[1];
-		splitted = ft_split(split[1], "/");
-		if (!ft_strncmp(splitted[ft_split_size(splitted) - 1], "sky", 3))
-			all->skybox.on = 1;
-		else
-			all->skybox.on = 0;
-		ft_free_split(splitted);
-	}
+		set_ceiling(all, split);
 	free(split[0]);
 }
 
@@ -75,11 +85,13 @@ void	verify_nset_ids(t_all *all, char **split, int *err, char *line)
 	}
 	else if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
 			|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA")
+			|| !ft_strcmp(split[0], "DO") || !ft_strcmp(split[0], "WEA")
 			|| (split[0][0] == 'S'
 				&& split[0][1] != '0' && ft_isdigit(split[0][1]))
 			|| !ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
 	{
-		if (arg_len(split, err, line, 2) || val_verifs(split, err, line, 2))
+		if (arg_len(split, err, line, !ft_strcmp(split[0], "WEA") ? 1 : 2)
+				|| val_verifs(split, err, line, 2))
 			return ;
 		set_attributes(all, 2, split);
 	}

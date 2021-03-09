@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:19:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 21:32:25 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 17:14:36 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_texture	*get_sptexture(t_list *sp_txtrs, char sprite_num)
 	return (NULL);
 }
 
-int		load_txtr(t_all *all, t_texture *txtr)
+int			load_txtr(t_all *all, t_texture *txtr)
 {
 	if (!(txtr->img->img = mlx_xpm_file_to_image(all->win->mlx, txtr->path,
 					&txtr->wid, &txtr->hei)))
@@ -42,17 +42,20 @@ int		load_txtr(t_all *all, t_texture *txtr)
 	return (0);
 }
 
-int		load_txtrs(t_all *all)
+int			load_txtrs(t_all *all)
 {
 	t_list		*list;
 	int			i;
 
 	i = -1;
-	while (++i <= C_TXTR)
+	while (++i <= DO_TXTR)
 	{
 		if (load_txtr(all, &all->txtrs[i]))
 			return (1);
 	}
+	if (load_txtr(all, &all->player.knife)
+			|| load_txtr(all, &all->player.knife1))
+		return (1);
 	list = all->sp_txtrs;
 	while (list)
 	{

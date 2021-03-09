@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/19 21:29:01 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/09 15:26:44 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int		is_att_set(t_all *all, char *type)
 	else if (!ft_strcmp(type, "WE") && all->txtrs[WE_TXTR].path)
 		return (1);
 	else if (!ft_strcmp(type, "EA") && all->txtrs[EA_TXTR].path)
+		return (1);
+	else if (!ft_strcmp(type, "WEA") && all->player.knife.path)
+		return (1);
+	else if (!ft_strcmp(type, "DO") && all->txtrs[DO_TXTR].path)
 		return (1);
 	else if (type[0] == 'S' && get_sptexture(all->sp_txtrs, type[1] + 1))
 		return (1);
