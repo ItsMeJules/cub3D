@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:11:07 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 17:17:56 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:30:14 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,16 @@ void	draw_sprite(t_sprite *s, t_ray *r, t_win *win, t_texture txtr)
 	{
 		text_x = (int)(256 * (stripe - (-s->wid / 2 + s->screen_x))
 					* txtr.wid / s->wid) / 256;
-		if (s->transform_y > 0 && stripe > 0 && stripe < win->wid
-				&& s->transform_y < r->z_buffer[stripe])
+		if (s->transform_y <= 0 || stripe <= 0 || stripe >= win->wid
+				|| s->transform_y >= r->z_buffer[stripe])
+			continue ;
+		y = s->draw_starty - 1;
+		while (++y < s->draw_endy)
 		{
-			y = s->draw_starty - 1;
-			while (++y < s->draw_endy)
-			{
-				d = (y - s->vmove_screen) * 256 - win->len * 128 + s->hei * 128;
-				if ((color = *get_pixel(txtr.img, abs(text_x),
-								abs(((d * txtr.hei) / s->hei) / 256))) != 0)
-					set_pixel(win, stripe, y, depth_shade(color, s->transform_y));
-			}
+			d = (y - s->vmove_screen) * 256 - win->len * 128 + s->hei * 128;
+			if ((color = *get_pixel(txtr.img, abs(text_x),
+							abs(((d * txtr.hei) / s->hei) / 256))) != 0)
+				set_pixel(win, stripe, y, depth_shade(color, s->transform_y));
 		}
 	}
 }

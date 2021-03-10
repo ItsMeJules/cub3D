@@ -6,12 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/02/08 11:20:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:40:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
-#include "libft.h"
+#include "cub3d.h"
 
 void	files_error2(int type, char *print)
 {

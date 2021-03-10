@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 15:09:38 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:32:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ t_texture	*new_othertxtrs(int amount, int i)
 	return (txtr);
 }
 
-
-t_floor		*new_floor()
+t_floor		*new_floor(void)
 {
 	t_floor	*floor;
 

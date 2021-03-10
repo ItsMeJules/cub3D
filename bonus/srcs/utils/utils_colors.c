@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:09:56 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 19:27:54 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 14:37:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int		depth_shade(int color, double dist)
 {
 	int		r;
-	int 	g;
-	int 	b;
+	int		g;
+	int		b;
 	double	shade;
-	
+
 	r = get_r(color);
 	g = get_g(color);
 	b = get_b(color);

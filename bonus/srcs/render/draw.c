@@ -6,13 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:19:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 15:29:47 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:40:08 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub3d.h"
-#include "libft.h"
 
 void	init_wall_txtr(t_all *all, t_ray *ray, int x)
 {

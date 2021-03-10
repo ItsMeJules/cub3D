@@ -6,13 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/17 14:46:09 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:39:44 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
-#include <stdio.h>
 #include <math.h>
 
 void	get_delta_dist(t_ray *ray)

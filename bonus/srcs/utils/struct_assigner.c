@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 16:44:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:35:27 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,7 @@ t_all		*new_all(void)
 {
 	t_all	*all;
 
-	if (!(all = malloc(sizeof(t_all))))
-	{
-		error(MALLOC_FAILED, "t_all in struct_assigner.c", 1);
-		return (NULL);
-	}
-	if (!(all->ray = malloc(sizeof(t_ray))))
-	{
-		error(MALLOC_FAILED, "t_ray in struct_assigner.c", 1);
-		return (NULL);
-	}
+	all = extra_malloc();
 	all->frames = 0;
 	all->win = new_win();
 	all->map = new_map();

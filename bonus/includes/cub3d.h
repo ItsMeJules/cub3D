@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/09 23:06:40 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 14:38:59 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@
 #  define D_KEY 100
 #  define C_KEY 99
 #  define E_KEY 101
-#  define R_KEY 114 
+#  define R_KEY 114
 #  define SPACE_KEY 32
 #  define SHIFT_KEY 65505
 #  define CTRL_KEY 65507
 #  define ARROW_LEFT_KEY 65361
 #  define ARROW_RIGHT_KEY 65363
-#  define ARROW_UP_KEY 65362 
+#  define ARROW_UP_KEY 65362
 #  define ARROW_DOWN_KEY 65364
 # else
 #  define ESC_KEY 53
@@ -60,12 +60,12 @@
 #  define A_KEY 0
 #  define S_KEY 1
 #  define D_KEY 2
-#  define C_KEY 8 
-#  define E_KEY 14 
-#  define R_KEY 15 
-#  define SPACE_KEY 49 
-#  define SHIFT_KEY 257 
-#  define CTRL_KEY 256 
+#  define C_KEY 8
+#  define E_KEY 14
+#  define R_KEY 15
+#  define SPACE_KEY 49
+#  define SHIFT_KEY 257
+#  define CTRL_KEY 256
 #  define ARROW_LEFT_KEY 123
 #  define ARROW_RIGHT_KEY 124
 #  define ARROW_UP_KEY 126
@@ -98,7 +98,7 @@
 # define UNKNOWN_ARGUMENT 18
 # define BITMAP_OPEN_ERROR 19
 
-# define MAP_ELEM_PX_SIZE 12 
+# define MAP_ELEM_PX_SIZE 12
 # define MAP_X_PX_OFFSET 20
 # define MAP_Y_PX_OFFSET 20
 # define MAP_VIEW_DIST 8
@@ -114,13 +114,13 @@
 
 # define PLAYER_MAX_HEALTH 100
 # define PLAYER_FOV 0.66
-# define PLAYER_VIEW_DIST 20 
+# define PLAYER_VIEW_DIST 20
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_MOV_DECELERATE 0.78
 # define PLAYER_ROT_DECELERATE 0.48
 # define PLAYER_ROT_SPEED 0.1
-# define PLAYER_SPRINT_MULT 2;
-# define PLAYER_CROUCH_MULT 0.6;
+# define PLAYER_SPRINT_MULT 2
+# define PLAYER_CROUCH_MULT 0.6
 # define JUMP_HEIGHT_PX 200
 # define CROUCH_HEIGHT_PX -100
 # define CROSSHAIR_COLOR 0xC0C0C0
@@ -206,7 +206,7 @@ typedef struct	s_floor {
 	float	diff_y;
 	float	floor_x;
 	float	floor_y;
-	float	f_stepx;	
+	float	f_stepx;
 	float	f_stepy;
 	int		ty;
 	int		tx;
@@ -339,13 +339,18 @@ t_all			*new_all();
 void			free_all(t_all *all, int txtrs);
 
 /*
-** struct_assignear2.c
+** struct_assigner2.c
 */
 void			set_keys(t_all *all);
 t_sprite		*new_sprite(char txtr, double x, double y);
 t_texture		*new_othertxtrs(int amount, int i);
 t_floor			*new_floor();
 void			free_txtrs(t_all *all, int mlx, int i);
+
+/*
+** struct_assigner3.c
+*/
+t_all			*extra_malloc(void);
 
 /*
 ** errors_manager.c
@@ -471,22 +476,26 @@ void			move_forward(t_all *all);
 void			move_backward(t_all *all);
 void			strafe_left(t_all *all);
 void			strafe_right(t_all *all);
+
+/*
+** moving_cam.c
+*/
 void			rotate_camera(int right, double old_dir, double old_plane_x,
 				t_all *all);
 
 /*
 ** moving_z.c
 */
-void	init_decelerate(int keycode, t_all *all);
-void	do_jump(t_all *all);
-void	do_crouch(t_all *all, t_pos pos);
-void	handle_pitch(t_all *all, int up);
+void			init_decelerate(int keycode, t_all *all);
+void			do_jump(t_all *all);
+void			do_crouch(t_all *all, t_pos pos);
+void			handle_pitch(t_all *all, int up);
 
 /*
 ** deceleration.c
 */
-int		handle_deceler(int *key, t_all *all);
-int		camera_deceler(int *key, t_all *all);
+int				handle_deceler(int *key, t_all *all);
+int				camera_deceler(int *key, t_all *all);
 
 /*
 ** bitmap.c

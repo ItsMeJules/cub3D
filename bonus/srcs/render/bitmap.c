@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 09:57:45 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/09 10:55:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:40:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "cub3d.h"
-#include "libft.h"
 
 void	bmp_header(t_all *all, int fd)
 {

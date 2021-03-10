@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 10:34:11 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/06 13:37:02 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 14:29:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	init_floorcei(t_all *all)
 	all->floor->ray_dir_y1 = all->pos.dir_y + all->pos.plane_y;
 	all->floor->diff_x = all->floor->ray_dir_x1 - all->floor->ray_dir_x0;
 	all->floor->diff_y = all->floor->ray_dir_y1 - all->floor->ray_dir_y0;
-	all->skybox.face_left = get_face(all->floor->ray_dir_x0, all->floor->ray_dir_y0);
+	all->skybox.face_left = get_face(all->floor->ray_dir_x0,
+			all->floor->ray_dir_y0);
 	if (all->skybox.on && all->skybox.xdiff)
 		return ;
 	facing2 = get_face(all->floor->ray_dir_x1, all->floor->ray_dir_y1);
@@ -85,7 +86,7 @@ void	vert_cast(t_all *all)
 		all->floor->is_floor = y > all->win->len / 2 + all->pos.pitch;
 		pos = all->floor->is_floor ? (y - all->win->len / 2 - all->pos.pitch)
 					: (all->win->len / 2 - y + all->pos.pitch);
-		calc_line_ray(all, all->floor, pos); 
+		calc_line_ray(all, all->floor, pos);
 		if (all->floor->is_floor)
 			init_txtr(all, y, all->txtrs[F_TXTR]);
 		else
