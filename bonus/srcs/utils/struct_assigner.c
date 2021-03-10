@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/10 14:35:27 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 18:15:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,20 @@ t_all		*new_all(void)
 	t_all	*all;
 
 	all = extra_malloc();
-	all->frames = 0;
 	all->win = new_win();
 	all->map = new_map();
+	init_pos(all);
 	all->ray->z_buffer = NULL;
 	all->ray->x_drawstart = NULL;
 	all->ray->x_drawend = NULL;
 	all->floor = new_floor();
-	all->txtrs = new_othertxtrs(7, -1);
+	all->txtrs = new_othertxtrs(9, -1);
 	all->sp_txtrs = NULL;
 	all->sprites = NULL;
 	all->skybox.xdiff = 0;
 	all->skybox.ydiff = 0;
 	all->over = 0;
 	all->player.health = PLAYER_MAX_HEALTH;
-	all->player.knife = *new_txtr(NULL, NULL);
-	all->player.knife1 = *new_txtr(NULL, NULL);
 	all->hud.init = 0;
 	set_keys(all);
 	return (all);

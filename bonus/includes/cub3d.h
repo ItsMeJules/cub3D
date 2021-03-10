@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 14:38:59 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 18:44:53 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define F_TXTR 4
 # define C_TXTR 5
 # define DO_TXTR 6
+# define K_TXTR 7
+# define K1_TXTR 8
 
 /*
 ** KEYS
@@ -92,11 +94,12 @@
 # define PLAYER_START_POS_NOT_FOUND 13
 # define LINES_AFTER_MAP 14
 # define ATTRIBUTE_ALREADY_SET 15
-# define MAX_FILE_ERROR 15
-# define NO_CUB_FILE_SPECIFIED 16
-# define FAILED_TO_LOAD_TXTR 17
-# define UNKNOWN_ARGUMENT 18
-# define BITMAP_OPEN_ERROR 19
+# define ATTRIBUTE_MISSING 16 
+# define MAX_FILE_ERROR 16
+# define NO_CUB_FILE_SPECIFIED 17
+# define FAILED_TO_LOAD_TXTR 18
+# define UNKNOWN_ARGUMENT 19
+# define BITMAP_OPEN_ERROR 20
 
 # define MAP_ELEM_PX_SIZE 12
 # define MAP_X_PX_OFFSET 20
@@ -351,6 +354,7 @@ void			free_txtrs(t_all *all, int mlx, int i);
 ** struct_assigner3.c
 */
 t_all			*extra_malloc(void);
+void			init_pos(t_all *all);
 
 /*
 ** errors_manager.c

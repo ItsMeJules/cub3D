@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:19:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 17:14:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 18:04:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,11 @@ int			load_txtrs(t_all *all)
 	int			i;
 
 	i = -1;
-	while (++i <= DO_TXTR)
+	while (++i <= K1_TXTR)
 	{
 		if (load_txtr(all, &all->txtrs[i]))
 			return (1);
 	}
-	if (load_txtr(all, &all->player.knife)
-			|| load_txtr(all, &all->player.knife1))
-		return (1);
 	list = all->sp_txtrs;
 	while (list)
 	{

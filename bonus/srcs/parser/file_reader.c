@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 15:26:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 19:00:06 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		is_att_set(t_all *all, char *type)
 		return (1);
 	else if (!ft_strcmp(type, "EA") && all->txtrs[EA_TXTR].path)
 		return (1);
-	else if (!ft_strcmp(type, "WEA") && all->player.knife.path)
+	else if (!ft_strcmp(type, "WEA") && all->txtrs[K_TXTR].path)
 		return (1);
 	else if (!ft_strcmp(type, "DO") && all->txtrs[DO_TXTR].path)
 		return (1);
@@ -44,6 +44,15 @@ int		is_att_set(t_all *all, char *type)
 
 void	handle_map(t_all *all, char *line, int *err)
 {
+	if (!is_att_set(all, "R") || !is_att_set(all, "F") || !is_att_set(all, "C")
+			|| !is_att_set(all, "NO") || !is_att_set(all, "SO")
+			|| !is_att_set(all, "WE") || !is_att_set(all, "EA")
+			|| !is_att_set(all, "WEA"))
+	{
+		*err = 2;
+		error(ATTRIBUTE_MISSING, "", 0);
+		return ;
+	}
 	if (!all->at_map)
 		all->at_map = 1;
 	check_map_line(all->map, all->sp_txtrs, line, err);
@@ -70,7 +79,8 @@ int		check_line(t_all *all, char *line)
 	if (err)
 	{
 		free(line);
-		ft_free_split(split);
+		if (err != 2)
+			ft_free_split(split);
 		return (0);
 	}
 	return (1);
@@ -87,9 +97,13 @@ int		gnl_read(t_all *all, char *file)
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
 		if (!check_line(all, line))
+		{
+			close(fd);
 			return (0);
+		}
 		free(line);
 	}
+	close(fd);
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:15:31 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/10 14:32:13 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 18:48:42 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_texture	*new_othertxtrs(int amount, int i)
 	while (++i < amount)
 	{
 		txtr[i].path = NULL;
+		txtr[i].id = NULL;
 		if (!(txtr[i].img = malloc(sizeof(t_img))))
 		{
 			while (i-- >= 0)
@@ -67,8 +68,6 @@ t_texture	*new_othertxtrs(int amount, int i)
 			return (NULL);
 		}
 	}
-	txtr[i].path = NULL;
-	txtr[i].id = NULL;
 	return (txtr);
 }
 
@@ -101,13 +100,13 @@ void		free_txtrs(t_all *all, int mlx, int i)
 		list = list->next;
 	}
 	i = -1;
-	while (all->txtrs[++i].path)
+	while (++i <= K1_TXTR)
 	{
 		if (mlx)
 			mlx_destroy_image(all->win->mlx, all->txtrs[i].img->img);
 		free(all->txtrs[i].img);
-		if (all->txtrs[i].path)
-			free(all->txtrs[i].path);
+		free(all->txtrs[i].path);
+		free(all->txtrs[i].id);
 	}
 	free(all->txtrs);
 	ft_lstclear(&all->sp_txtrs, &free);

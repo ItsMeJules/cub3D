@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 11:46:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/09 14:49:04 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 18:28:23 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		arg_len(char **split, int *err, char *line, int type)
 
 int		val_verifs(char **split, int *err, char *line, int type)
 {
+	int	passed;
+
 	if (type == 1)
 	{
 		if (check_valid(split[1], 1) || check_valid(split[2], 1))
@@ -73,9 +75,12 @@ int		val_verifs(char **split, int *err, char *line, int type)
 	}
 	else if (type == 2 || type == 3)
 	{
-		if (check_valid(split[1], 2))
+		passed = 0;
+		if (!ft_strcmp(split[0], "WEA"))
+			passed = check_valid(split[2], 2);
+		if (check_valid(split[1], 2) || passed)
 			return (*err = error(errno == 21 ? CANT_OPEN_DIR : OPEN_FILE_FAILED
-						, split[1], 0));
+						, passed ? split[2] : split[1], 0));
 	}
 	return (0);
 }

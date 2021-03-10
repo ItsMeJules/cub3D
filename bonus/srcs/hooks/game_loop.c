@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/03/09 23:08:51 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 18:02:52 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		game_loop(t_all *all)
 		all->player.health--;
 	if (all->player.health == 0)
 		all->over = 1;
-	draw_knife(all, all->keys.attack ? all->player.knife1 : all->player.knife);
+	draw_knife(all, all->keys.attack ? all->txtrs[K1_TXTR]
+			: all->txtrs[K_TXTR]);
 	draw_hud(all);
 	if (all->frames % 10 == 0)
 		all->keys.attack = 0;

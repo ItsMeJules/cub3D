@@ -6,12 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:23:25 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/10 14:39:37 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 17:52:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
+#include <stdio.h>
 
 void	write_health(t_all *all, t_hud hud)
 {

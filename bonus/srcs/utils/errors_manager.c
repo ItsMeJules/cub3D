@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 14:40:31 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 18:41:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	files_error2(int type, char *print)
 		ft_printf("There are extra lines after the map.");
 	else if (type == ATTRIBUTE_ALREADY_SET)
 		ft_printf("The '%s' attribute was already set !", print);
+	else if (type == ATTRIBUTE_MISSING)
+		ft_printf("Some attributes were not set !");
 }
 
 void	files_error(int type, char *print)

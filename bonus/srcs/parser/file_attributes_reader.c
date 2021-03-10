@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:18:40 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 16:59:50 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/10 18:03:47 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	set_textures(t_all *all, char **split)
 		all->txtrs[DO_TXTR].path = split[1];
 	else if (!ft_strcmp(split[0], "WEA"))
 	{
-		all->player.knife.path = split[1];
-		all->player.knife1.path = split[2];
+		all->txtrs[K_TXTR].path = split[1];
+		all->txtrs[K1_TXTR].path = split[2];
 	}
 	else if (split[0][0] == 'F')
 		all->txtrs[F_TXTR].path = split[1];

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:02:44 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 14:39:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/10 17:51:00 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ void	keys_manager(t_all *all)
 		handle_pitch(all, all->keys.cam_up);
 	if (all->pos.in_air)
 		do_jump(all);
-	if (!all->pos.in_air)
+	else
 		do_crouch(all, all->pos);
 }
