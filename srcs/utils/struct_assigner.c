@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 10:44:04 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/11 19:08:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/11 23:06:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_texture	*new_txtrs(int amount, int i)
 			return (NULL);
 		}
 	}
-	txtr[i].path = NULL;
 	return (txtr);
 }
 
@@ -88,7 +87,7 @@ t_all		*new_all(void)
 	all->win = new_win();
 	all->map = new_map();
 	all->ray->z_buffer = NULL;
-	all->txtrs = new_txtrs(5, -1);
+	all->txtrs = new_txtrs(4, -1);
 	all->sprites = NULL;
 	set_keys(all);
 	return (all);

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 14:52:13 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/11 22:59:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,24 @@ int		check_line(t_all *all, char *line)
 	return (1);
 }
 
-int		gnl_read(t_all *all, char *file)
+int		gnl_read(t_all *all, int fd, char *file)
 {
 	char	*line;
-	int		fd;
 	int		err;
+	int		invalid;
 
-	if ((fd = open(file, O_RDONLY)) < 0)
-		error(OPEN_FILE_FAILED, file, 1);
+	invalid = 0;
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
-		if (!check_line(all, line))
-			return (0);
-		free(line);
+		if (!invalid)
+		{
+			if (!(invalid = !check_line(all, line)))
+				free(line);
+		}
+		else
+			free(line);
 	}
+	close(fd);
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
@@ -104,6 +108,7 @@ int		gnl_read(t_all *all, char *file)
 int		read_file(t_all *all, char *file)
 {
 	char	**split;
+	int		fd;
 
 	split = ft_split(file, ".");
 	if (!split[1] || (split[1] && ft_strcmp(split[1], "cub")))
@@ -112,5 +117,7 @@ int		read_file(t_all *all, char *file)
 		error(FILE_WRONG_EXTENSION, file, 1);
 	}
 	ft_free_split(split);
-	return (!gnl_read(all, file));
+	if ((fd = open(file, O_RDONLY)) < 0)
+		error(OPEN_FILE_FAILED, file, 1);
+	return (!gnl_read(all, fd, file));
 }
