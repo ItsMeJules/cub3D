@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 18:41:33 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/11 22:56:00 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	files_error2(int type, char *print)
 {
 	if (type == NEGATIVE_RESOLUTION)
 		ft_printf("Why the fuck is the resolution <= 0 ?", print);
-	else if (type == FILE_MISSING_ARGS)
-		ft_printf("The file is incomplete some attributes or map are missing.");
+	else if (type == FILE_MISSING_MAP)
+		ft_printf("The file is incomplete, map is missing.");
 	else if (type == PLAYER_START_POS_NOT_FOUND)
 		ft_printf("The starting position for the player was not found.");
 	else if (type == LINES_AFTER_MAP)

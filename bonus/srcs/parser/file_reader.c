@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/10 19:00:06 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/11 22:55:35 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,37 +86,40 @@ int		check_line(t_all *all, char *line)
 	return (1);
 }
 
-int		gnl_read(t_all *all, char *file)
+int		gnl_read(t_all *all, int fd, char *file)
 {
 	char	*line;
-	int		fd;
 	int		err;
+	int		invalid;
 
-	if ((fd = open(file, O_RDONLY)) < 0)
-		error(OPEN_FILE_FAILED, file, 1);
+	invalid = 0;
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
-		if (!check_line(all, line))
+		if (!invalid)
 		{
-			close(fd);
-			return (0);
+			if (!(invalid = !check_line(all, line)))
+				free(line);
 		}
-		free(line);
+		else
+			free(line);
 	}
 	close(fd);
+	if (invalid)
+		return (0);
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
 	else if (all->map->line && all->at_map)
 		make_map(all);
 	else
-		error(FILE_MISSING_ARGS, "", 1);
+		error(FILE_MISSING_MAP, "", 1);
 	return (1);
 }
 
 int		read_file(t_all *all, char *file)
 {
 	char	**split;
+	int		fd;
 
 	split = ft_split(file, ".");
 	if (!split[1] || (split[1] && ft_strcmp(split[1], "cub")))
@@ -125,5 +128,7 @@ int		read_file(t_all *all, char *file)
 		error(FILE_WRONG_EXTENSION, file, 1);
 	}
 	ft_free_split(split);
-	return (!gnl_read(all, file));
+	if ((fd = open(file, O_RDONLY)) < 0)
+		error(OPEN_FILE_FAILED, file, 1);
+	return (!gnl_read(all, fd, file));
 }

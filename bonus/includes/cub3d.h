@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 18:44:53 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/11 22:56:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@
 # define CANT_OPEN_DIR 9
 # define MAP_NOT_CLOSED 10
 # define NEGATIVE_RESOLUTION 11
-# define FILE_MISSING_ARGS 12
+# define FILE_MISSING_MAP 12
 # define PLAYER_START_POS_NOT_FOUND 13
 # define LINES_AFTER_MAP 14
 # define ATTRIBUTE_ALREADY_SET 15
