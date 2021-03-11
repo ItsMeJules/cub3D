@@ -10,9 +10,10 @@ S1 ./textures/barrel2.xpm
 S2 ./textures/dog.xpm
 S3 ./textures/vase2.xpm
 S4 ./textures/vase.xpm
+WEA ./textures/pistol1.xpm ./textures/pistol2.xpm
 
 F ./textures/diamond.xpm 
-C ./textures/sky.xpm
+C ./textures/sky2.xpm
 
 11111111111111111111111111111111111111111
 10E00000200000000000000000000300000000051

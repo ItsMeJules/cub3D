@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 18:02:52 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/11 21:07:41 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		game_loop(t_all *all)
 	vert_cast(all);
 	sprite_cast(all);
 	draw_map(all);
-	if (handle_life_lose(all) && all->player.health >= 0)
+	if (handle_life_lose(all) && all->player.health > 0)
 		all->player.health--;
 	if (all->player.health == 0)
 		all->over = 1;

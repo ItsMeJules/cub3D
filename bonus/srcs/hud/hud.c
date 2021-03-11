@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:42:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/03 14:21:02 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/11 21:09:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	init_hud(t_all *all)
 	crosshair_part(*all->win, &all->hud.br_line, 2);
 	crosshair_part(*all->win, &all->hud.tr_line, 3);
 	crosshair_part(*all->win, &all->hud.bl_line, 4);
+	all->hud.init = 1;
 }
 
 void	draw_hud(t_all *all)
