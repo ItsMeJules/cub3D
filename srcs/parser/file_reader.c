@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/12 19:17:15 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 19:53:00 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	handle_map(t_all *all, char *line, int *err)
 {
 	if (all->all_set == 8)
 	{
-		if (!ft_isdigit(line[0]) && all->map->line)
+		if ((!ft_isdigit(line[0]) && !ft_isspace(line[0])) && all->map->line)
 			*err = error(LINES_AFTER_MAP, "", 0);
 		else
 			check_map_line(all->map, line, err);
