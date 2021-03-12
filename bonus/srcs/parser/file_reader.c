@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/12 17:02:10 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 19:00:58 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		check_line(t_all *all, char *line)
 	return (free_after_verifs(err, line, all, split));
 }
 
-int		gnl_read(t_all *all, int fd, int valid, char *file)
+int		gnl_read(t_all *all, int fd, int invalid, char *file)
 {
 	char	*line;
 	int		err;

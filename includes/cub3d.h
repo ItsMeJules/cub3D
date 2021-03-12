@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 17:00:45 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 19:15:40 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ char			**count_comas(char *line, int *err);
 ** file_reader.c
 */
 int				gnl_read(t_all *all, int fd, int invalid, char *file);
+void			free_after_verifs(int err, char **split);
 
 /*
 ** map_parser.c
@@ -290,6 +291,7 @@ int				game_loop(t_all *all);
 ** utils.c
 */
 int				create_trgb(int t, int r, int g, int b);
+char			*f_lter(char *string, char c);
 
 /*
 ** raycasting.c

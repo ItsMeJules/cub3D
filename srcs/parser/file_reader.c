@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/12 17:21:15 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 19:17:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	handle_map(t_all *all, char *line, int *err)
 {
 	if (all->all_set == 8)
 	{
-		if (!ft_isdigit(line[0]))
+		if (!ft_isdigit(line[0]) && all->map->line)
 			*err = error(LINES_AFTER_MAP, "", 0);
 		else
 			check_map_line(all->map, line, err);
@@ -64,13 +64,15 @@ int		free_on_err(int err, char *line, t_all *all, char **split)
 int		check_line(t_all *all, char *line)
 {
 	char	**split;
+	char	*c;
 	int		err;
 
 	err = 0;
 	split = NULL;
 	if (all->all_set != 8 && *line)
 	{
-		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
+		if (((c = f_lter(line, 'F')) || (c = f_lter(line, 'C')))
+				&& ft_isspace(c[1]))
 			split = count_comas(line, &err);
 		else
 			split = ft_split(line, " \b\t\v\f\r");
@@ -78,13 +80,10 @@ int		check_line(t_all *all, char *line)
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
 		else if (split)
 			verify_nset_ids(all, split, &err, line);
-		if (!err)
-		{
-			free(split[0]);
-			free(split);
-		}
+		free_after_verifs(err, split);
 	}
-	handle_map(all, line, &err);
+	else
+		handle_map(all, line, &err);
 	return (free_on_err(err, line, all, split));
 }
 
