@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/12 17:00:24 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 17:21:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int		gnl_read(t_all *all, int fd, int invalid, char *file)
 	char	*line;
 	int		err;
 
-	invalid = 0;
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
 		if (!invalid)
