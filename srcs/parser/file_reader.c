@@ -6,16 +6,15 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/11 22:59:09 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 17:00:24 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
-#include "cub3d.h"
-#include "libft.h"
 
 int		is_att_set(t_all *all, char *type)
 {
@@ -39,13 +38,27 @@ int		is_att_set(t_all *all, char *type)
 		return (0);
 }
 
-void	free_after_verifs(char **split, int err)
+void	handle_map(t_all *all, char *line, int *err)
 {
-	if (!err)
+	if (all->all_set == 8)
 	{
-		free(split[0]);
-		free(split);
+		if (!ft_isdigit(line[0]))
+			*err = error(LINES_AFTER_MAP, "", 0);
+		else
+			check_map_line(all->map, line, err);
 	}
+}
+
+int		free_on_err(int err, char *line, t_all *all, char **split)
+{
+	if (err)
+	{
+		free(line);
+		if (all->all_set != 8)
+			ft_free_split(split);
+		return (0);
+	}
+	return (1);
 }
 
 int		check_line(t_all *all, char *line)
@@ -54,6 +67,7 @@ int		check_line(t_all *all, char *line)
 	int		err;
 
 	err = 0;
+	split = NULL;
 	if (all->all_set != 8 && *line)
 	{
 		if ((line[0] == 'F' || line[0] == 'C') && ft_isspace(line[1]))
@@ -64,24 +78,20 @@ int		check_line(t_all *all, char *line)
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
 		else if (split)
 			verify_nset_ids(all, split, &err, line);
-		free_after_verifs(split, err);
+		if (!err)
+		{
+			free(split[0]);
+			free(split);
+		}
 	}
-	else if (all->all_set == 8)
-		check_map_line(all->map, line, &err);
-	if (err)
-	{
-		free(line);
-		ft_free_split(split);
-		return (0);
-	}
-	return (1);
+	handle_map(all, line, &err);
+	return (free_on_err(err, line, all, split));
 }
 
-int		gnl_read(t_all *all, int fd, char *file)
+int		gnl_read(t_all *all, int fd, int invalid, char *file)
 {
 	char	*line;
 	int		err;
-	int		invalid;
 
 	invalid = 0;
 	while ((err = get_next_line(fd, &line)) == 1)
@@ -95,6 +105,8 @@ int		gnl_read(t_all *all, int fd, char *file)
 			free(line);
 	}
 	close(fd);
+	if (invalid)
+		return (0);
 	if (err == -1)
 		error(errno == 21 ? CANT_OPEN_DIR : GNL_FAILED, errno == 21 ? file :
 			line, 1);
@@ -103,21 +115,4 @@ int		gnl_read(t_all *all, int fd, char *file)
 	else
 		error(FILE_MISSING_ARGS, "", 1);
 	return (1);
-}
-
-int		read_file(t_all *all, char *file)
-{
-	char	**split;
-	int		fd;
-
-	split = ft_split(file, ".");
-	if (!split[1] || (split[1] && ft_strcmp(split[1], "cub")))
-	{
-		ft_free_split(split);
-		error(FILE_WRONG_EXTENSION, file, 1);
-	}
-	ft_free_split(split);
-	if ((fd = open(file, O_RDONLY)) < 0)
-		error(OPEN_FILE_FAILED, file, 1);
-	return (!gnl_read(all, fd, file));
 }

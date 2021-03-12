@@ -3,6 +3,7 @@ R 1500 1000
 NO ./textures/stone.xpm
 SO ./textures/diamond.xpm
 WE ./textures/mossy.xpm
+EA ./textures/redbrick.xpm
 
 S ./textures/barrel1.xpm
 F 100,43,255

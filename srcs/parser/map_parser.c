@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/02/10 15:01:18 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/12 16:16:23 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	concat_line(t_map *map, char *line)
 		if (!line[0])
 		{
 			free(map->line);
-			error(LINES_AFTER_MAP, "", 1);
+			error(LINES_AFTER_MAP, "", 0);
 		}
 	}
 	else if (!line[0])
@@ -51,7 +51,7 @@ void	check_map_line(t_map *map, char *line, int *err)
 		{
 			if (map->start_dir)
 			{
-				*err = error(PLAYER_POS_ALREADY_SET, line, 1);
+				*err = error(PLAYER_POS_ALREADY_SET, line, 0);
 				return ;
 			}
 			map->start_dir = line[i];
@@ -60,7 +60,7 @@ void	check_map_line(t_map *map, char *line, int *err)
 			line[i] = ' ';
 		else if (line[i] != '0' && line[i] != '1' && line[i] != '2')
 		{
-			*err = error(INVALID_CHAR_IN_MAP, &line[i], 1);
+			*err = error(INVALID_CHAR_IN_MAP, &line[i], 0);
 			return ;
 		}
 	}

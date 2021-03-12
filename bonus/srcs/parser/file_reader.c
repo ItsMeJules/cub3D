@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/11 22:55:35 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 17:02:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,30 @@ int		is_att_set(t_all *all, char *type)
 
 void	handle_map(t_all *all, char *line, int *err)
 {
-	if (!is_att_set(all, "R") || !is_att_set(all, "F") || !is_att_set(all, "C")
-			|| !is_att_set(all, "NO") || !is_att_set(all, "SO")
-			|| !is_att_set(all, "WE") || !is_att_set(all, "EA")
-			|| !is_att_set(all, "WEA"))
+	if (!all->at_map && (!is_att_set(all, "R") || !is_att_set(all, "F")
+			|| !is_att_set(all, "C") || !is_att_set(all, "NO")
+			|| !is_att_set(all, "SO") || !is_att_set(all, "WE")
+			|| !is_att_set(all, "EA") || !is_att_set(all, "WEA")))
 	{
-		*err = 2;
-		error(ATTRIBUTE_MISSING, "", 0);
+		*err = error(ATTRIBUTE_MISSING, "", 0);
+		all->at_map = 1;
 		return ;
 	}
 	if (!all->at_map)
 		all->at_map = 1;
 	check_map_line(all->map, all->sp_txtrs, line, err);
+}
+
+int		free_after_verifs(int err, char *line, t_all *all, char **split)
+{
+	if (err)
+	{
+		free(line);
+		if (!all->at_map)
+			ft_free_split(split);
+		return (0);
+	}
+	return (1);
 }
 
 int		check_line(t_all *all, char *line)
@@ -64,8 +76,14 @@ int		check_line(t_all *all, char *line)
 	int		err;
 
 	err = 0;
+	split = NULL;
 	if (*line && !ft_isdigit(line[0]))
 	{
+		if (all->at_map)
+		{
+			err = error(LINES_AFTER_MAP, "", 0);
+			return (free_after_verifs(err, line, all, NULL));
+		}
 		split = ft_split(line, " \b\t\v\f\r");
 		if (is_att_set(all, split[0]))
 			err = error(ATTRIBUTE_ALREADY_SET, split[0], 0);
@@ -76,23 +94,14 @@ int		check_line(t_all *all, char *line)
 	}
 	else if (*line && ft_isdigit(line[0]))
 		handle_map(all, line, &err);
-	if (err)
-	{
-		free(line);
-		if (err != 2)
-			ft_free_split(split);
-		return (0);
-	}
-	return (1);
+	return (free_after_verifs(err, line, all, split));
 }
 
-int		gnl_read(t_all *all, int fd, char *file)
+int		gnl_read(t_all *all, int fd, int valid, char *file)
 {
 	char	*line;
 	int		err;
-	int		invalid;
 
-	invalid = 0;
 	while ((err = get_next_line(fd, &line)) == 1)
 	{
 		if (!invalid)
@@ -114,21 +123,4 @@ int		gnl_read(t_all *all, int fd, char *file)
 	else
 		error(FILE_MISSING_MAP, "", 1);
 	return (1);
-}
-
-int		read_file(t_all *all, char *file)
-{
-	char	**split;
-	int		fd;
-
-	split = ft_split(file, ".");
-	if (!split[1] || (split[1] && ft_strcmp(split[1], "cub")))
-	{
-		ft_free_split(split);
-		error(FILE_WRONG_EXTENSION, file, 1);
-	}
-	ft_free_split(split);
-	if ((fd = open(file, O_RDONLY)) < 0)
-		error(OPEN_FILE_FAILED, file, 1);
-	return (!gnl_read(all, fd, file));
 }

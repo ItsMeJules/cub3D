@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/02/11 15:31:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/12 17:00:45 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ char			**count_comas(char *line, int *err);
 /*
 ** file_reader.c
 */
-int				read_file(t_all *all, char *file);
+int				gnl_read(t_all *all, int fd, int invalid, char *file);
 
 /*
 ** map_parser.c

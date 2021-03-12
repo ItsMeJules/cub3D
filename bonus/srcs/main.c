@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 23:13:11 by jules             #+#    #+#             */
-/*   Updated: 2021/03/09 16:47:13 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/12 17:01:55 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,24 @@
 ** 16: Minimap
 */
 
-int	main(int ac, char **av)
+int		read_file(t_all *all, char *file)
+{
+	char	**split;
+	int		fd;
+
+	split = ft_split(file, ".");
+	if (!split[1] || (split[1] && ft_strcmp(split[1], "cub")))
+	{
+		ft_free_split(split);
+		error(FILE_WRONG_EXTENSION, file, 1);
+	}
+	ft_free_split(split);
+	if ((fd = open(file, O_RDONLY)) < 0)
+		error(OPEN_FILE_FAILED, file, 1);
+	return (!gnl_read(all, fd, 0, file));
+}
+
+int		main(int ac, char **av)
 {
 	t_all	*all;
 	int		save;

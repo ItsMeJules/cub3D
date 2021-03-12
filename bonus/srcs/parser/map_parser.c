@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:32:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 22:59:28 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 16:22:19 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	check_map_line(t_map *map, t_list *sp_txtrs, char *line, int *err)
 		{
 			if (map->start_dir)
 			{
-				*err = error(PLAYER_POS_ALREADY_SET, line, 1);
+				*err = error(PLAYER_POS_ALREADY_SET, line, 0);
 				return ;
 			}
 			map->start_dir = line[i];
@@ -67,7 +67,7 @@ void	check_map_line(t_map *map, t_list *sp_txtrs, char *line, int *err)
 			line[i] = ' ';
 		else if (!char_v(sp_txtrs, line[i]) && line[i] != 'D' && line[i] != 'H')
 		{
-			*err = error(INVALID_CHAR_IN_MAP, &line[i], 1);
+			*err = error(INVALID_CHAR_IN_MAP, &line[i], 0);
 			return ;
 		}
 	}

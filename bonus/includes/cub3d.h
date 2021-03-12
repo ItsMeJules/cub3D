@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/11 22:56:30 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 17:02:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@
 # define PLAYER_START_POS_NOT_FOUND 13
 # define LINES_AFTER_MAP 14
 # define ATTRIBUTE_ALREADY_SET 15
-# define ATTRIBUTE_MISSING 16 
+# define ATTRIBUTE_MISSING 16
 # define MAX_FILE_ERROR 16
 # define NO_CUB_FILE_SPECIFIED 17
 # define FAILED_TO_LOAD_TXTR 18
@@ -395,7 +395,7 @@ char			**count_comas(char *line, int *err);
 /*
 ** file_reader.c
 */
-int				read_file(t_all *all, char *file);
+int				gnl_read(t_all *all, int fd, int valid, char *file);
 
 /*
 ** map_parser.c
