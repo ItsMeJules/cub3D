@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:38:40 by jules             #+#    #+#             */
-/*   Updated: 2021/02/09 17:14:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/12 21:00:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,5 @@ void	raycast(t_all *all)
 		dda(all->ray, all->map);
 		get_perp_dist(all->ray, all->pos, all->win, x);
 		draw_col(all, x);
-	}
-	if (all->save)
-	{
-		save_bmp(all, "./screenshot.bmp");
-		close_w(all);
-		stop_mlx(all);
-		exit(1);
 	}
 }

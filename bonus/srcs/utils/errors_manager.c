@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:39:01 by jules             #+#    #+#             */
-/*   Updated: 2021/03/11 22:56:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 21:16:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		error(int type, char *print, int ex)
 		ft_printf("Argument '%s' unknown. To save an image use '--save'");
 	else if (type == BITMAP_OPEN_ERROR)
 		ft_printf("Failed to create the bitmap file for the first image.");
+	else if (type == COMMAND_TOO_LONG)
+		ft_printf("Command too long, to save an image use only '--save'");
 	ft_printf("\nQuitting program...");
 	if (ex)
 		exit(0);

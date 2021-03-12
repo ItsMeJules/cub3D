@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/12 19:53:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 21:10:51 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,14 @@ int		free_on_err(int err, char *line, t_all *all, char **split)
 int		check_line(t_all *all, char *line)
 {
 	char	**split;
-	char	*c;
 	int		err;
 
 	err = 0;
 	split = NULL;
 	if (all->all_set != 8 && *line)
 	{
-		if (((c = f_lter(line, 'F')) || (c = f_lter(line, 'C')))
-				&& ft_isspace(c[1]))
+		if ((f_lter(line, 'F') && ft_isspace(f_lter(line, 'F')[1]))
+				|| (f_lter(line, 'C') && ft_isspace(f_lter(line, 'C')[1])))
 			split = count_comas(line, &err);
 		else
 			split = ft_split(line, " \b\t\v\f\r");

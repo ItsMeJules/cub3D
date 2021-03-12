@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 15:33:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/12 19:00:58 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 21:18:14 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		check_line(t_all *all, char *line)
 
 	err = 0;
 	split = NULL;
-	if (*line && !ft_isdigit(line[0]))
+	if (*line && skip_spaces(line) && !ft_isdigit(skip_spaces(line)[0]))
 	{
 		if (all->at_map)
 		{
@@ -92,7 +92,7 @@ int		check_line(t_all *all, char *line)
 		if (!err)
 			free(split);
 	}
-	else if (*line && ft_isdigit(line[0]))
+	else if (*line && skip_spaces(line) && ft_isdigit(skip_spaces(line)[0]))
 		handle_map(all, line, &err);
 	return (free_after_verifs(err, line, all, split));
 }

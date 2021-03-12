@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 17:02:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 21:17:07 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@
 # define FAILED_TO_LOAD_TXTR 18
 # define UNKNOWN_ARGUMENT 19
 # define BITMAP_OPEN_ERROR 20
+# define COMMAND_TOO_LONG 21
 
 # define MAP_ELEM_PX_SIZE 12
 # define MAP_X_PX_OFFSET 20
@@ -539,6 +540,7 @@ int				load_txtrs(t_all *all);
 double			get_decimals(double nb);
 double			ft_min(double n1, double n2);
 double			ft_max(double n1, double n2);
+char			*skip_spaces(char *str);
 
 /*
 ** hud.c

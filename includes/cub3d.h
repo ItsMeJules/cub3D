@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 13:09:22 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 19:15:40 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 20:46:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@
 # define FAILED_TO_LOAD_TXTR 17
 # define UNKNOWN_ARGUMENT 18
 # define BITMAP_OPEN_ERROR 19
+# define COMMAND_TOO_LONG 20
 
 # define PLAYER_MOV_SPEED 0.1
 # define PLAYER_ROT_SPEED 0.1

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 17:17:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 16:16:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/12 20:34:57 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,20 @@ void	init_dist(t_list *lst, t_pos pos)
 
 void	sprite_cast(t_all *all)
 {
-	t_list	*lst;
+	t_list		*lst;
+	t_sprite	*sp;
 
 	init_dist(all->sprites, all->pos);
 	ft_lst_sort(&all->sprites, &compare_sprites);
 	lst = all->sprites;
 	while (lst)
 	{
-		if (((t_sprite *)lst->content)->show == 1)
+		sp = (t_sprite *)lst->content;
+		if (sp->show == 1)
 		{
-			calc_sprite((t_sprite *)lst->content, all->pos, all->win);
-			draw_sprite((t_sprite *)lst->content, all->ray, all->win,
-					*get_sptexture(all->sp_txtrs,
-					((t_sprite *)lst->content)->txtr));
+			calc_sprite(sp, all->pos, all->win);
+			draw_sprite(sp, all->ray, all->win,
+					*get_sptexture(all->sp_txtrs, sp->txtr));
 		}
 		lst = lst->next;
 	}

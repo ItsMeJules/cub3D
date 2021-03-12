@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/10 18:33:43 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/12 21:06:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	new_window(t_win *win, char name[25], int save)
 			win->wid = resx;
 		if (win->len > resy)
 			win->len = resy;
-		win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	}
+	win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	win->img->img = mlx_new_image(win->mlx, win->wid, win->len);
 	win->img->addr = mlx_get_data_addr(win->img->img, &win->img->bpp,
 			&win->img->line_l, &win->img->endian);
@@ -40,7 +40,6 @@ void	new_window(t_win *win, char name[25], int save)
 
 int		close_w(t_all *all)
 {
-	(void)all;
 	mlx_loop_end(all->win->mlx);
 	return (0);
 }
