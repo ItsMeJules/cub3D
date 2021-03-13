@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/03/13 18:30:11 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/14 00:49:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,20 @@ void	bmp(t_all *all)
 	}
 }
 
-int		game_loop(t_all *all)
+void	handle_death(t_all *all)
 {
 	if (all->over)
 	{
 		ft_printf("You died!");
-		return (!close_w(all));
+		close_w(all);
+		stop_mlx(all);
+		exit(1);
 	}
+}
+
+int		game_loop(t_all *all)
+{
+	handle_death(all);
 	keys_manager(all);
 	ray_cast(all);
 	vert_cast(all);
