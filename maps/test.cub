@@ -1,4 +1,4 @@
-R 1500 1000
+R 500 500
 
 NO ./textures/bluegreyl.xpm
 SO ./textures/redbrick.xpm

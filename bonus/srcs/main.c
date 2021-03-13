@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 23:13:11 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 21:15:27 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/14 00:50:52 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 ** 6: Ombre distance
 ** 8: Vie
 ** 9: Sprites modulable
-** 10: Collision sprites murs
-** 11: Portes ouvertes fermees
-** 12: Portes secretes
-** 13: Decelration du joueur
-** 14: Perte de vie
-** 15: Weapon & Kill
-** 16: Minimap
+** 10: Portes ouvertes fermees
+** 11: Portes secretes
+** 12: Decelration du joueur
+** 13: Perte de vie
+** 14: Weapon & Kill
+** 15: Minimap
+** 16: crosshair
 */
 
 int		read_file(t_all *all, char *file)
