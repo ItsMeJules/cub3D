@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/13 18:31:02 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/14 00:38:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		load_txtr(t_all *all, t_texture *txtr)
 void	start_mlx(t_all *all, int save)
 {
 	all->save = save;
-	new_window(all->win, "Je suis une fenetre", save);
+	new_window(all->win, "cub3D", save);
 	if (load_txtr(all, &all->txtrs[NO_TXTR])
 			|| load_txtr(all, &all->txtrs[SO_TXTR])
 			|| load_txtr(all, &all->txtrs[WE_TXTR])
