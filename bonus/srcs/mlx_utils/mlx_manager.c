@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 21:13:32 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/13 18:30:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	new_window(t_win *win, char name[25], int save)
 
 int		close_w(t_all *all)
 {
-	(void)all;
 	mlx_loop_end(all->win->mlx);
 	return (0);
 }
@@ -67,7 +66,7 @@ int		alloc_buffers(t_all *all)
 void	start_mlx(t_all *all, int save)
 {
 	all->save = save;
-	new_window(all->win, "Je suis une fenetre", save);
+	new_window(all->win, "cub3D", save);
 	if (load_txtrs(all))
 		return ;
 	if (!alloc_buffers(all))
@@ -91,8 +90,7 @@ void	stop_mlx(t_all *all)
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
 	mlx_do_key_autorepeaton(all->win->mlx);
 	free_txtrs(all, 1, -1);
-	if (!all->save)
-		mlx_destroy_window(all->win->mlx, all->win->win);
+	mlx_destroy_window(all->win->mlx, all->win->win);
 	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);

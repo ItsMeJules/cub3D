@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 21:06:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/13 18:31:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ void	stop_mlx(t_all *all)
 {
 	free_txtrs(all, 1);
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
-	if (!all->save)
-		mlx_destroy_window(all->win->mlx, all->win->win);
+	mlx_destroy_window(all->win->mlx, all->win->win);
 	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);
