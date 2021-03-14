@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 14:14:34 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/03 15:48:38 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/14 01:06:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	draw_health_bar(t_all *all)
 	double	health_r;
 	double	fill_r;
 
+	if (all->hud.hbar_startx <= 0
+			|| all->hud.hbar_endx >= all->win->wid
+			|| all->hud.hbar_starty <= 0
+			|| all->hud.hbar_endy >= all->win->len)
+		return ;
 	health_r = (double)all->player.health / (double)PLAYER_MAX_HEALTH;
 	line.x0 = all->hud.hbar_startx;
 	line.y0 = all->hud.hbar_starty;

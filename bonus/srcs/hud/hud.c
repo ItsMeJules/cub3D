@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:42:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/11 21:09:50 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:04:25 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	crosshair_part(t_win win, t_line *line, int side)
 
 void	draw_crosshair(t_hud hud, t_win *win)
 {
+	if ((hud.tl_line.dx + 2) * 2 >= win->wid
+			|| (hud.tl_line.dy + 2) * 2 >= win->len)
+		return ;
 	draw_line(hud.tl_line, win, 1, CROSSHAIR_COLOR);
 	draw_line(hud.tr_line, win, 1, CROSSHAIR_COLOR);
 	draw_line(hud.bl_line, win, 1, CROSSHAIR_COLOR);
