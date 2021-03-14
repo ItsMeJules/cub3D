@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 09:36:58 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/03/09 17:13:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/03/14 01:14:53 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ void	draw_map(t_all *all)
 	draw_background(all);
 	while (++x < (int)all->pos.pos_x + MAP_VIEW_DIST)
 	{
-		if (x < 0 || x > all->map->wid)
+		if (x <= 0 || x >= all->map->wid)
 			continue ;
 		y = (int)all->pos.pos_y - MAP_VIEW_DIST - 1;
 		while (++y < (int)all->pos.pos_y + MAP_VIEW_DIST)
 		{
-			if (y < 0 || y > all->map->len)
+			if (y <= 0 || y >= all->map->len)
 				continue ;
 			xiter = x - (int)all->pos.pos_x + MAP_VIEW_DIST;
 			yiter = y - (int)all->pos.pos_y + MAP_VIEW_DIST;
