@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:36:12 by jules             #+#    #+#             */
-/*   Updated: 2021/03/13 18:30:05 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/16 11:09:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	new_window(t_win *win, char name[25], int save)
 			win->wid = resx;
 		if (win->len > resy)
 			win->len = resy;
+		win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	}
-	win->win = mlx_new_window(win->mlx, win->wid, win->len, name);
 	win->img->img = mlx_new_image(win->mlx, win->wid, win->len);
 	win->img->addr = mlx_get_data_addr(win->img->img, &win->img->bpp,
 			&win->img->line_l, &win->img->endian);
@@ -80,9 +80,11 @@ void	start_mlx(t_all *all, int save)
 		mlx_hook(all->win->win, DESTROY_WIN_EVENT, 1l << 2, close_w, all);
 		mlx_hook(all->win->win, KEY_PRESS_EVENT, 1l << 0, key_press, all);
 		mlx_hook(all->win->win, KEY_RELEASE_EVENT, 1L << 1, key_rels, all);
+		mlx_loop_hook(all->win->mlx, game_loop, all);
+		mlx_loop(all->win->mlx);
 	}
-	mlx_loop_hook(all->win->mlx, game_loop, all);
-	mlx_loop(all->win->mlx);
+	else
+		game_loop(all);
 }
 
 void	stop_mlx(t_all *all)
@@ -90,7 +92,8 @@ void	stop_mlx(t_all *all)
 	mlx_destroy_image(all->win->mlx, all->win->img->img);
 	mlx_do_key_autorepeaton(all->win->mlx);
 	free_txtrs(all, 1, -1);
-	mlx_destroy_window(all->win->mlx, all->win->win);
+	if (!all->save)
+		mlx_destroy_window(all->win->mlx, all->win->win);
 	mlx_destroy_display(all->win->mlx);
 	free(all->win->img);
 	free(all->win->mlx);

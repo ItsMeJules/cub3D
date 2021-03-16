@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/03/14 00:49:03 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/16 11:10:45 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	bmp(t_all *all)
 	if (all->save)
 	{
 		save_bmp(all, "./screenshot.bmp");
-		close_w(all);
 		stop_mlx(all);
 		exit(1);
 	}
@@ -51,9 +50,9 @@ int		game_loop(t_all *all)
 	draw_hud(all);
 	if (all->frames % 10 == 0)
 		all->keys.attack = 0;
+	bmp(all);
 	push_image(all->win);
 	display_infos(all);
-	bmp(all);
 	if (all->frames++ > 1000)
 		all->frames = 0;
 	return (1);

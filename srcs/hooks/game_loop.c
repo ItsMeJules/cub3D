@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:57:57 by jules             #+#    #+#             */
-/*   Updated: 2021/03/12 21:06:04 by jules            ###   ########.fr       */
+/*   Updated: 2021/03/16 11:13:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		game_loop(t_all *all)
 	if (all->save)
 	{
 		save_bmp(all, "./screenshot.bmp");
-		close_w(all);
 		stop_mlx(all);
 		exit(1);
 	}
