@@ -26,12 +26,12 @@ Your texture will turn into a skybox for the ceiling if the name begins with sky
 
 # Controls
 
-You can move in the map using `W` `A` `S` `D`
-You can rotate your camera up, down, left & right using the directional arrows.
-You can stab a sprite using `R`
-You can untoggle your crosshair using `X`
-You can run & sneak using `Left CTRL` `SHIFT`
-You can interact with doors using `E`
+You can move in the map using `W` `A` `S` `D`<br>
+You can rotate your camera up, down, left & right using the directional arrows<br>
+You can stab a sprite using `R`<br>
+You can untoggle your crosshair using `X`<br>
+You can run & sneak using `Left CTRL` `SHIFT`<br>
+You can interact with doors using `E`<br>
 To quit the program properly wether use `ESC` or click the red cross (careful it will only work on Linux).
 
 # Tutorial used for an efficient Raycasting
