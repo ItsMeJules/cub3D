@@ -12,9 +12,7 @@ This project has only been tested on Ubuntu 20.04, it also works on xubuntu (VM 
 
 Im my cub3D version there's no objective, I just wanted to have the bonus so I could flex on my friends y'know. Though you can kill all the sprites (even the ones who don'teven look dangerous).
 
-<p align="center">
-  <img src="https://imgur.com/TvZVgqu" width="60%" />
-</p>
+<img align="center" src="screenshot.png" alt="Screenshot of the game" />
 
 # Running the game
 
